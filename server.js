@@ -13,11 +13,15 @@ const PORT = process.env.PORT || 3000;
 const Admin = require('./models/Admin');
 
 // ✅ 미들웨어 설정
-app.use(cors());
+app.use(cors({
+  origin: 'https://cnlglobal.onrender.com',
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ✅ 정적 파일 경로
+// ✅ 정적 파일 서빙
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 
