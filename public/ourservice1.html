@@ -749,7 +749,7 @@ html[lang="zh"] .circle-button {
 </script>
 
 <script>
-  fetch('https://cnlglobal-backend.onrender.com/api/pdflinks')
+  fetch('/api/pdflinks')
     .then(res => res.json())
     .then(data => {
       const link = data.links[0]; // 첫 번째 PDF 링크
@@ -762,7 +762,7 @@ html[lang="zh"] .circle-button {
   </script>
 
 <script>
-  fetch('https://cnlglobal-backend.onrender.com/data/links.json')
+  fetch('/data/links.json')
     .then(res => res.json())
     .then(links => {
       const lang = localStorage.getItem('siteLanguage') || 'ko';
@@ -777,7 +777,7 @@ html[lang="zh"] .circle-button {
 </script>
 
 <script>
-  fetch('https://cnlglobal-backend.onrender.com/data/links.json')
+  fetch('data/links.json')
     .then(res => res.json())
     .then((linkList) => {
       const lang = localStorage.getItem('siteLanguage') || 'ko';
@@ -792,7 +792,7 @@ html[lang="zh"] .circle-button {
       });
     });
 
-    fetch('https://cnlglobal-backend.onrender.com/data/links.json')
+    fetch('/data/links.json')
   .then(res => res.json())
   .then(data => {
     document.querySelectorAll('a[data-id]').forEach(a => {
@@ -812,7 +812,7 @@ html[lang="zh"] .circle-button {
   </script>
   
 <script>
-fetch('https://cnlglobal-backend.onrender.com/api/notices/6821b89b5c940f86c9f979fb')
+fetch('/api/notices/6821b89b5c940f86c9f979fb')
   .then(res => res.json())
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();

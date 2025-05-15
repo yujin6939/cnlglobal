@@ -736,7 +736,7 @@ html[lang="zh"] .circle-button {
 </script>
 
 <script>
-  fetch('https://cnlglobal-backend.onrender.com/data/links.json')
+  fetch('/data/links.json')
     .then(res => res.json())
     .then(links => {
       const lang = localStorage.getItem('siteLanguage') || 'ko';
@@ -751,7 +751,7 @@ html[lang="zh"] .circle-button {
 </script>
 
 <script>
-  fetch('https://cnlglobal-backend.onrender.com/data/links.json')
+  fetch('data/links.json')
     .then(res => res.json())
     .then((linkList) => {
       const lang = localStorage.getItem('siteLanguage') || 'ko';
@@ -766,7 +766,7 @@ html[lang="zh"] .circle-button {
       });
     });
 
-    fetch('https://cnlglobal-backend.onrender.com/data/links.json')
+    fetch('/data/links.json')
   .then(res => res.json())
   .then(data => {
     document.querySelectorAll('a[data-id]').forEach(a => {

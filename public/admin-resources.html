@@ -335,7 +335,7 @@ sessionStorage.removeItem('token');
   
     // 공지사항 불러오기
     async function loadNotices(q = "") {
-      const res = await fetch('https://cnlglobal-backend.onrender.com/api/notices?q=' + encodeURIComponent(q));
+      const res = await fetch('/api/notices?q=' + encodeURIComponent(q));
       const data = await res.json();
       const notices = data.notices || [];         // ✅ 추가
       const list = document.getElementById('notice-list');
@@ -405,7 +405,7 @@ if (searchInput) {
     // 글 삭제
     async function deleteNotice(id) {
       if (!confirm('정말 삭제하시겠습니까?')) return;
-      await fetch(`https://cnlglobal-backend.onrender.com/api/notices/${id}`, { method: 'DELETE' });
+      await fetch(`/api/notices/${id}`, { method: 'DELETE' });
       loadNotices();
     }
   
@@ -436,7 +436,7 @@ if (searchInput) {
     const formData = new FormData();
     formData.append('image', file); // 서버에선 'image' 필드명 그대로 사용 중
 
-    const res = await fetch('https://cnlglobal-backend.onrender.com/api/notices/upload', {
+    const res = await fetch('/api/notices/upload', {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
@@ -534,7 +534,7 @@ const payload = {
 
 
   const method = id ? 'PUT' : 'POST';
-  const url = id ? `https://cnlglobal-backend.onrender.com/api/notices/${id}` : 'https://cnlglobal-backend.onrender.com/api/notices';
+  const url = id ? `/api/notices/${id}` : '/api/notices';
 
   await fetch(url, {
     method,
@@ -583,7 +583,7 @@ document.querySelectorAll('.lang-btn-filter').forEach(btn => {
 });
 
 function renderPostsFromServer(page = 1, query = "") {
-  fetch('https://cnlglobal-backend.onrender.com/api/notices?category=resource&q=' + encodeURIComponent(query))
+  fetch('/api/notices?category=resource&q=' + encodeURIComponent(query))
 
     .then(res => res.json())
     .then(resData => {

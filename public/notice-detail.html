@@ -58,7 +58,7 @@ notice_detail_html = """
         return;
       }
 
-      const res = await fetch('https://cnlglobal-backend.onrender.com/api/notices/' + id);
+      const res = await fetch('/api/notices/' + id);
       if (!res.ok) {
         document.getElementById("title").textContent = "공지사항을 불러오지 못했습니다.";
         document.getElementById("content").textContent = "서버 오류 또는 삭제된 글일 수 있습니다.";

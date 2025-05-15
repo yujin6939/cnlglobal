@@ -53,7 +53,7 @@
     const perPage = 5;
 
     async function loadNotices(page = 1) {
-      const res = await fetch('https://cnlglobal-backend.onrender.com/api/notices?page=' + page);
+      const res = await fetch('/api/notices?page=' + page);
       const data = await res.json();
       const list = document.getElementById('notices');
       list.innerHTML = '';

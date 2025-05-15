@@ -496,7 +496,7 @@
 <script>
   function renderPostsFromServer(page = 1) {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-    fetch('https://cnlglobal-backend.onrender.com/api/notices?category=newsletter')
+    fetch('/api/notices?category=newsletter')
       .then(res => res.json())
       .then(response => {
         const allPosts = response.notices || [];
@@ -587,7 +587,7 @@
   if (e.target.classList.contains("post-link")) {
     const postId = e.target.dataset.id;
 
-    const res = await fetch(`https://cnlglobal-backend.onrender.com/api/notices/${postId}`);
+    const res = await fetch(`/api/notices/${postId}`);
     const post = await res.json();
     showPostDetail(post);
   }

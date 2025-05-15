@@ -64,7 +64,7 @@
       const password = document.getElementById('password').value;
       const errorMsg = document.getElementById('error-msg');
 
-      const res = await fetch('https://cnlglobal-backend.onrender.com/api/auth/login', {
+      const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
