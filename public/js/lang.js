@@ -97,3 +97,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+function setLanguage(lang) {
+  localStorage.setItem('siteLanguage', lang);
+
+  // 언어 변경 시 즉시 게시글 새로 불러오기
+  if (window.location.pathname.includes('공지사항.html')) {
+    loadNotices(); // 공지사항 페이지일 경우
+  } else if (window.location.pathname.includes('뉴스레터.html')) {
+    loadNewsletters(); // 뉴스레터일 경우
+  } else if (window.location.pathname.includes('information.html')) {
+    renderResourcesFromServer(1); // 자료실
+  }
+
+  updateUILanguage(); // 메뉴 텍스트 등도 업데이트
+}

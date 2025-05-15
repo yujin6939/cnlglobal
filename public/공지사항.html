@@ -654,7 +654,7 @@ swiper.on('slideChangeTransitionStart', () => {
 <script>
 function renderPostsFromServer(page = 1) {
   const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-    fetch('/api/notices?category=notice')
+    fetch('/api/notices?category=notice&lang=${lang}')
     .then(res => res.json())
     .then(response => {
       const allPosts = response.notices || []; // ✅ 수정된 부분
