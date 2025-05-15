@@ -491,6 +491,13 @@
   text-decoration: underline;
 }
 
+.alert-message {
+  color: #666;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1rem;
+}
+
   </style>
 </head>
 
@@ -652,9 +659,10 @@ swiper.on('slideChangeTransitionStart', () => {
 </script>
 
 <script>
-function renderPostsFromServer(page = 1) {
   const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-    fetch('/api/notices?category=notice&lang=${lang}')
+
+function renderPostsFromServer(page = 1) {
+    fetch(`/api/notices?category=notice&lang=${lang}`)
     .then(res => res.json())
     .then(response => {
       const allPosts = response.notices || []; // ✅ 수정된 부분
@@ -683,9 +691,15 @@ function renderPostsFromServer(page = 1) {
 
       if (listContainer.children.length === 0) {
         const msg = document.createElement("p");
-        msg.textContent = "등록된 공지사항이 없습니다.";
-        msg.style.color = "#666";
-        msg.style.textAlign = "center";
+const messages = {
+  ko: "등록된 공지사항이 없습니다.",
+  en: "No notices available.",
+  zh: "暂无公告。"
+};
+msg.textContent = messages[lang] || messages.ko;
+
+msg.className = "alert-message";
+
         listContainer.appendChild(msg);
       }
 
@@ -713,17 +727,24 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function showPostDetail(post) {
-  const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
   const container = document.getElementById("notice-list");
   container.innerHTML = "";
 
   const title = post.title?.[lang];
   const content = post.content?.[lang];
 
-  if (!title || !content) {
-    container.innerHTML = "<p>해당 언어로 작성된 내용이 없습니다.</p>";
-    return;
-  }
+  const noContentMessages = {
+  ko: "해당 언어로 작성된 내용이 없습니다.",
+  en: "This post is not available in the selected language.",
+  zh: "该语言版本的内容不可用。"
+};
+
+if (!title || !content) {
+  const message = noContentMessages[lang] || noContentMessages["ko"];
+  container.innerHTML = `<p>${message}</p>`;
+  return;
+}
+
 
   const detailDiv = document.createElement("div");
   detailDiv.className = "notice-detail";

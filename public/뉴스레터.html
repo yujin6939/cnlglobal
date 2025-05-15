@@ -557,10 +557,17 @@
     const title = post.title?.[lang];
     const content = post.content?.[lang];
 
-    if (!title || !content) {
-      container.innerHTML = "<p>해당 언어로 작성된 뉴스레터가 없습니다.</p>";
-      return;
-    }
+if (!title || !content) {
+  const messages = {
+    ko: "해당 언어로 작성된 뉴스레터가 없습니다.",
+    en: "This newsletter is not available in the selected language.",
+    zh: "该语言版本的新闻简报不可用。"
+  };
+  const message = messages[lang] || messages["ko"];
+  container.innerHTML = `<p style="text-align:center; color:#666;">${message}</p>`;
+  return;
+}
+
 
     const detailDiv = document.createElement("div");
     detailDiv.className = "notice-item";

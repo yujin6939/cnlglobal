@@ -20,43 +20,43 @@ router.get('/', async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const perPage = 10;
   const keyword = req.query.q;
+  const category = req.query.category;
+  const lang = req.query.lang || 'ko';
 
-const category = req.query.category; // 예: 'notice' 또는 'newsletter'
-
-const keywordFilter = keyword
-  ? {
-      $or: [
-        { 'title.ko': new RegExp(keyword, 'i') },
-        { 'title.en': new RegExp(keyword, 'i') },
-        { 'title.zh': new RegExp(keyword, 'i') },
-        { 'content.ko': new RegExp(keyword, 'i') },
-        { 'content.en': new RegExp(keyword, 'i') },
-        { 'content.zh': new RegExp(keyword, 'i') },
-      ]
-    }
-  : {};
-
-const query = {
-  ...keywordFilter,
-  ...(category ? { category } : {})  // category 필터 추가
-};
-
-
-    try {
-        const total = await Notice.countDocuments(query); // 전체 개수 계산 추가
-      
-        const notices = await Notice.find(query)
-          .sort({ createdAt: -1 })
-          .skip((page - 1) * perPage)
-          .limit(perPage);
-      
-        // ✅ 응답 객체로 감싸서 반환 (total 포함)
-        res.json({ notices, total });
-      } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: '서버 오류' });
+  const keywordFilter = keyword
+    ? {
+        $or: [
+          { [`title.${lang}`]: new RegExp(keyword, 'i') },
+          { [`content.${lang}`]: new RegExp(keyword, 'i') }
+        ]
       }
-    });
+    : {};
+
+  const langFilter = {
+    [`title.${lang}`]: { $exists: true, $ne: null },
+    [`content.${lang}`]: { $exists: true, $ne: null }
+  };
+
+  const query = {
+    ...keywordFilter,
+    ...(category ? { category } : {}),
+    ...langFilter
+  };
+
+  try {
+    const total = await Notice.countDocuments(query);
+    const notices = await Notice.find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * perPage)
+      .limit(perPage);
+
+    res.json({ notices, total });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: '서버 오류' });
+  }
+});
+
       
 
 // ✅ 상세 조회
