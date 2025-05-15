@@ -5,27 +5,34 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 require('dotenv').config(); // 꼭 최상단
-const MONGO_URL = process.env.MONGO_URL;  // 🔥 여기가 유일한 MONGO_URL 선언
-
+const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 3000;
 
-// ✅ 관리자 모델 불러오기
 const Admin = require('./models/Admin');
 
-// ✅ 미들웨어 설정
-app.use(cors({
+// ✅ CORS 설정 (🔥 이 부분 중요!)
+const corsOptions = {
   origin: 'https://cnlglobal.onrender.com',
-  credentials: true
-}));
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
 
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // 🔥 OPTIONS 요청 허용
+
+// ✅ 미들웨어
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ✅ 정적 파일 서빙
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-// ✅ 라우터 연결
+// ✅ 라우터
 const noticeRoutes = require('./routes/notices');
 const authRoutes = require('./routes/auth');
 const linksRoutes = require('./routes/links');
@@ -34,7 +41,7 @@ app.use('/api/notices', noticeRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api', linksRoutes);
 
-// ✅ MongoDB 연결 및 관리자 계정 자동 생성
+// ✅ MongoDB 연결 + 관리자 계정 생성
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -52,11 +59,6 @@ mongoose.connect(MONGO_URL, {
 }).catch(err => {
   console.error('❌ MongoDB 연결 실패:', err);
 });
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 
 // ✅ 서버 시작
 app.listen(PORT, () => {
