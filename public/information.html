@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>공지사항 | C&L Global</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* 헤더 스타일 동일하게 복사 */
+    header {
+      background-color: white;
+      padding: 1rem 2rem;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      position: relative;
+    }
+
+    nav li {
+      position: relative;
+    }
+
+    nav a {
+      color: #002244;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .dropdown-menu {
+      display: block;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(10px);
+      visibility: hidden;
+      position: absolute;
+      top: 2.5rem;
+      left: 0;
+      background-color: white;
+      padding: 0.5rem 0;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      min-width: 180px;
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    }
+
+    .dropdown-menu li a {
+      display: block;
+      padding: 0.6rem 1.2rem;
+      white-space: nowrap;
+      color: #002244;
+      font-weight: 500;
+    }
+
+    .dropdown-menu li a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      transform: translateY(0px);
+      visibility: visible;
+    }
+
+    /* 슬라이더 높이 절반 */
+    .subpage-hero .swiper {
+      height: 425px;
+    }
+
+    .subpage-hero .swiper-slide {
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* 콘텐츠 영역 */
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 3rem auto;
+      gap: 2rem;
+      padding: 0 1rem;
+      align-items: stretch;
+    }
+
+    .sidebar {
+      flex: none;             /* 기존보다 더 넓게 */
+      min-width: 200px;       /* 너무 좁아지지 않도록 최소 폭 설정 */
+      height: 100%;
+    }
+
+    .notice-list {
+      flex: 3.5;
+    }
+
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin-bottom: 1rem;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #002244;
+      transition: color 0.2s ease;
+      white-space: nowrap; /* 이거 추가 */
+    }
+
+    .sidebar a:hover {
+      color: #0055aa;
+    }
+
+    .sidebar a.active {
+    background-color: #002244;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    text-align: left;         /* 좌측 정렬 명시 */
+    border-radius: 0;         /* 둥근 테두리 제거 */
+    display: block;           /* 전체 너비 클릭 가능 */
+    }
+
+
+
+    .notice-list {
+      flex: 3;
+    }
+
+    .notice-item {
+      border-bottom: 1px solid #ccc;
+      padding: 1rem 0;
+    }
+
+    .notice-item a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #002244;
+    }
+
+    .notice-item a:hover {
+      color: #0055aa;
+    }
+
+    .pagination {
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .pagination button {
+      background: #002244;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin: 0 0.25rem;
+      cursor: pointer;
+    }
+
+    .pagination button.active {
+      background: #004488;
+    }
+
+    .footer {
+      background-color: #002244;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .partner-grid {
+    display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    }
+
+    .partner-card {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    width: 150px;
+    }
+
+    .partner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .partner-card img {
+    max-height: 100px;
+    max-width: 100px;
+
+    margin-bottom: 1rem;
+    }
+
+    .partner-card p {
+    font-weight: bold;
+    color: #002244;
+    }
+
+    .lang-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.lang-btn {
+  background: none;
+  border: none; /* ← 테두리 제거 */
+  color: #002244;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.lang-btn i {
+  margin-right: 4px;
+}
+
+.lang-menu {
+  list-style: none; /* ← 점 제거 */
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1001;
+  top: 110%;
+  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.lang-menu li {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: #002244;
+}
+
+.lang-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+/* 드롭다운이 열렸을 때 효과적으로 보여지도록 */
+.lang-dropdown.open .lang-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0px);
+}
+
+.logo-item img {
+  height: 50px;
+  display: block;
+}
+
+.logo-item {
+  display: flex;
+  align-items: center;
+}
+
+/* 진입 애니메이션 */
+@keyframes fadeRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-right-on-load {
+  opacity: 0;
+  animation: fadeRight 0.8s ease forwards;
+}
+
+.fade-up-on-load {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.information-tabs {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.tab-buttons {
+  display: flex;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  color: #002244;
+  cursor: pointer;
+  transition: background 0.3s;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-btn.active {
+  border-bottom: 3px solid #002244;
+  color: #002244;
+  background-color: #f9f9f9;
+}
+
+.tab-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.tab-content {
+  display: none;
+  animation: fadeUp 0.4s ease forwards;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+a.partner-card:hover {
+  text-decoration: none;
+}
+
+/* 진입 애니메이션 */
+@keyframes fadeRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-right-on-load {
+  opacity: 0;
+  animation: fadeRight 0.8s ease forwards;
+}
+
+.fade-left-on-load {
+  opacity: 0;
+  animation: fadeLeft 0.8s ease forwards;
+}
+
+/* 슬라이더 페이드 인 효과 */
+@keyframes fadeInSlider {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.subpage-hero .swiper {
+  opacity: 0; /* 초기 숨김 */
+  animation: fadeInSlider 1.2s ease-out forwards;
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: zoomOut 7s ease-out forwards;
+}
+
+.subpage-hero {
+  height: 425px;
+  overflow: hidden;
+}
+
+.subpage-hero .swiper,
+.subpage-hero .swiper-wrapper,
+.subpage-hero .swiper-slide {
+  height: 100%;
+}
+
+.subpage-hero .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subpage-hero .slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: zoomOut 7s ease-out forwards;
+}
+
+.notice-detail {
+  flex: 3;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.notice-detail h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: #002244;
+}
+
+.notice-detail .meta {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+.notice-detail .content {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #333;
+  border-top: 1px solid #ccc;
+  padding-top: 1.5rem;
+}
+
+.notice-detail .back-btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  background: #002244;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.notice-detail .back-btn:hover {
+  background: #004488;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.notice-detail .attachments img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.notice-detail .attachments a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #0055aa;
+  font-weight: 500;
+  text-decoration: underline;
+}
+  </style>
+</head>
+
+<body>
+  <!-- 메인과 동일한 헤더 -->
+  <header>
+          <a href="index.html"><img src="images/logo.png" alt="C&L Global 로고" /></a>    
+    <nav class="main-nav">
+      <ul>
+        <li class="dropdown">
+          <a href="index.html" data-ko="홈" data-en="Home" data-zh="首页"></a>
+        </li>
+        <li class="dropdown">
+          <a href="aboutus.html" data-ko="회사소개" data-en="About us" data-zh="关于我们"></a>
+          <ul class="dropdown-menu">
+            <li><a href="aboutus.html#1"  data-ko="회사 개요" data-en="Company Overview" data-zh="公司概况"></a></li>
+            <li><a href="aboutus.html#2" data-ko="인증 및 수상" data-en="Competitiveness" data-zh="认证与奖项"></a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="ourservice1.html" data-ko="서비스 안내" data-en="Our Service" data-zh="我们的服务"></a>
+          <ul class="dropdown-menu">
+            <li><a href="ourservice1.html" data-ko="글로벌 운송" data-en="Global Shipping" data-zh="全球运输与拼箱"></a></li>
+            <li><a href="ourservice2.html" data-ko="국내 운송" data-en="Domestic Trucking" data-zh="国内运输"></a></li>
+            <li><a href="ourservice3.html" data-ko="이커머스 풀필먼트" data-en="E-Commerce Fulfillment" data-zh="电商履约"></a></li>
+            <li><a href="ourservice4.html" data-ko="전시 물류" data-en="Exhibition Logistics" data-zh="展览物流"></a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a href="공지사항.html" data-ko="회사/산업 소식" data-en="Information/News" data-zh="公司/行业新闻"></a>
+          <ul class="dropdown-menu">
+            <li><a href="공지사항.html" data-ko="공지사항" data-en="Notices" data-zh="通知"></a></li>
+            <li><a href="뉴스레터.html" data-ko="뉴스레터" data-en="Newsletter" data-zh="新闻简报"></a></li>
+            <li><a href="information.html" data-ko="정보" data-en="Information" data-zh="Information"></a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a href="contactus.html" data-ko="문의하기" data-en="Contact us" data-zh="联系我们"></a>
+          <ul class="dropdown-menu">
+            <li><a href="contactus.html#us" data-ko="미국" data-en="U.S." data-zh="美国"></a></li>
+            <li><a href="contactus.html#ko" data-ko="한국" data-en="Korea" data-zh="韩国"></a></li>
+            <li><a href="contactus.html#cn" data-ko="중국" data-en="China" data-zh="中国"></a></li>
+            <li><a href="contactus.html#wh" data-ko="웨어하우스" data-en="Warehouse" data-zh="仓库"></a></li>
+          </ul>
+        </li>        
+      </ul>
+    </nav>
+
+    <div class="lang-dropdown">
+      <button class="lang-btn">
+        <i class="fas fa-globe"></i> Language <i class="fas fa-caret-down"></i>
+      </button>
+      <ul class="lang-menu">
+        <li onclick="setLanguage('en')">English</li>
+        <li onclick="setLanguage('ko')">한국어</li>
+        <li onclick="setLanguage('zh')">中文</li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 슬라이더 -->
+  <section class="subpage-hero">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide">
+          <img src="images/port_dark.jpg" class="slide-img" />
+        </div>
+                <div class="swiper-slide">
+          <img src="images/cut_sunset_truck.jpg" class="slide-img" />
+        </div>
+                <div class="swiper-slide">
+          <img src="images/air_cargo2.jpg" class="slide-img" />
+        </div>
+        <div class="swiper-slide">
+          <img src="images/warehouse.jpg" class="slide-img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 콘텐츠 영역 -->
+  <main class="container">
+    <aside class="sidebar">
+      <ul>
+        <li>
+          <a href="공지사항.html"
+             data-ko="공지사항"
+             data-en="Notices"
+             data-zh="通知">
+          </a>
+        </li>
+        <li>
+          <a href="뉴스레터.html"
+             data-ko="뉴스레터"
+             data-en="Newsletter"
+             data-zh="新闻简报">
+          </a>
+        </li>
+        <li>
+            <a href="information.html" class="active fade-right-on-load"
+            data-ko="정보"
+            data-en="Information"
+            data-zh="Information"></a>
+        </li>
+
+      </ul>
+    </aside>
+
+    <!-- information.html 탭 영역 -->
+<section class="information-tabs fade-up-on-load">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-tab="direct"><p data-en="Direct Shippers" data-ko="운송업체" data-zh="Chinese"></p></button>
+    <button class="tab-btn" data-tab="links"><p data-en="Useful Links" data-ko="유용한 링크" data-zh="Chinese"></p></button>
+    <button class="tab-btn" data-tab="resources"><p data-en="Resources" data-ko="자료실" data-zh="Chinese"></p></button>
+  </div>
+
+  <div class="tab-content active" id="tab-direct">
+        <section class="partner-grid">
+      <div class="partner-card fade-up-on-load" style="animation-delay: 0.1s;">
+        <img src="images/directs/samsung.png" alt="SAMSUNG logo" />
+        <p data-ko="SAMSUNG" data-en="SAMSUNG" data-zh="SAMSUNG"></p>
+      </div>
+      <div class="partner-card fade-up-on-load" style="animation-delay: 0.2s;">
+        <img src="images/directs/daewoo.png" alt="DAEWOO logo" />
+        <p data-ko="DAEWOO" data-en="DAEWOO" data-zh="DAEWOO"></p>
+      </div>
+      <div class="partner-card fade-up-on-load" style="animation-delay: 0.3s;">
+        <img src="images/directs/gavilon.png" alt="GAVILON logo" />
+        <p data-ko="GAVILON" data-en="GAVILON" data-zh="GAVILON"></p>
+      </div>
+      <div class="partner-card fade-up-on-load" style="animation-delay: 0.4s;">
+        <img src="images/directs/scoular.png" alt="Scoular logo" />
+        <p data-ko="Scoular" data-en="Scoular" data-zh="Scoular"></p>
+      </div>
+            <div class="partner-card fade-up-on-load" style="animation-delay: 0.5s;">
+        <img src="images/directs/cgb.png" alt="CGB logo" />
+        <p data-ko="CGB" data-en="CGB" data-zh="CGB"></p>
+      </div>
+      <div class="partner-card fade-up-on-load" style="animation-delay: 0.1s;">
+        <img src="images/directs/cargill.png" alt="Cargill logo" />
+        <p data-ko="Cargill" data-en="Cargill" data-zh="Cargill"></p>
+      </div>
+      <div class="partner-card fade-up-on-load" style="animation-delay: 0.2s;">
+        <img src="images/directs/cj.png" alt="CJ logo" />
+        <p data-ko="CJ" data-en="CJ" data-zh="CJ"></p>
+      </div>
+      <div class="partner-card fade-up-on-load" style="animation-delay: 0.3s;">
+        <img src="images/directs/chs.png" alt="CHS logo" />
+        <p data-ko="CHS" data-en="CHS" data-zh="CHS"></p>
+      </div>
+      <div class="partner-card fade-up-on-load" style="animation-delay: 0.4s;">
+        <img src="images/directs/valero.png" alt="VALERO logo" />
+        <p data-ko="VALERO" data-en="VALERO" data-zh="VALERO"></p>
+      </div>
+            <div class="partner-card fade-up-on-load" style="animation-delay: 0.5s;">
+        <img src="images/directs/adm.png" alt="ADM logo" />
+        <p data-ko="ADM" data-en="ADM" data-zh="ADM3"></p>
+      </div>
+            </section>
+  </div>
+<div class="tab-content" id="tab-links">
+    <h3><br><p data-en="Shipping Lines" data-ko="" data-zh=""></p></h3>    
+  <section class="partner-grid">
+
+    <a href="https://www.cma-cgm.com/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.1s; text-decoration: none;">
+      <img src="images/links/cma-cgm_logo.png" alt="링크1 logo" />
+      <p data-ko="링크1" data-en="CMA-CGM" data-zh="公司1"></p>
+    </a>
+
+    <a href="https://lines.coscoshipping.com/home/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.2s; text-decoration: none;">
+      <img src="images/links/cosco.png" alt="링크2 logo" />
+      <p data-ko="링크2" data-en="COSCO" data-zh="公司2"></p>
+    </a>
+
+    <a href="https://www.evergreen-marine.com/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.3s; text-decoration: none;">
+      <img src="images/links/evergreen.png" alt="링크3 logo" />
+      <p data-ko="링크3" data-en="EVERGREEN" data-zh="公司3"></p>
+    </a>
+
+    <a href="https://www.hapag-lloyd.com/en/home.html" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.4s; text-decoration: none;">
+      <img src="images/links/hapag-loyd.png" alt="링크4 logo" />
+      <p data-ko="링크4" data-en="Hapag-Lloyd" data-zh="公司3"></p>
+    </a>
+
+    <a href="https://www.hmm21.com/company.do" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.5s; text-decoration: none;">
+      <img src="images/links/hmm.png" alt="링크5 logo" />
+      <p data-ko="링크5" data-en="HMM" data-zh="公司3"></p>
+    </a>
+
+        <a href="https://www.maersk.com/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.5s; text-decoration: none;">
+      <img src="images/links/maersk.png" alt="링크5 logo" />
+      <p data-ko="링크5" data-en="MAERSK" data-zh="公司3"></p>
+    </a>
+        <a href="https://www.msc.com/usa" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.5s; text-decoration: none;">
+      <img src="images/links/msc.png" alt="링크5 logo" />
+      <p data-ko="링크5" data-en="MSC" data-zh="公司3"></p>
+    </a>
+
+        <a href="https://www.one-line.com/en" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.5s; text-decoration: none;">
+      <img src="images/links/one.png" alt="링크5 logo" />
+      <p data-ko="링크5" data-en="ONE" data-zh="公司3"></p>
+    </a>
+
+        <a href="https://www.oocl.com/eng/Pages/default.aspx" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.5s; text-decoration: none;">
+      <img src="images/links/oocl.png" alt="링크5 logo" />
+      <p data-ko="링크5" data-en="OOCL" data-zh="公司3"></p>
+    </a>
+
+        <a href="https://www.pilship.com/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.5s; text-decoration: none;">
+      <img src="images/links/pil.png" alt="링크5 logo" />
+      <p data-ko="링크5" data-en="PIL" data-zh="公司3"></p>
+    </a>
+    <a href="https://www.smlines.com/en/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.5s; text-decoration: none;">
+      <img src="images/links/smline.png" alt="링크5 logo" />
+      <p data-ko="링크5" data-en="SM LINE" data-zh="公司3"></p>
+    </a>
+
+        <a href="https://www.wanhai.com/views/Main.xhtml" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.5s; text-decoration: none;">
+      <img src="images/links/wanhai.png" alt="링크5 logo" />
+      <p data-ko="링크5" data-en="WAN HAI" data-zh="公司3"></p>
+    </a>
+
+        <a href="https://www.yangming.com/en" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.5s; text-decoration: none;">
+      <img src="images/links/yangming.png" alt="링크5 logo" />
+      <p data-ko="링크5" data-en="YANG MING" data-zh="公司3"></p>
+    </a>
+
+        <a href="https://www.zim.com/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.5s; text-decoration: none;">
+      <img src="images/links/zim.png" alt="링크5 logo" />
+      <p data-ko="링크5" data-en="ZIM" data-zh="公司3"></p>
+    </a>
+  </section>
+
+      <h3><br><p data-en="CFS Warehouse" data-ko="" data-zh=""></p></h3>   
+        <section class="partner-grid">
+
+    <a href="https://www.arrowpac.com/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.1s; text-decoration: none;">
+      <img src="images/links/arrowpac.png" alt="링크1 logo" />
+      <p data-ko="링크1" data-en="ARROWPAC" data-zh="公司1"></p>
+    </a>
+
+    <a href="https://www.imperialcfs.com/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.2s; text-decoration: none;">
+      <img src="images/links/imperial.png" alt="링크2 logo" />
+      <p data-ko="링크2" data-en="IMPERIAL CFS" data-zh="公司2"></p>
+    </a>
+
+    <a href="https://www.stgusa.com/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.3s; text-decoration: none;">
+      <img src="images/links/stg.png" alt="링크3 logo" />
+      <p data-ko="링크3" data-en="STG LOGISTICS" data-zh="公司3"></p>
+    </a>
+
+    <a href="https://portal.vanguardlogistics.com/apps/dashboard/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.4s; text-decoration: none;">
+      <img src="images/links/vanguard.png" alt="링크4 logo" />
+      <p data-ko="링크4" data-en="VANGUARD" data-zh="公司3"></p>
+    </a>
+  </section>
+
+        <h3><br><p data-en="Export / Import Web Tools" data-ko="" data-zh=""></p></h3>   
+        <section class="partner-grid">
+
+    <a href="https://www.epa.gov/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.1s; text-decoration: none;">
+      <img src="images/links/epa.png" alt="링크1 logo" />
+      <p data-ko="링크1" data-en="EPA" data-zh="公司1"></p>
+    </a>
+
+    <a href="https://www.fda.gov/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.2s; text-decoration: none;">
+      <img src="images/links/fda.png" alt="링크2 logo" />
+      <p data-ko="링크2" data-en="FDA" data-zh="公司2"></p>
+    </a>
+
+    <a href="https://www.fmc.gov/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.3s; text-decoration: none;">
+      <img src="images/links/fmc.png" alt="링크3 logo" />
+      <p data-ko="링크3" data-en="FMC" data-zh="公司3"></p>
+    </a>
+
+    <a href="https://www.cbp.gov/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.4s; text-decoration: none;">
+      <img src="images/links/homeland.png" alt="링크4 logo" />
+      <p data-ko="링크4" data-en="U.S. Customs" data-zh="公司3"></p>
+    </a>
+
+        <a href="https://www.usda.gov/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.4s; text-decoration: none;">
+      <img src="images/links/usda.png" alt="링크4 logo" />
+      <p data-ko="링크4" data-en="USDA" data-zh="公司3"></p>
+    </a>
+
+        <a href="https://www.eauth.usda.gov/eauth/b/usda/login?TRYIWA=TRUE&TYPE=33554433&REALMOID=06-f5dfb7fa-863c-4991-878b-51bd6437805c&GUID=&SMAUTHREASON=0&METHOD=GET&SMAGENTNAME=-SM-Tr0AVB4iBs1ns2mRWc5Pwx0lHnjYhcq8suFOC4P3r4xmBCVeybLF0SptdaZEJvnVbkNuSA18Nej6AoPAzGQ3lczF4fqVn0dkrb84FYr4KM6%2B7ADjTTNRR0pwG7U2xoh5&TARGET=-SM-https:%2F%2Fpcit.aphis.usda.gov%2Fpcit%2FPCITInitServlet" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.4s; text-decoration: none;">
+      <img src="images/links/usda.png" alt="링크4 logo" />
+      <p data-ko="링크4" data-en="Phytosanitary Cert" data-zh="公司3"></p>
+    </a>
+  </section>
+
+          <h3><br><p data-en="Web Tools" data-ko="" data-zh=""></p></h3>   
+        <section class="partner-grid">
+
+    <a href="https://hts.usitc.gov/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.1s; text-decoration: none;">
+      <img src="images/links/hts.png" alt="링크1 logo" />
+      <p data-ko="링크1" data-en="HTS Code" data-zh="公司1"></p>
+    </a>
+
+    <a href="https://www.cbmcalculator.com/" target="_blank" class="partner-card fade-up-on-load" style="animation-delay: 0.2s; text-decoration: none;">
+      <img src="images/links/cbmcalc.png" alt="링크2 logo" />
+      <p data-ko="링크2" data-en="CBM Calculator" data-zh="公司2"></p>
+    </a>
+  </section>
+</div>
+
+  <div class="tab-content" id="tab-resources">
+    <div id="resource-list" class="notice-list fade-up-on-load"></div>
+    <div class="pagination" id="resource-pagination"></div>
+
+  </div>
+</section>
+    
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 C&L Global. All rights reserved.</p>
+    
+      <!-- 관리자 전용 링크: 로그인 시에만 표시 -->
+  <a href="admin.html" id="adminLinkFooter" style="display: none; font-size: 0.9rem; color: #ccc; margin-top: 0.5rem; display: block;">
+    AdminLink
+  </a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      effect: 'fade',
+      speed: 1000,
+      fadeEffect: { crossFade: true }
+    });
+  </script>
+
+  <script>
+  // 탭 버튼 클릭 처리
+  document.querySelectorAll('.tab-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const tab = button.getAttribute('data-tab');
+
+      // 버튼 초기화 후 활성화
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // 콘텐츠 영역 초기화 후 해당 탭만 보여줌
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      document.getElementById(`tab-${tab}`).classList.add('active');
+    });
+  });
+</script>
+
+<script>
+function renderResourcesFromServer(page = 1) {
+  const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
+  fetch('https://cnlglobal-backend.onrender.com/api/notices?category=resource')
+    .then(res => res.json())
+    .then(response => {
+      const allPosts = response.notices || [];
+      const postsPerPage = 10;
+      const start = (page - 1) * postsPerPage;
+      const sliced = allPosts.slice(start, start + postsPerPage);
+
+      const listContainer = document.getElementById("resource-list");
+      listContainer.innerHTML = "";
+
+      sliced.forEach(post => {
+        const title = post.title?.[lang];
+        const content = post.content?.[lang];
+        if (!title || !content) return;
+
+        const div = document.createElement("div");
+        div.className = "notice-item";
+        div.innerHTML = `
+          <a href="javascript:void(0)" onclick='showResourceDetail(${JSON.stringify(post)})'>
+            ${title}
+          </a>
+        `;
+        listContainer.appendChild(div);
+      });
+
+      if (listContainer.children.length === 0) {
+        const msg = document.createElement("p");
+        msg.textContent = "등록된 자료가 없습니다.";
+        msg.style.color = "#666";
+        msg.style.textAlign = "center";
+        listContainer.appendChild(msg);
+      }
+
+      renderResourcePagination(allPosts.length, page);
+    });
+}
+
+function renderResourcePagination(totalPosts, currentPage) {
+  const totalPages = Math.ceil(totalPosts / 10);
+  const pagination = document.getElementById("resource-pagination");
+  pagination.innerHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    const button = document.createElement("button");
+    button.textContent = i;
+    if (i === currentPage) button.classList.add("active");
+    button.addEventListener("click", () => renderResourcesFromServer(i));
+    pagination.appendChild(button);
+  }
+}
+
+function showResourceDetail(post) {
+  const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
+  const container = document.getElementById("resource-list");
+  container.innerHTML = "";
+
+  const title = post.title?.[lang];
+  const content = post.content?.[lang];
+
+  if (!title || !content) {
+    container.innerHTML = "<p>해당 언어로 작성된 내용이 없습니다.</p>";
+    return;
+  }
+
+  const detailDiv = document.createElement("div");
+  detailDiv.className = "notice-detail";
+
+  // 이미지 추출
+  let attachmentsHTML = "";
+  const fileRegex = /<img[^>]+src="([^"]+\/uploads\/[^"]+)"[^>]*>/g;
+  let match;
+  const foundImages = [];
+
+  while ((match = fileRegex.exec(content)) !== null) {
+    foundImages.push(match[1]);
+  }
+
+  if (foundImages.length > 0) {
+    attachmentsHTML += `<div class="attachments">`;
+    foundImages.forEach(src => {
+      attachmentsHTML += `<img src="${src}" alt="첨부 이미지" />`;
+    });
+    attachmentsHTML += `</div>`;
+  }
+
+  detailDiv.innerHTML = `
+    <h2>${title}</h2>
+    <p class="meta">${new Date(post.createdAt).toLocaleString()}</p>
+    <div class="content">${content.replace(/\n/g, "<br>")}</div>
+    ${attachmentsHTML}
+    <button class="back-btn" onclick="renderResourcesFromServer(1)">← 목록으로 돌아가기</button>
+  `;
+
+  container.appendChild(detailDiv);
+  document.getElementById("resource-pagination").style.display = "none";
+}
+
+// 탭 전환 시 리소스 로딩
+document.querySelector('[data-tab="resources"]').addEventListener("click", () => {
+  renderResourcesFromServer(1);
+});
+</script>
+
+<script>
+function renderResourcesFromServer(page = 1) {
+  const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
+  fetch('https://cnlglobal-backend.onrender.com/api/notices?category=resource')
+    .then(res => res.json())
+    .then(response => {
+      const allPosts = response.notices || [];
+      const postsPerPage = 10;
+      const start = (page - 1) * postsPerPage;
+      const sliced = allPosts.slice(start, start + postsPerPage);
+
+      const listContainer = document.getElementById("resource-list");
+      listContainer.innerHTML = "";
+
+      sliced.forEach(post => {
+        const title = post.title?.[lang];
+        const content = post.content?.[lang];
+        if (!title || !content) return;
+
+        const div = document.createElement("div");
+        div.className = "notice-item";
+        div.innerHTML = `
+          <a href="javascript:void(0)" class="resource-link" data-id="${post._id}">
+            ${title}
+          </a>
+        `;
+        listContainer.appendChild(div);
+        document.getElementById("resource-pagination").style.display = "block";
+      });
+
+      if (listContainer.children.length === 0) {
+        const msg = document.createElement("p");
+        msg.textContent = "등록된 자료가 없습니다.";
+        msg.style.color = "#666";
+        msg.style.textAlign = "center";
+        listContainer.appendChild(msg);
+      }
+
+      renderResourcePagination(allPosts.length, page);
+    });
+}
+
+function renderResourcePagination(totalPosts, currentPage) {
+  const totalPages = Math.ceil(totalPosts / 10);
+  const pagination = document.getElementById("resource-pagination");
+  pagination.innerHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    const button = document.createElement("button");
+    button.textContent = i;
+    if (i === currentPage) button.classList.add("active");
+    button.addEventListener("click", () => renderResourcesFromServer(i));
+    pagination.appendChild(button);
+  }
+}
+
+function showResourceDetail(post) {
+  const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
+  const container = document.getElementById("resource-list");
+  container.innerHTML = "";
+
+  const title = post.title?.[lang];
+  const content = post.content?.[lang];
+
+  if (!title || !content) {
+    container.innerHTML = "<p>해당 언어로 작성된 자료가 없습니다.</p>";
+    return;
+  }
+
+  const detailDiv = document.createElement("div");
+  detailDiv.className = "notice-item";
+  detailDiv.innerHTML = `
+    <h2 style="color:#002244;">${title}</h2>
+    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: gray;">
+      ${new Date(post.createdAt).toLocaleString()}
+    </p>
+    <div style="margin-top: 1rem;">${content.replace(/\n/g, "<br>")}</div>
+    <button onclick="renderResourcesFromServer(1)" style="margin-top: 2rem; background:#002244; color:white; border:none; padding: 0.5rem 1rem; cursor:pointer;">
+      ← 목록으로 돌아가기
+    </button>
+  `;
+
+  container.appendChild(detailDiv);
+  document.getElementById("resource-pagination").style.display = "none";
+}
+
+// 리소스 탭 전환 시 자동 호출
+document.querySelector('[data-tab="resources"]').addEventListener("click", () => {
+  renderResourcesFromServer(1);
+});
+
+// 게시글 클릭 이벤트
+document.addEventListener("click", async (e) => {
+  if (e.target.classList.contains("resource-link")) {
+    const postId = e.target.dataset.id;
+    const res = await fetch(`https://cnlglobal-backend.onrender.com/api/notices/${postId}`);
+    const post = await res.json();
+    showResourceDetail(post);
+  }
+});
+</script>
+
+<script>
+swiper.on('slideChangeTransitionStart', () => {
+  const allSlides = document.querySelectorAll('.swiper-slide .slide-img');
+  allSlides.forEach(img => {
+    // img.style.animation = 'none'; // 애니메이션 초기화
+    void img.offsetWidth; // 강제 리플로우
+  });
+
+  const activeImg = document.querySelector('.swiper-slide-active .slide-img');
+  if (activeImg) {
+    activeImg.style.animation = 'zoomOut 8s ease-out forwards';
+  }
+});
+</script>
+
+<script src="js/lang.js"></script>
+</body>
+
+</html>

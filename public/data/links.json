@@ -1,0 +1,17 @@
+[
+    {
+      "id": "global-1",
+      "url": "https://www.naver.com",
+      "label_ko": "네이버",
+      "label_en": "Naver",
+      "label_zh": "네이버"
+    },
+    {
+      "id": "global-2",
+      "url": "https://www.kakao.com",
+      "label_ko": "카카오",
+      "label_en": "Kakao",
+      "label_zh": "카카오"
+    }
+  ]
+  

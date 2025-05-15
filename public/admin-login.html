@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>관리자 로그인</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    input {
+      display: block;
+      width: 90%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 0.6rem;
+      background: #002244;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #004488;
+    }
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+        <a href="index.html">
+      <img src="images/logo.png" alt="C&L Global 로고" style="height: 40px;" />
+    </a>
+    <h2>관리자 로그인</h2>
+    <div class="error" id="error-msg"></div>
+    <input type="text" id="username" placeholder="아이디" />
+    <input type="password" id="password" placeholder="비밀번호" />
+    <button onclick="login()">로그인</button>
+  </div>
+
+  <script>
+    async function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('error-msg');
+
+      const res = await fetch('https://cnlglobal-backend.onrender.com/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+sessionStorage.setItem('token', data.token);
+        window.location.href = '/admin.html'; // 로그인 성공 시 admin 페이지로 이동
+      } else {
+        errorMsg.textContent = '아이디 또는 비밀번호가 틀렸습니다.';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();  // 폼 기본 제출 방지
+      login();             // 로그인 함수 호출
+    }
+  });
+});
+
+  </script>
+</body>
+</html>

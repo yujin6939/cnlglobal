@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <title>공지사항 관리자</title>
+  <style>
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      .logout-btn {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.4rem 0.8rem;
+      }
+      .login-box, form {
+        width: 100%;
+      }
+      input, textarea {
+        font-size: 0.95rem;
+      }
+      .notice {
+        padding: 0.8rem;
+      }
+    }
+  </style>
+  
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 1800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f8f9fa;
+    }
+    h1 {
+      color: #002244;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 98%;
+    }
+    button {
+      padding: 0.6rem;
+      background: #002244;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #004488;
+    }
+    .notice {
+      background: #fff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #002244;
+      border-radius: 6px;
+    }
+    .notice-actions {
+      margin-top: 0.5rem;
+    }
+    .notice-actions button {
+      margin-right: 0.5rem;
+    }
+
+    .logout-btn {
+  padding: 0.6rem 1rem;
+  background-color: white;
+  color: #002244;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+
+  .logout-btn:hover {
+    background-color: #004488;
+  }
+ 
+    #content-ko,
+#content-en,
+#content-zh {
+  height: 350px; /* 원하는 높이(px)로 조정하세요 */
+  resize: vertical; /* 사용자가 수직으로 조절할 수 있게 허용 (선택사항) */
+}
+  </style>
+
+<style>
+    .tabs {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 0.6rem;
+      cursor: pointer;
+      background: #e0e0e0;
+      border: none;
+      font-weight: bold;
+    }
+    .tab-btn.active {
+      background: #002244;
+      color: white;
+    }
+    .tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+
+.lang-btn-filter {
+  padding: 0.4rem 1rem;
+  background: #e0e0e0;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.lang-btn-filter.active {
+  background: #002244;
+  color: white;
+}
+
+.notice-detail .content a {
+  color: #0055aa;
+  font-weight: 500;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.admin-tabs-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #002244, #004488);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.admin-tab {
+  color: white;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.admin-tab:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.admin-tab.active {
+  background: white;
+  color: #002244;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.logout-btn {
+  padding: 0.6rem 1rem;
+  background-color: white;
+  color: #002244;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.logout-btn:hover {
+  background-color: #dde4ee;
+}
+
+.main-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+#notice-form {
+  flex: 1.5;
+  min-width: 400px;
+}
+
+.preview-panel {
+  flex: 1;
+  min-width: 300px;
+}
+
+#notice-list {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+    </style>
+</head>
+
+<body>
+      
+    <header class="admin-tabs-container">
+              <div style="display: flex; align-items: center; gap: 2rem;">
+    <a href="index.html">
+      <img src="images/logo.png" alt="C&L Global 로고" style="height: 40px;" />
+    </a>
+        <nav class="admin-tabs">
+          <a href="admin.html" class="admin-tab">공지사항 관리</a>
+          <a href="admin-newsletter.html" class="admin-tab">뉴스레터 관리</a>
+          <a href="admin-resources.html" class="admin-tab active">자료실 관리</a>
+        </nav>
+        <button class="logout-btn" id="logout-btn" style="margin-left: 1000px;">로그아웃</button>
+      </header>
+      
+      
+
+      
+      
+  <h1>자료실 관리</h1>
+
+
+  <div class="main-layout">  
+    
+    <div class="preview-panel">
+  <div id="language-tabs" style="margin: 1rem 0; display: flex; gap: 1rem;">
+    <button type="button" class="lang-btn-filter active" data-lang="ko">한국어</button>
+    <button type="button" class="lang-btn-filter" data-lang="en">English</button>
+    <button type="button" class="lang-btn-filter" data-lang="zh">中文</button>
+  </div>
+  
+
+  <section id="notice-list"></section>
+  <div id="pagination" style="text-align:center; margin: 2rem 0;"></div>
+    </div>
+  <form id="notice-form">
+    <input type="hidden" id="notice-id">
+  
+    <div class="tabs">      
+      <button type="button" class="tab-btn active" data-tab="ko">한국어</button>        
+        <button type="button" class="tab-btn" data-tab="en">English</button>
+      <button type="button" class="tab-btn" data-tab="zh">中文</button>
+    </div>
+
+
+
+    <div class="tab-content active" id="tab-ko">
+      <input id="title-ko" name="title-ko" placeholder="제목 (한글)" />
+      <textarea id="content-ko" placeholder="내용 (한글)"></textarea>
+    </div>
+
+    <div class="tab-content" id="tab-en">
+      <input id="title-en" name="title-en" placeholder="Title (English)" />
+      <textarea id="content-en" placeholder="Content (English)"></textarea>
+    </div>  
+  
+    <div class="tab-content" id="tab-zh">
+      <input id="title-zh" name="title-zh" placeholder="标题 (중국어)" />
+      <textarea id="content-zh" placeholder="内容 (중국어)"></textarea>
+    </div>
+
+    <button type="button" onclick="insertHyperlink()" style="margin-top: 0.5rem; width: 150px;">🔗 링크 삽입</button>
+
+  
+    <input type="file" id="file-upload" multiple />
+    <div id="preview" style="margin-top: 1rem;"></div>
+  
+    <button type="submit">저장</button>
+  </form>
+  
+
+</div>
+
+  <script>
+const uploadInput = document.getElementById('file-upload');
+const previewArea = document.getElementById('preview');
+    const contentField = document.getElementById('content-ko');
+    const uploadedImages = [];
+
+  
+    // 로그인 검사
+const token = sessionStorage.getItem('token');
+if (!token) {
+  alert('로그인이 필요합니다.');
+  window.location.href = '/admin-login.html';
+}
+
+  
+    // 로그아웃
+    function logout() {
+      localStorage.removeItem('token');
+      alert("로그아웃 되었습니다.");
+      window.location.href = '/admin-login.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('logout-btn').addEventListener('click', () => {
+sessionStorage.removeItem('token');
+
+    alert("로그아웃 되었습니다.");
+    window.location.href = '/admin-login.html';
+  });
+});
+
+  
+    // 공지사항 불러오기
+    async function loadNotices(q = "") {
+      const res = await fetch('https://cnlglobal-backend.onrender.com/api/notices?q=' + encodeURIComponent(q));
+      const data = await res.json();
+      const notices = data.notices || [];         // ✅ 추가
+      const list = document.getElementById('notice-list');
+      list.innerHTML = "";
+      const lang = localStorage.getItem('siteLanguage') || 'ko';
+
+notices.forEach(notice => {
+    const title = notice.title?.[lang] || notice.title?.en || notice.title?.ko || notice.title?.zh || '(제목 없음)';
+const content = notice.content?.[lang] || notice.content?.en || notice.content?.ko || notice.title?.zh || '';
+
+const titleEl = document.createElement("strong");
+titleEl.textContent = title;
+
+const timeEl = document.createElement("small");
+timeEl.textContent = new Date(notice.createdAt).toLocaleString();
+
+const contentEl = document.createElement("p");
+contentEl.textContent = content;
+
+const actionsDiv = document.createElement("div");
+actionsDiv.className = "notice-actions";
+
+const editBtn = document.createElement("button");
+editBtn.textContent = "✏ 수정";
+editBtn.addEventListener("click", () => editNotice(notice));
+
+const deleteBtn = document.createElement("button");
+deleteBtn.textContent = "🗑 삭제";
+deleteBtn.addEventListener("click", () => deleteNotice(notice._id));
+
+actionsDiv.appendChild(editBtn);
+actionsDiv.appendChild(deleteBtn);
+
+const div = document.createElement("div");
+div.className = "notice";
+div.appendChild(titleEl);
+div.appendChild(timeEl);
+div.appendChild(contentEl);
+div.appendChild(actionsDiv);
+
+list.appendChild(div);
+
+});
+
+    }
+  
+    const searchInput = document.getElementById('search');
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value;
+    loadNotices(q);
+  });
+}
+
+  
+    // 글 수정
+    function editNotice(notice) {
+      document.getElementById('notice-id').value = notice._id;
+      document.getElementById('title-ko').value = notice.title.ko;
+      document.getElementById('title-en').value = notice.title.en;
+      document.getElementById('title-zh').value = notice.title.zh;
+      document.getElementById('content-ko').value = notice.content.ko;
+      document.getElementById('content-en').value = notice.content.en;
+      document.getElementById('content-zh').value = notice.content.zh;
+    }
+  
+    // 글 삭제
+    async function deleteNotice(id) {
+      if (!confirm('정말 삭제하시겠습니까?')) return;
+      await fetch(`https://cnlglobal-backend.onrender.com/api/notices/${id}`, { method: 'DELETE' });
+      loadNotices();
+    }
+  
+  
+  // Drag & Drop
+  previewArea.ondragover = (e) => {
+    e.preventDefault();
+    previewArea.style.border = '2px dashed #004488';
+  };
+  previewArea.ondragleave = (e) => {
+    e.preventDefault();
+    previewArea.style.border = '';
+  };
+  previewArea.ondrop = (e) => {
+    e.preventDefault();
+    previewArea.style.border = '';
+    uploadInput.files = e.dataTransfer.files;
+    uploadInput.dispatchEvent(new Event('change'));
+  };
+
+  // 이미지 업로드 + 삭제 버튼 + 본문 삽입
+  uploadInput.addEventListener('change', async (e) => {
+  const files = Array.from(e.target.files);
+  const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
+  const textarea = document.getElementById(`content-${activeTab}`);
+
+  for (const file of files) {
+    const formData = new FormData();
+    formData.append('image', file); // 서버에선 'image' 필드명 그대로 사용 중
+
+    const res = await fetch('https://cnlglobal-backend.onrender.com/api/notices/upload', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+
+      },
+      body: formData
+    });
+
+    const data = await res.json();
+    const fileUrl = data.url;
+    const ext = file.name.split('.').pop().toLowerCase();
+
+    let insertTag = '';
+    if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
+      insertTag = `<img src="${fileUrl}" alt="첨부 이미지">\n`;
+    } else {
+      insertTag = `<a href="${fileUrl}" download>${file.name}</a>\n`;
+    }
+
+    textarea.value += `\n${insertTag}`; // 본문에 자동 삽입
+
+    // 미리보기 UI도 구성 (선택)
+    const wrapper = document.createElement('div');
+    wrapper.style.marginBottom = '0.5rem';
+
+    if (insertTag.includes('<img')) {
+      const img = document.createElement('img');
+      img.src = fileUrl;
+      img.width = 100;
+      img.style.borderRadius = '6px';
+      img.style.boxShadow = '0 1px 4px rgba(0,0,0,0.1)';
+      wrapper.appendChild(img);
+    } else {
+      const fileLink = document.createElement('a');
+      fileLink.href = fileUrl;
+      fileLink.textContent = file.name;
+      fileLink.style.color = '#0055aa';
+      fileLink.download = '';
+      wrapper.appendChild(fileLink);
+    }
+
+    previewArea.appendChild(wrapper);
+  }
+});
+
+  
+    // 페이지 로드시 공지사항 불러오기
+    loadNotices();
+
+    // 탭 전환
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+
+        // 🔥 핵심: 선택된 언어로 갱신
+        selectedLang = btn.dataset.tab;
+    renderPostsFromServer(1); // 언어 바뀌었으니 리스트 다시 로딩
+  });
+});
+
+// 저장시 언어별 내용 비어있으면 null 처리
+document.getElementById('notice-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const id = document.getElementById('notice-id').value;
+  const langs = ['ko', 'en', 'zh'];
+  let hasAtLeastOne = false;
+
+
+
+  const currentTabLang = document.querySelector('.tab-btn.active').dataset.tab;
+
+const titleInput = document.getElementById(`title-${currentTabLang}`);
+const contentInput = document.getElementById(`content-${currentTabLang}`);
+
+const title = titleInput?.value?.trim();
+const content = contentInput?.value?.trim();
+
+if (!title && !content) {
+  alert("제목 또는 내용을 입력하세요.");
+  return;
+}
+
+const payload = {
+  title: { [currentTabLang]: title },
+  content: { [currentTabLang]: content },
+  category: 'resource' // ✅ 자료실용으로 변경
+};
+
+
+
+
+  const method = id ? 'PUT' : 'POST';
+  const url = id ? `https://cnlglobal-backend.onrender.com/api/notices/${id}` : 'https://cnlglobal-backend.onrender.com/api/notices';
+
+  await fetch(url, {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  document.getElementById('notice-form').reset();
+  document.getElementById('notice-id').value = '';
+
+  // ✅ 첨부파일 초기화
+uploadInput.value = '';
+previewArea.innerHTML = '';
+
+  // ✅ 저장된 언어 탭을 선택 상태로 반영
+  selectedLang = currentTabLang;
+
+  // 탭 버튼 시각적으로도 활성화 처리
+  document.querySelectorAll('.lang-btn-filter').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === selectedLang);
+  });
+
+  // ✅ 선택 언어 기준으로 공지사항 다시 렌더링
+  renderPostsFromServer(1);
+
+  
+// ✅ 저장 완료 알림
+alert("저장되었습니다.");
+});
+
+
+
+let selectedLang = 'ko'; // ✅ 초기값: 한국어
+document.addEventListener("DOMContentLoaded", () => {
+  renderPostsFromServer(1); // ✅ 기본 공지사항 로딩
+});
+
+
+document.querySelectorAll('.lang-btn-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.lang-btn-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedLang = btn.dataset.lang;
+    renderPostsFromServer(1); // 언어 변경 시 다시 로딩
+  });
+});
+
+function renderPostsFromServer(page = 1, query = "") {
+  fetch('https://cnlglobal-backend.onrender.com/api/notices?category=resource&q=' + encodeURIComponent(query))
+
+    .then(res => res.json())
+    .then(resData => {
+  const allPosts = resData.notices || []; // ✅ 공지 배열 추출
+  const postsPerPage = 5;
+  const start = (page - 1) * postsPerPage;
+  const sliced = allPosts.slice(start, start + postsPerPage); // ✅ 이제 정상
+
+      const listContainer = document.getElementById("notice-list");
+      listContainer.innerHTML = "";
+
+      sliced.forEach(post => {
+        const title = post.title?.[selectedLang];
+        const content = post.content?.[selectedLang];
+        if (!title || !content) return;
+
+        const div = document.createElement("div");
+        div.className = "notice";
+        div.innerHTML = `
+          <strong>${title}</strong><br>
+          <small>${new Date(post.createdAt).toLocaleString()}</small>
+          <p>${content}</p>
+          <div class="notice-actions">
+            <button onclick='editNotice(${JSON.stringify(post)})'>✏ 수정</button>
+            <button onclick='deleteNotice("${post._id}")'>🗑 삭제</button>
+          </div>
+        `;
+        listContainer.appendChild(div);
+      });
+
+       renderPagination(allPosts.length, page);
+    });
+}
+
+function insertImageToActiveContent(url) {
+  // 현재 활성 탭 찾기
+  const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
+  const textarea = document.getElementById(`content-${activeTab}`);
+  const imgTag = `<img src="${url}" alt="첨부 이미지">\n`;
+
+  textarea.value += `\n${imgTag}`; // 기존 내용 뒤에 이미지 삽입
+}
+
+function renderPagination(totalPosts, currentPage) {
+  const totalPages = Math.ceil(totalPosts / 5);
+  const pagination = document.getElementById("pagination");
+
+  if (!pagination) return;
+
+  pagination.innerHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    const button = document.createElement("button");
+    button.textContent = i;
+    if (i === currentPage) button.classList.add("active");
+    button.addEventListener("click", () => renderPostsFromServer(i));
+    pagination.appendChild(button);
+  }
+}
+
+function switchLanguage(lang) {
+  // 상단 탭
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === lang);
+  });
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.toggle('active', tab.id === `tab-${lang}`);
+  });
+
+  // 하단 목록 탭
+  document.querySelectorAll('.lang-btn-filter').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  selectedLang = lang;
+  renderPostsFromServer(1);
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchLanguage(btn.dataset.tab));
+});
+
+document.querySelectorAll('.lang-btn-filter').forEach(btn => {
+  btn.addEventListener('click', () => switchLanguage(btn.dataset.lang));
+});
+
+
+function insertHyperlink() {
+  const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
+  const textarea = document.getElementById(`content-${activeTab}`);
+
+  const url = prompt("링크할 주소를 입력하세요 (예: https://www.example.com)");
+  if (!url) return;
+
+  const text = prompt("링크에 표시할 텍스트를 입력하세요", url);
+  if (text === null) return;
+
+  const linkTag = `<a href="${url}" target="_blank">${text}</a>`;
+  textarea.value += `\n${linkTag}\n`;
+}
+
+  </script>
+  
+  
+
+
+</body>
+</html>

@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C&L Global 홈페이지</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      line-height: 1.6;
+      color: #333;
+      background: url('images/earth.jpg') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    header {
+      background-color: white;
+      padding: 1rem 2rem;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      position: relative;
+    }
+
+    nav a {
+      color: #002244;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .hero {
+      position: relative;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 850px;
+    }
+
+    .swiper-slide {
+      background-size: cover;
+      background-position: center;
+    }
+
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: 30rem auto; /* ← 상하 여백 충분히 줌 */
+
+      background-color: rgba(255, 255, 255, 0.85); /* 하얀색 + 투명도 */
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    .section h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .service-images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .service-images img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer {
+      background-color: #002244;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    #services {
+      margin-top: 500px;
+    }
+
+    #contact {
+      margin-top: 500px;
+      margin-bottom: 500px;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .swiper {
+        height: 350px;
+      }
+
+      .section {
+        padding: 2rem 1rem;
+            margin: 2rem 1rem;
+      }
+
+      .circle-button {
+        width: 120px;
+        height: 120px;
+        font-size: 0.9rem;
+      }
+
+      .circle-button-group {
+        flex-direction: column;
+        gap: 1rem;
+        top: 60%;
+      }
+    }
+
+    nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  position: relative;
+}
+
+nav li {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: block; /* flex 상속 방지 */
+  flex-direction: column; /* 필요 없지만 안전하게 명시 가능 */
+  opacity: 0;
+  transform: translateY(10px);
+  visibility: hidden;
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  background-color: white;
+  padding: 0.5rem 0;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 1000;
+  min-width: 180px;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+
+
+.dropdown-menu li {
+  padding: 0;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 0.6rem 1.2rem;
+  white-space: nowrap;
+  color: #002244;
+  font-weight: 500;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0px);
+  visibility: visible;
+}
+
+.slider-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* 어두운 투명 막 */
+  z-index: 5; /* 버튼 아래, 슬라이드 위 */
+}
+
+.parallax-slide {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 832px;
+}
+
+.swiper, .swiper-wrapper, .swiper-slide {
+  width: 100%;
+  height: 832px;
+}
+
+.lang-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.lang-btn {
+  background: none;
+  border: none; /* ← 테두리 제거 */
+  color: #002244;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.lang-btn i {
+  margin-right: 4px;
+}
+
+.lang-menu {
+  list-style: none; /* ← 점 제거 */
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1001;
+  top: 110%;
+  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.lang-menu li {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: #002244;
+}
+
+.lang-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+/* 드롭다운이 열렸을 때 효과적으로 보여지도록 */
+.lang-dropdown.open .lang-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0px);
+}
+
+.lang-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.lang-btn {
+  background: none;
+  border: none; /* ← 테두리 제거 */
+  color: #002244;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.lang-btn i {
+  margin-right: 4px;
+}
+
+.lang-menu {
+  list-style: none; /* ← 점 제거 */
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1001;
+  top: 110%;
+  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.lang-menu li {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: #002244;
+}
+
+.lang-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+/* 드롭다운이 열렸을 때 효과적으로 보여지도록 */
+.lang-dropdown.open .lang-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0px);
+}
+
+.circle-button-group {
+  position: fixed;
+  top: 17%;
+  left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 999;
+}
+
+.circle-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.circle-button {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background-color: #002244;
+  color: white;
+  opacity: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  animation: fadeDown 0.5s ease forwards;
+}
+
+.circle-button:hover {
+  background-color: #0055aa;
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.circle-button.active {
+  background-color: #0055aa;
+  box-shadow: 0 0 15px rgba(0, 85, 170, 0.4);
+  transform: scale(1.1);
+}
+
+.line {
+  width: 0;
+  height: 0;
+  border-left: 2px dotted #888;
+  opacity: 1;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  animation: growLine 0.5s ease forwards;
+}
+
+@keyframes fadeDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes growLine {
+  from { height: 0; opacity: 0; }
+  to { height: 40px; opacity: 1; }
+}
+
+.circle-button-wrapper:nth-child(1) .circle-button {
+  animation-delay: 0s;
+}
+.circle-button-wrapper:nth-child(1) .line {
+  animation-delay: 0.3s;
+}
+.circle-button-wrapper:nth-child(2) .circle-button {
+  animation-delay: 0.6s;
+}
+.circle-button-wrapper:nth-child(2) .line {
+  animation-delay: 0.9s;
+}
+.circle-button-wrapper:nth-child(3) .circle-button {
+  animation-delay: 1.2s;
+}
+.circle-button-wrapper:nth-child(3) .line {
+  animation-delay: 1.5s;
+}
+.circle-button-wrapper:nth-child(4) .circle-button {
+  animation-delay: 1.8s;
+}
+
+@media (max-width: 768px) {
+  .circle-button-group {
+    display: none;
+  }
+}
+
+/* 한국어 및 중국어일 때 원형 버튼 텍스트 크게 적용 */
+html[lang="ko"] .circle-button,
+html[lang="zh"] .circle-button {
+  font-size: 1.2rem !important;
+  line-height: 1.5;
+}
+
+.logo-item img {
+  height: 50px;
+  display: block;
+}
+
+.logo-item {
+  display: flex;
+  align-items: center;
+}
+
+.accordion-toggle {
+  background-color: #f4f4f4;
+  color: #002244;
+  border: none;
+  padding: 0.6rem 1rem;
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  transition: background-color 0.3s;
+}
+
+.accordion-toggle:hover {
+  background-color: #eaeaea;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+  margin-top: 0.5rem;
+}
+
+.accordion-content.open {
+  max-height: 1000px; /* 충분히 큰 값으로 설정 */
+  opacity: 1;
+}
+
+header img {
+  height: 40px;
+}
+
+  </style>
+</head>
+
+<body>
+  <header>
+          <a href="index.html"><img src="images/logo.png" alt="C&L Global 로고" /></a>    
+    <nav class="main-nav">
+      <ul>
+        <li class="dropdown">
+          <a href="index.html" data-ko="홈" data-en="Home" data-zh="首页"></a>
+        </li>
+        <li class="dropdown">
+          <a href="aboutus.html" data-ko="회사소개" data-en="About us" data-zh="关于我们"></a>
+          <ul class="dropdown-menu">
+            <li><a href="aboutus.html#1"  data-ko="회사 개요" data-en="Company Overview" data-zh="公司概况"></a></li>
+            <li><a href="aboutus.html#2" data-ko="인증 및 수상" data-en="Competitiveness" data-zh="认证与奖项"></a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="ourservice1.html" data-ko="서비스 안내" data-en="Our Service" data-zh="我们的服务"></a>
+          <ul class="dropdown-menu">
+            <li><a href="ourservice1.html" data-ko="글로벌 운송" data-en="Global Shipping" data-zh="全球运输与拼箱"></a></li>
+            <li><a href="ourservice2.html" data-ko="국내 운송" data-en="Domestic Trucking" data-zh="国内运输"></a></li>
+            <li><a href="ourservice3.html" data-ko="이커머스 풀필먼트" data-en="E-Commerce Fulfillment" data-zh="电商履约"></a></li>
+            <li><a href="ourservice4.html" data-ko="전시 물류" data-en="Exhibition Logistics" data-zh="展览物流"></a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a href="공지사항.html" data-ko="회사/산업 소식" data-en="Information/News" data-zh="公司/行业新闻"></a>
+          <ul class="dropdown-menu">
+            <li><a href="공지사항.html" data-ko="공지사항" data-en="Notices" data-zh="通知"></a></li>
+            <li><a href="뉴스레터.html" data-ko="뉴스레터" data-en="Newsletter" data-zh="新闻简报"></a></li>
+            <li><a href="information.html" data-ko="정보" data-en="Information" data-zh="Information"></a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a href="contactus.html" data-ko="문의하기" data-en="Contact us" data-zh="联系我们"></a>
+          <ul class="dropdown-menu">
+            <li><a href="contactus.html#us" data-ko="미국" data-en="U.S." data-zh="美国"></a></li>
+            <li><a href="contactus.html#ko" data-ko="한국" data-en="Korea" data-zh="韩国"></a></li>
+            <li><a href="contactus.html#cn" data-ko="중국" data-en="China" data-zh="中国"></a></li>
+            <li><a href="contactus.html#wh" data-ko="웨어하우스" data-en="Warehouse" data-zh="仓库"></a></li>
+          </ul>
+        </li>        
+      </ul>
+    </nav>
+
+    <div class="lang-dropdown">
+      <button class="lang-btn">
+        <i class="fas fa-globe"></i> Language <i class="fas fa-caret-down"></i>
+      </button>
+      <ul class="lang-menu">
+        <li onclick="setLanguage('en')">English</li>
+        <li onclick="setLanguage('ko')">한국어</li>
+        <li onclick="setLanguage('zh')">中文</li>
+      </ul>
+    </div>
+  </header>
+  
+      
+
+
+  <section class="section" id="us" style="scroll-margin-top: 150px; margin-top: 50px;" data-aos="fade-up">
+    <h3><i></i>
+      <span data-ko="미국" data-en="UNITED STATES" data-zh="美国"></span></h3>
+    
+    <div class="map-wrapper" style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3018.8292795766006!2d-74.059294!3d40.8317134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2f799fe57bfaf%3A0xe58a695d34b28455!2sC%20%26%20L%20Global!5e0!3m2!1sko!2skr!4v1747111391942!5m2!1sko!2skr"
+       width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      
+      <div class="map-info" style="max-width: 300px; text-align: left;">
+        <h1 data-ko="C & L Global" data-en="C & L Global" data-zh="C & L Global"></h1>
+        <p>
+          145 Commerce Rd, Carlstadt, NJ 07072<br><br>
+          Tel: (201) 941-0777<br><br>
+          Office Hour: 8:00AM ~ 5:00PM
+        </p>
+
+        <!-- 다국어 지원 버튼 -->
+  <button class="accordion-toggle" 
+          data-ko="담당자 보기" 
+          data-en="View Contacts" 
+          data-zh="查看联系人">
+    담당자 보기 <i class="fas fa-plus"></i>
+  </button>
+
+  <div class="accordion-content">
+    <!-- 개별 담당자 정보도 다국어 처리 -->
+    <p data-ko="<strong>Joe Cho</strong> (대표이사)<br>Ext.777<br><i class='fas fa-envelope'></i> joe@cnlglobal.com"
+       data-en="<strong>Joe Cho</strong> (President)<br>Ext.777<br><i class='fas fa-envelope'></i> joe@cnlglobal.com"
+       data-zh="<strong>Joe Cho</strong>（总裁）<br>Ext.777<br><i class='fas fa-envelope'></i> joe@cnlglobal.com">
+    </p><br>
+    <p data-ko="<strong>Julie Choi</strong> (본부장)<br>Ext.201<br><i class='fas fa-envelope'></i> julie@cnlglobal.com"
+       data-en="<strong>Julie Choi</strong> (General Manager)<br>Ext.201<br><i class='fas fa-envelope'></i> julie@cnlglobal.com"
+       data-zh="<strong>Julie Choi</strong>（总经理）<br>Ext.201<br><i class='fas fa-envelope'></i> julie@cnlglobal.com">
+    </p><br>
+    <p data-ko="<strong>Esther Park</strong> (회계팀장)<br>Ext.212<br><i class='fas fa-envelope'></i> esther.park@cnlglobal.com"
+       data-en="<strong>Esther Park</strong> (Accounting Manager)<br>Ext.212<br><i class='fas fa-envelope'></i> esther.park@cnlglobal.com"
+       data-zh="<strong>Esther Park</strong>（会计经理）<br>Ext.212<br><i class='fas fa-envelope'></i> esther.park@cnlglobal.com">
+    </p><br>
+    <p data-ko="<strong>Elley Ryu</strong> (수출팀장)<br>Ext.202<br><i class='fas fa-envelope'></i> elley@cnlglobal.com"
+       data-en="<strong>Elley Ryu</strong> (Export Team Manager)<br>Ext.202<br><i class='fas fa-envelope'></i> elley@cnlglobal.com"
+       data-zh="<strong>Elley Ryu</strong>（出口部门经理）<br>Ext.202<br><i class='fas fa-envelope'></i> elley@cnlglobal.com">
+    </p><br>
+    <p data-ko="<strong>Jason Cho</strong> (수입팀장)<br>Ext.302<br><i class='fas fa-envelope'></i> jason@cnlglobal.com"
+       data-en="<strong>Jason Cho</strong> (Import Team Manager)<br>Ext.302<br><i class='fas fa-envelope'></i> jason@cnlglobal.com"
+       data-zh="<strong>Jason Cho</strong>（进口部门经理）<br>Ext.302<br><i class='fas fa-envelope'></i> jason@cnlglobal.com">
+    </p><br>
+    <p data-ko="<strong>Paul Lee</strong> (수출 영업팀장)<br>Ext.204<br><i class='fas fa-envelope'></i> paul@cnlglobal.com"
+       data-en="<strong>Paul Lee</strong> (Export Sales Manager)<br>Ext.204<br><i class='fas fa-envelope'></i> paul@cnlglobal.com"
+       data-zh="<strong>Paul Lee</strong>（出口销售经理）<br>Ext.204<br><i class='fas fa-envelope'></i> paul@cnlglobal.com">
+    </p><br>
+    <p data-ko="<strong>Taehoon Kang</strong> (수입 영업팀장)<br>Ext.307<br><i class='fas fa-envelope'></i> tk@cnlglobal.com"
+       data-en="<strong>Taehoon Kang</strong> (Import Sales Manager)<br>Ext.307<br><i class='fas fa-envelope'></i> tk@cnlglobal.com"
+       data-zh="<strong>Taehoon Kang</strong>（进口销售经理）<br>Ext.307<br><i class='fas fa-envelope'></i> tk@cnlglobal.com">
+    </p><br>
+    <p data-ko="<strong>Oze Jo</strong> (수출 운영팀장)<br>Ext.207<br><i class='fas fa-envelope'></i> oze@cnlglobal.com"
+       data-en="<strong>Oze Jo</strong> (Export Operation Manager)<br>Ext.207<br><i class='fas fa-envelope'></i> oze@cnlglobal.com"
+       data-zh="<strong>Oze Jo</strong>（出口运营经理）<br>Ext.207<br><i class='fas fa-envelope'></i> oze@cnlglobal.com">
+    </p><br>
+    <p data-ko="<strong>Noah Choi</strong> (수입 운영팀장)<br>Ext.308<br><i class='fas fa-envelope'></i> noah@cnlglobal.com"
+       data-en="<strong>Noah Choi</strong> (Import Operation Manager)<br>Ext.308<br><i class='fas fa-envelope'></i> noah@cnlglobal.com"
+       data-zh="<strong>Noah Choi</strong>（进口运营经理）<br>Ext.308<br><i class='fas fa-envelope'></i> noah@cnlglobal.com">
+    </p>
+  </div>
+      </div>
+
+      <h3><i></i><br><br>
+        <span data-ko="미국" data-en="UNITED STATES(LAS VEGAS)" data-zh="美国"></span></h3>
+        <div class="map-wrapper" style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3223.281122539776!2d-115.19491832375418!3d36.11100830624509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c8c7893022b855%3A0x8f15f0d1f330e654!2sC%20%26%20L%20GLOBAL%20INC!5e0!3m2!1sko!2skr!4v1747111459507!5m2!1sko!2skr"
+       width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      
+      <div class="map-info" style="max-width: 300px; text-align: left;">
+        <h1 data-ko="C & L GLOBAL INC사" data-en="C & L GLOBAL INC" data-zh="C & L GLOBAL INC"></h1>
+        <p>
+          4301 S Valley View Blvd suite 22,<br>
+          Las Vegas, NV 89103<br><br>
+          Tel: (201) 941-0777<br>
+          Tel: (702) 207-9438<br><br>
+          Office Hour: 8:00AM ~ 5:00PM
+        </p>
+        
+          <button class="accordion-toggle" 
+          data-ko="담당자 보기" 
+          data-en="View Contacts" 
+          data-zh="查看联系人">
+    담당자 보기 <i class="fas fa-plus"></i>
+  </button>
+
+  <div class="accordion-content">
+    <!-- 개별 담당자 정보도 다국어 처리 -->
+    <p data-ko="<strong>Sally Song</strong> (총괄 영업팀장)<br>Ext.501<br><i class='fas fa-envelope'></i> sally.song@cnlglobal.com"
+       data-en="<strong>Sally Song</strong> (General Sales Manager)<br>Ext.501<br><i class='fas fa-envelope'></i> sally.song@cnlglobal.com"
+       data-zh="<strong>Sally Song</strong>（总销售经理）<br>Ext.501<br><i class='fas fa-envelope'></i> sally.song@cnlglobal.com">
+    </p><br>
+    <p data-ko="<strong>Apple Liu</strong> (지점장)<br><i class='fas fa-envelope'></i> david@cnlglobal.com"
+       data-en="<strong>Apple Liu</strong> (Branch Manager)<br><i class='fas fa-envelope'></i> david@cnlglobal.com"
+       data-zh="<strong>Apple Liu</strong>（分公司经理）<br><i class='fas fa-envelope'></i> david@cnlglobal.com">
+    </p><br>
+  </div>
+      </div>
+
+  </section>
+
+  <section class="section" id="ko" style="scroll-margin-top: 150px; margin-top: -300px;" data-aos="fade-up">
+    <h3>
+      <i></i>
+      <span data-ko="한국" data-en="KOREA" data-zh="韩国"></span>
+    </h3>
+    <div class="map-wrapper" style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d279.6188999057915!2d127.05948573230319!3d37.542652306001706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca52a763a5f4f%3A0x52af77a8ccbcbf63!2z7Iqk7YyM7YGs7ZSM65-s7IqkIOyEseyImOygkA!5e0!3m2!1sko!2skr!4v1747112345232!5m2!1sko!2skr"
+       width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      
+      <div class="map-info" style="max-width: 300px; text-align: left;">
+        <h1 data-ko="C & L 글로벌 코리아" data-en="C & L Global Korea" data-zh="C & L Global 韩国分公司">C & L Global Korea</h1>
+        <p>
+          서울특별시 성동구 연무장15길 11<br>
+          에스팩토리 B동 2층<br><br>
+          Tel: 201-941-0777<br>
+          Fax: 201-941-0755<br>
+          <a href="mailto:info@cnlglobal.com">info@cnlglobal.com</a><br><br>
+          Office Hour: 9:00AM ~ 6:00PM
+        </p>
+
+                  <button class="accordion-toggle" 
+          data-ko="담당자 보기" 
+          data-en="View Contacts" 
+          data-zh="查看联系人">
+    담당자 보기 <i class="fas fa-plus"></i>
+  </button>
+
+          <div class="accordion-content">
+    <!-- 개별 담당자 정보도 다국어 처리 -->
+    <p data-ko="<strong>ㅁㄴㅇㄹ</strong> (대표이사)<br><i class='fas fa-envelope'></i> joe@cnlglobal.com"
+       data-en="<strong>ㅁㄴㅇㄹ</strong> (General Sales Manager)<br><i class='fas fa-envelope'></i> joe@cnlglobal.com"
+       data-zh="<strong>ㅁㄴㅇㄹ</strong>（总裁）<br><i class='fas fa-envelope'></i> joe@cnlglobal.com">
+    </p><br>
+    <p data-ko="<strong>ㅁㄴㅇㄹ</strong> (본부장)<br><i class='fas fa-envelope'></i> julie@cnlglobal.com"
+       data-en="<strong>ㅁㄴㅇㄹ</strong> (Branch Manager)<br><i class='fas fa-envelope'></i> julie@cnlglobal.com"
+       data-zh="<strong>ㅁㄴㅇㄹ</strong>（总经理）<br><i class='fas fa-envelope'></i> julie@cnlglobal.com">
+    </p><br>
+  </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="cn" style="scroll-margin-top: 150px; margin-top: -300px;" data-aos="fade-up">
+    <h3>
+      <i></i>
+      <span data-ko="중국" data-en="CHINA" data-zh="中国"></span>
+    </h3>
+    <div class="map-wrapper" style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3225.1114762537654!2d120.40114807638281!3d36.0663849724654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x359610e4f9f65fd7%3A0xac422d8c832b4fb0!2sHong%20Kong%20Garden%20High%20Level%20Block%20A%20%EF%BC%88West%20Gate%EF%BC%89!5e0!3m2!1sko!2skr!4v1747111922578!5m2!1sko!2skr"
+       width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      
+      <div class="map-info" style="max-width: 300px; text-align: left;">
+        <h1 data-ko="C & L 글로벌 차이나" data-en="C & L Global China" data-zh="C & L Global 中国公司">C & L Global China</h1>
+        <p>
+          Shandong, Qingdao, Shinan District, Quanzhou Rd,<br>
+          3号香港花园高层A座 邮政编码：<br>
+          266073<br><br>
+          Tel: +86 532-83093557<br>
+          Tel: +86 532-83093558<br>
+          <a href="mailto:info@cnlglobal.com">info@cnlglobal.com</a><br><br>
+          Office Hour: 8:00AM ~ 5:00PM
+        </p>
+
+                  <button class="accordion-toggle" 
+          data-ko="담당자 보기" 
+          data-en="View Contacts" 
+          data-zh="查看联系人">
+    담당자 보기 <i class="fas fa-plus"></i>
+  </button>
+
+          <div class="accordion-content">
+    <!-- 개별 담당자 정보도 다국어 처리 -->
+    <p data-ko="<strong>Kathy Qin</strong> (지점장)<br><i class='fas fa-envelope'></i> kathy.qin@cnlglobal.com"
+       data-en="<strong>Kathy Qin</strong> (Branch Manager)<br><i class='fas fa-envelope'></i> kathy.qin@cnlglobal.com"
+       data-zh="<strong>Kathy Qin</strong>（分公司经理）<br><i class='fas fa-envelope'></i> kathy.qin@cnlglobal.com">
+    </p><br>
+    <p data-ko="<strong>Apple Liu</strong> (운영팀장)<br><i class='fas fa-envelope'></i> apple.qin@cnlglobal.com"
+       data-en="<strong>Apple Liu</strong> (Operation Manager)<br><i class='fas fa-envelope'></i> apple.qin@cnlglobal.com"
+       data-zh="<strong>Apple Liu</strong>（运营经理）<br><i class='fas fa-envelope'></i> apple.qin@cnlglobal.com">
+    </p><br>
+  </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="wh" style="scroll-margin-top: 150px; margin-top: -300px;" data-aos="fade-up">
+    <h3>
+      <i></i>
+      <span data-ko="웨어하우스" data-en="WAREHOUSE" data-zh="仓库"></span>
+    </h3>
+    <div style="text-align: center;">
+      <img src="images/warehouse_location.png" alt="Warehouse Map" style="width: 100%; max-width: 900px; height: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" />
+  
+      <div style="margin-top: 1.5rem; text-align: left; max-width: 600px; margin-inline: auto; font-size: 1rem;">
+        <p><span style="display: inline-block; width: 20px; height: 20px; border: 2px solid red; border-radius: 50%; background-color: white; vertical-align: middle; margin-right: 10px;"></span> : 회사 소유</p>
+        <p><span style="display: inline-block; width: 20px; height: 20px; border: 2px solid #0055aa; border-radius: 50%; background-color: white; vertical-align: middle; margin-right: 10px;"></span> : 협업사 지점</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" style="margin-top: -200px;">
+    <p>&copy; 2025 C&L Global. All rights reserved.</p>
+    
+      <!-- 관리자 전용 링크: 로그인 시에만 표시 -->
+  <a href="admin.html" id="adminLinkFooter" style="display: none; font-size: 0.9rem; color: #ccc; margin-top: 0.5rem; display: block;">
+    AdminLink
+  </a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+    loop: true,
+    autoplay: {
+    delay: 5000, // 슬라이드 간 간격
+    disableOnInteraction: false
+    },
+    effect: 'fade',
+    speed: 1200, // 페이드 전환 시간 (ms)
+    fadeEffect: {
+    crossFade: true
+    }
+    });
+
+
+    AOS.init({ duration: 1000, once: true });
+
+    window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash;
+  if (hash) {
+    const target = document.querySelector(hash);
+    if (target) {
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }
+});
+  </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sectionIds = ['us', 'ko', 'cn', 'wh'];
+    const buttons = document.querySelectorAll('.circle-button-group .circle-button');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          buttons.forEach(btn => {
+            if (btn.getAttribute('href') === `#${id}`) {
+              btn.classList.add('active');
+            } else {
+              btn.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, {
+      threshold: 0.6
+    });
+
+    sectionIds.forEach(id => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggles = document.querySelectorAll('.accordion-toggle');
+
+    toggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const content = toggle.nextElementSibling;
+        const icon = toggle.querySelector('i');
+
+        if (content.classList.contains('open')) {
+          content.classList.remove('open');
+          icon.classList.remove('fa-minus');
+          icon.classList.add('fa-plus');
+        } else {
+          content.classList.add('open');
+          icon.classList.remove('fa-plus');
+          icon.classList.add('fa-minus');
+        }
+      });
+    });
+  });
+</script>
+
+
+<script src="js/lang.js"></script>
+
+</body>
+
+</html>

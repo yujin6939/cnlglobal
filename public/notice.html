@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>공지사항</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f8f9fa;
+    }
+    .notice {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #002244;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 0.5rem;
+    }
+    .pagination button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #004488;
+      color: white;
+      cursor: pointer;
+    }
+    .pagination button:disabled {
+      background: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>공지사항</h1>
+  <div id="notices"></div>
+  <div class="pagination">
+    <button id="prev">이전</button>
+    <span id="page-indicator"></span>
+    <button id="next">다음</button>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    let total = 0;
+    const perPage = 5;
+
+    async function loadNotices(page = 1) {
+      const res = await fetch('https://cnlglobal-backend.onrender.com/api/notices?page=' + page);
+      const data = await res.json();
+      const list = document.getElementById('notices');
+      list.innerHTML = '';
+
+      data.notices.forEach(n => {
+        const div = document.createElement('div');
+        div.className = 'notice';
+        div.innerHTML = `
+          <strong><a href="notice-detail.html?id=${n._id}">${n.title.ko}</a></strong><br>
+          <small>${new Date(n.createdAt).toLocaleString()}</small>
+          <p>${n.content.ko.slice(0, 100)}...</p>
+        `;
+        list.appendChild(div);
+      });
+
+      total = data.total;
+      currentPage = page;
+      document.getElementById('page-indicator').textContent = `${page} / ${Math.ceil(total / perPage)}`;
+      document.getElementById('prev').disabled = page === 1;
+      document.getElementById('next').disabled = page >= Math.ceil(total / perPage);
+    }
+
+    document.getElementById('prev').addEventListener('click', () => loadNotices(currentPage - 1));
+    document.getElementById('next').addEventListener('click', () => loadNotices(currentPage + 1));
+
+    window.addEventListener('DOMContentLoaded', () => loadNotices());
+  </script>
+</body>
+</html>
+"""
+
+from IPython.display import HTML
+HTML(notice_html_code)

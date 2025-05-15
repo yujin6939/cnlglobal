@@ -1,0 +1,81 @@
+# Now let's generate the `notice-detail.html` page to show a single notice in detail based on the ID from the URL.
+
+notice_detail_html = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>공지사항 상세보기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f8f9fa;
+    }
+    .notice {
+      background: white;
+      padding: 1.5rem;
+      border-left: 5px solid #002244;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .notice h2 {
+      margin-top: 0;
+      color: #002244;
+    }
+    .notice small {
+      display: block;
+      margin-bottom: 1rem;
+      color: #555;
+    }
+    .back-link {
+      margin-top: 2rem;
+      display: inline-block;
+      color: #004488;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="notice">
+    <h2 id="title">제목 로딩중...</h2>
+    <small id="date"></small>
+    <div id="content">내용을 불러오는 중입니다...</div>
+  </div>
+  <a href="notice.html" class="back-link">← 목록으로 돌아가기</a>
+
+  <script>
+    async function loadNotice() {
+      const params = new URLSearchParams(location.search);
+      const id = params.get("id");
+
+      if (!id) {
+        document.getElementById("title").textContent = "공지사항을 찾을 수 없습니다.";
+        document.getElementById("content").textContent = "잘못된 접근입니다.";
+        return;
+      }
+
+      const res = await fetch('https://cnlglobal-backend.onrender.com/api/notices/' + id);
+      if (!res.ok) {
+        document.getElementById("title").textContent = "공지사항을 불러오지 못했습니다.";
+        document.getElementById("content").textContent = "서버 오류 또는 삭제된 글일 수 있습니다.";
+        return;
+      }
+
+      const notice = await res.json();
+      document.getElementById("title").textContent = notice.title.ko;
+      document.getElementById("date").textContent = new Date(notice.createdAt).toLocaleString();
+      document.getElementById("content").innerHTML = notice.content.ko;
+    }
+
+    window.addEventListener("DOMContentLoaded", loadNotice);
+  </script>
+</body>
+</html>
+"""
+
+from IPython.display import HTML
+HTML(notice_detail_html)

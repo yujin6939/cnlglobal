@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C&L Global 홈페이지</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      line-height: 1.6;
+      color: #333;
+      overflow-x: hidden;
+      background: url('images/exhibition.jpg') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    header {
+      background-color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      position: relative;
+    }
+    nav li {
+      position: relative;
+    }
+
+    nav a {
+      color: #002244;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .dropdown-menu {
+      display: block;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(10px);
+      visibility: hidden;
+      position: absolute;
+      top: 2.5rem;
+      left: 0;
+      background-color: white;
+      padding: 0.5rem 0;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 1000;
+      min-width: 130px;
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    }
+
+    .dropdown-menu li a {
+      display: block;
+      padding: 0.6rem 1.2rem;
+      white-space: nowrap;
+      color: #002244;
+      font-weight: 500;
+    }
+
+    .dropdown-menu li a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      transform: translateY(0px);
+      visibility: visible;
+    }
+  
+    .hero {
+      position: relative;
+    }
+  
+    .swiper {
+      width: 100%;
+      height: 850px;
+    }
+  
+    .swiper-slide {
+      background-size: cover;
+      background-position: center;
+    }
+  
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: 6rem auto; /* ← 상하 여백 충분히 줌 */
+      margin-bottom: 40rem;
+      background-color: rgba(255, 255, 255, 0.85); /* 하얀색 + 투명도 */
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    }
+  
+    .section h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+  
+    .text-center {
+      text-align: center;
+    }
+  
+    .service-images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+  
+    .service-images img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+  
+    .footer {
+      background-color: #002244;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+  
+    #services {
+      margin-top: 500px;
+    }
+  
+    #contact {
+      margin-top: 500px;
+      margin-bottom: 500px;
+    }
+  
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+  
+      .swiper {
+        height: 350px;
+      }
+  
+      .section {
+        padding: 2rem 1rem;
+        margin: 2rem 1rem;
+      }
+  
+      .circle-button {
+        width: 120px;
+        height: 120px;
+        font-size: 0.9rem;
+      }
+  
+      .circle-button-group {
+        flex-direction: column;
+        gap: 1rem;
+        top: 60%;
+      }
+
+      .circle-button-group {
+    display: none;
+    }
+    }
+  
+    .slider-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 5;
+    }
+  
+    .parallax-slide {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 832px;
+    }
+  
+    .swiper, .swiper-wrapper, .swiper-slide {
+      width: 100%;
+      height: 832px;
+    }
+
+    .lang-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.lang-btn {
+  background: none;
+  border: none; /* ← 테두리 제거 */
+  color: #002244;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.lang-btn i {
+  margin-right: 4px;
+}
+
+.lang-menu {
+  list-style: none; /* ← 점 제거 */
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1001;
+  top: 110%;
+  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.lang-menu li {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: #002244;
+}
+
+.lang-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+/* 드롭다운이 열렸을 때 효과적으로 보여지도록 */
+.lang-dropdown.open .lang-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0px);
+}
+
+.circle-button-group {
+  position: fixed;
+  top: 20%;
+  left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 999;
+}
+
+.circle-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 버튼 */
+.circle-button {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #002244;
+  color: white;
+  opacity: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  animation: fadeDown 0.5s ease forwards;
+}
+
+.circle-button:hover {
+  background-color: #0055aa;
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* 세로선 */
+.line {
+  width: 0; /* 선 너비는 border로 대체 */
+  height: 0;
+  border-left: 2px dotted #888;  /* 점선 적용 */
+  opacity: 1;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  animation: growLine 0.5s ease forwards;
+}
+
+
+/* 등장 애니메이션 */
+@keyframes fadeDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 선이 위에서 아래로 그려지는 듯한 애니메이션 */
+@keyframes growLine {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: 40px;
+    opacity: 1;
+  }
+}
+
+/* 촤라락 delay */
+.circle-button-wrapper:nth-child(1) .circle-button {
+  animation-delay: 0s;
+}
+.circle-button-wrapper:nth-child(1) .line {
+  animation-delay: 0.3s;
+}
+
+.circle-button-wrapper:nth-child(2) .circle-button {
+  animation-delay: 0.6s;
+}
+.circle-button-wrapper:nth-child(2) .line {
+  animation-delay: 0.9s;
+}
+
+.circle-button-wrapper:nth-child(3) .circle-button {
+  animation-delay: 1.2s;
+}
+.circle-button-wrapper:nth-child(3) .line {
+  animation-delay: 1.5s;
+}
+
+.circle-button-wrapper:nth-child(4) .circle-button {
+  animation-delay: 1.8s;
+}
+
+/* 반응형: 모바일에서 숨김 (선택) */
+@media (max-width: 768px) {
+  .circle-button-group {
+    display: none;
+  }
+}
+
+.circle-button.active {
+  background-color: #0055aa;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 85, 170, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* 한국어 및 중국어일 때 circle-button의 폰트 크기 증가 */
+html[lang="ko"] .circle-button,
+html[lang="zh"] .circle-button {
+  font-size: 1rem !important;
+  line-height: 1.6;
+}
+
+.section-service {
+
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.section-service .section-header i {
+  color: #0055aa;
+  margin-bottom: 1rem;
+}
+
+.section-service h3 {
+  font-size: 2.2rem;
+  color: #002244;
+}
+
+.section-service .subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.cards {
+  display: flex;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  justify-items: center;
+  margin-top: 3rem;
+
+  display: flex;
+  justify-content: center;       /* 세로 방향 가운데 정렬 */
+  align-items: center;           /* 가로 방향 가운데 정렬 */
+  text-align: center;            /* 텍스트도 가운데 정렬 */
+}
+
+.card {
+  height: 220px;
+  width: 300px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+  justify-self: stretch; /* ✅ 이거 추가! */
+  
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.card i {
+  font-size: 2rem;
+  color: #0055aa;
+  margin-bottom: 1rem;
+}
+
+.card h4 {
+  font-size: 1.1rem;
+  color: #002244;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.logo-item img {
+  height: 50px;
+  display: block;
+}
+
+.logo-item {
+  display: flex;
+  align-items: center;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-load {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-down-on-load {
+  opacity: 0;
+  animation: fadeDown 0.8s ease forwards;
+}
+  </style>
+</head>
+
+<body>
+  <header>
+          <a href="index.html"><img src="images/logo.png" alt="C&L Global 로고" /></a>    
+    <nav class="main-nav">
+      <ul>
+        <li class="dropdown">
+          <a href="index.html" data-ko="홈" data-en="Home" data-zh="首页"></a>
+        </li>
+        <li class="dropdown">
+          <a href="aboutus.html" data-ko="회사소개" data-en="About us" data-zh="关于我们"></a>
+          <ul class="dropdown-menu">
+            <li><a href="aboutus.html#1"  data-ko="회사 개요" data-en="Company Overview" data-zh="公司概况"></a></li>
+            <li><a href="aboutus.html#2" data-ko="인증 및 수상" data-en="Competitiveness" data-zh="认证与奖项"></a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="ourservice1.html" data-ko="서비스 안내" data-en="Our Service" data-zh="我们的服务"></a>
+          <ul class="dropdown-menu">
+            <li><a href="ourservice1.html" data-ko="글로벌 운송" data-en="Global Shipping" data-zh="全球运输与拼箱"></a></li>
+            <li><a href="ourservice2.html" data-ko="국내 운송" data-en="Domestic Trucking" data-zh="国内运输"></a></li>
+            <li><a href="ourservice3.html" data-ko="이커머스 풀필먼트" data-en="E-Commerce Fulfillment" data-zh="电商履约"></a></li>
+            <li><a href="ourservice4.html" data-ko="전시 물류" data-en="Exhibition Logistics" data-zh="展览物流"></a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a href="공지사항.html" data-ko="회사/산업 소식" data-en="Information/News" data-zh="公司/行业新闻"></a>
+          <ul class="dropdown-menu">
+            <li><a href="공지사항.html" data-ko="공지사항" data-en="Notices" data-zh="通知"></a></li>
+            <li><a href="뉴스레터.html" data-ko="뉴스레터" data-en="Newsletter" data-zh="新闻简报"></a></li>
+            <li><a href="information.html" data-ko="정보" data-en="Information" data-zh="Information"></a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a href="contactus.html" data-ko="문의하기" data-en="Contact us" data-zh="联系我们"></a>
+          <ul class="dropdown-menu">
+            <li><a href="contactus.html#us" data-ko="미국" data-en="U.S." data-zh="美国"></a></li>
+            <li><a href="contactus.html#ko" data-ko="한국" data-en="Korea" data-zh="韩国"></a></li>
+            <li><a href="contactus.html#cn" data-ko="중국" data-en="China" data-zh="中国"></a></li>
+            <li><a href="contactus.html#wh" data-ko="웨어하우스" data-en="Warehouse" data-zh="仓库"></a></li>
+          </ul>
+        </li>        
+      </ul>
+    </nav>
+
+    <div class="lang-dropdown">
+      <button class="lang-btn">
+        <i class="fas fa-globe"></i> Language <i class="fas fa-caret-down"></i>
+      </button>
+      <ul class="lang-menu">
+        <li onclick="setLanguage('en')">English</li>
+        <li onclick="setLanguage('ko')">한국어</li>
+        <li onclick="setLanguage('zh')">中文</li>
+      </ul>
+    </div>
+  </header>
+
+
+ 
+  <section class="section section-service" id="4" style="scroll-margin-top: 150px;" data-aos="fade-up">
+    <div class="section-header">
+
+      <h3 class="fade-down-on-load" style="animation-delay: 0.1s;"
+          data-ko="전시 물류"
+          data-en="EXHIBITION LOGISTICS"
+          data-zh="展览物流">
+      </h3>
+      <p class="subtitle fade-down-on-load" style="animation-delay: 0.2s;"
+         data-ko="어디든 정확하게, C&L Global이 함께합니다."
+         data-en="Experienced Logistics service provide located nearby major convention centers in U.S."
+         data-zh="无论您身处何地，C&L Global都能精准交付。">
+      </p>
+    </div>
+  
+    <div class="cards">
+      <div class="card animate-on-load" style="animation-delay: 0.3s">
+        <i class="fa-solid fa-award"></i>
+        <h4 data-ko="입력하세요." data-en="Leading exhibition logistic provider" data-zh="입력하세요."></h4>
+        <p data-ko="" data-en="TOP 5 Exhibition Logistics Company" data-zh=""></p>
+     
+      </div>
+  
+      <div class="card animate-on-load" style="animation-delay: 0.4s">
+        <i class="fa-solid fa-location-dot"></i>
+        <h4 data-ko="입력하세요." data-en="Warehouse located nearby major convention centers in U.S" data-zh="입력하세요."></h4>
+        <p data-ko="입력하세요." data-en="" data-zh="입력하세요."></p>
+     
+      </div>
+    </div>
+  
+    <div class="cards">
+      <div class="card animate-on-load" style="animation-delay: 0.5s">
+        <i class="fa-solid fa-truck-arrow-right"></i>
+        <h4 data-ko="입력하세요." data-en="Dedicated trucking for exhibition cargo" data-zh="입력하세요."></h4>
+        <p data-ko="입력하세요." data-en="" data-zh="입력하세요."></p>
+     
+      </div>
+  
+      <div class="card animate-on-load" style="animation-delay: 0.6s">
+        <i class="fa-solid fa-passport"></i>
+        <h4 data-ko="입력하세요." data-en="Expertise in ATA Carnet Customs Clearance & Documentation" data-zh="입력하세요."></h4>
+        <p data-ko="입력하세요." data-en="" data-zh="입력하세요."></p>
+     
+      </div>
+  
+      <div class="card animate-on-load" style="animation-delay: 0.7s">
+        <i class="fa-solid fa-user-tie"></i>
+        <h4 data-ko="입력하세요." data-en="On-site coordinators for show support" data-zh="입력하세요."></h4>
+        <p data-ko="입력하세요." data-en="" data-zh="입력하세요."></p>
+     
+      </div>
+    </div>
+  
+    <div class="cards">
+      <div class="card animate-on-load" style="animation-delay: 0.8s">
+        <i class="fa-solid fa-building-flag"></i>
+        <h4 data-ko="입력하세요." data-en="Experienced Logistics Company partnered with Major Brands" data-zh="입력하세요."></h4>
+        <p data-ko="입력하세요." data-en="such as Hisense , TCL, etc." data-zh="입력하세요."></p>
+      </div>
+  
+      <div class="card animate-on-load" style="animation-delay: 0.9s">
+        <i class="fa-solid fa-bolt"></i>
+        <h4 data-ko="입력하세요." data-en="Urgent DEMONSTRATION CARGO HANDLING" data-zh="입력하세요."></h4>
+        <p data-ko="입력하세요." data-en="" data-zh="입력하세요."></p>
+     
+      </div>
+    </div>
+  </section>
+  
+  
+
+  <footer class="footer" style="margin-top: -500px;">
+    <p>&copy; 2025 C&L Global. All rights reserved.</p>
+
+          <!-- 관리자 전용 링크: 로그인 시에만 표시 -->
+  <a href="admin.html" id="adminLinkFooter" style="display: none; font-size: 0.9rem; color: #ccc; margin-top: 0.5rem; display: block;">
+    AdminLink
+  </a>
+  </footer>
+
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+    loop: true,
+    autoplay: {
+    delay: 5000, // 슬라이드 간 간격
+    disableOnInteraction: false
+    },
+    effect: 'fade',
+    speed: 1200, // 페이드 전환 시간 (ms)
+    fadeEffect: {
+    crossFade: true
+    }
+    });
+  </script>
+
+  <script>
+    function toggleLangMenu(event) {
+      event.stopPropagation();
+      const menu = document.querySelector('.lang-menu');
+      menu.classList.toggle('show');
+    }
+
+    document.addEventListener('click', function (e) {
+      const toggle = document.querySelector('.lang-toggle');
+      if (!toggle.contains(e.target)) {
+        document.querySelector('.lang-menu').classList.remove('show');
+      }
+    });
+
+
+    window.addEventListener('DOMContentLoaded', () => {
+      AOS.init({ duration: 1000, once: true });
+    });    
+  </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sectionIds = ['1', '2', '3', '4'];  // 각 섹션 id
+    const buttons = document.querySelectorAll('.circle-button-group .circle-button');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          buttons.forEach(btn => {
+            if (btn.getAttribute('href') === `#${id}`) {
+              btn.classList.add('active');
+            } else {
+              btn.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, {
+      threshold: 0.6
+    });
+
+    sectionIds.forEach(id => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+  });
+</script>
+
+<script>
+  fetch('https://cnlglobal-backend.onrender.com/data/links.json')
+    .then(res => res.json())
+    .then(links => {
+      const lang = localStorage.getItem('siteLanguage') || 'ko';
+      document.querySelectorAll('.link-anchor').forEach(el => {
+        const linkData = links.find(l => l.id === el.dataset.id);
+        if (linkData) {
+          el.href = linkData.url;
+          el.textContent = linkData[`label_${lang}`] || linkData.label_ko;
+        }
+      });
+    });
+</script>
+
+<script>
+  fetch('https://cnlglobal-backend.onrender.com/data/links.json')
+    .then(res => res.json())
+    .then((linkList) => {
+      const lang = localStorage.getItem('siteLanguage') || 'ko';
+  
+      document.querySelectorAll('a[data-id="link"]').forEach(el => {
+        const id = el.dataset.linkId;
+        const linkData = linkList.find(link => link.id === id);
+        if (linkData) {
+          el.href = linkData.url;
+          el.textContent = linkData[`label_${lang}`] || linkData.label_ko;
+        }
+      });
+    });
+
+    fetch('https://cnlglobal-backend.onrender.com/data/links.json')
+  .then(res => res.json())
+  .then(data => {
+    document.querySelectorAll('a[data-id]').forEach(a => {
+      const id = a.dataset.id;
+      const [svc, index] = id.split('-'); // 예: ourservice1-2
+      const linkData = data[svc]?.[index];
+      if (linkData) {
+        a.href = linkData.url;
+        a.setAttribute('data-ko', linkData.ko);
+        a.setAttribute('data-en', linkData.en);
+        a.setAttribute('data-zh', linkData.zh);
+        a.textContent = linkData.ko; // 또는 현재 언어 설정에 따라
+      }
+    });
+  });
+
+  </script>
+  
+<script src="js/lang.js"></script>
+
+</body>
+
+</html>
