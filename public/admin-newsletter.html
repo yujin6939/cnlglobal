@@ -163,7 +163,8 @@
 .admin-tabs {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* ✅ 줄바꿈 방지 */
+  white-space: nowrap;     /* 내부 텍스트 줄바꿈 방지 */
 }
 
 .admin-tab {
@@ -174,6 +175,10 @@
   background: rgba(255, 255, 255, 0.1);
   text-decoration: none;
   transition: background 0.3s ease, transform 0.2s ease;
+
+  
+    white-space: nowrap;     /* ✅ 텍스트 줄바꿈 방지 */
+  flex-shrink: 0;          /* ✅ 버튼이 너무 작아지지 않도록 */
 }
 
 .admin-tab:hover {
@@ -198,6 +203,8 @@
   cursor: pointer;
   transition: background 0.3s ease;
   margin-top: 0.5rem;
+      white-space: nowrap;  /* ✅ 줄바꿈 없이 한 줄 유지 */
+  flex-shrink: 0;        /* ✅ 너무 작아지지 않도록 방지 */
 }
 
 .logout-btn:hover {
@@ -225,13 +232,22 @@
   overflow-y: auto;
 }
 
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* 🔥 왼쪽 로고~탭 / 오른쪽 로그아웃 버튼 구분 */
+  flex-wrap: nowrap;
+  gap: 1rem;
+  width: 100%;
+}
+
     </style>
 </head>
 
 <body>
       
     <header class="admin-tabs-container">
-        <div style="display: flex; align-items: center; gap: 2rem;">
+        <div class="admin-header" style="display: flex; align-items: center; gap: 2rem;">
     <a href="index.html">
       <img src="images/logo.png" alt="C&L Global 로고" style="height: 40px;" />
     </a>
@@ -240,7 +256,7 @@
           <a href="admin-newsletter.html" class="admin-tab active">뉴스레터 관리</a>
           <a href="admin-resources.html" class="admin-tab">자료실 관리</a>
         </nav>
-        <button class="logout-btn" id="logout-btn" style="margin-left: 1000px;">로그아웃</button>
+        <button class="logout-btn" id="logout-btn">로그아웃</button>
       </header>
       
       
