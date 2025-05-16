@@ -1,16 +1,42 @@
-/* 햄버거 버튼 */
-.hamburger {
-  display: block;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  color: #002244;
-  cursor: pointer;
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  z-index: 2000;
+/* 로고 사이즈 줄이기 (모바일 전용) */
+@media (max-width: 768px) {
+  #logoImg {
+    height: 40px !important;
+  }
+
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    position: relative;
+  }
+
+  /* 햄버거 버튼 위치 */
+  .hamburger {
+    display: block;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    z-index: 2000;
+    color: #002244;
+  }
+
+  /* 모바일 언어 선택 영역 정렬 */
+  .mobile-lang {
+    margin-top: 1rem;
+    padding-left: 1rem;
+  }
+
+  .mobile-lang .lang-btn {
+    font-size: 1rem;
+  }
 }
+
 
 /* 기본적으로 PC에서는 안 보이게 */
 @media (min-width: 769px) {

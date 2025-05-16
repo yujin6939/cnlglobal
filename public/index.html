@@ -599,7 +599,13 @@ html[lang="zh"] .left-floating-nav .circle-button {
 
 <body id="top">
   <header>
-          <a href="index.html"><img src="images/logo.png" alt="C&L Global 로고" /></a>    
+          <a href="index.html"><img src="images/logo.png" alt="C&L Global 로고" /></a>  
+          
+                <!-- 햄버거 버튼 (모바일 전용) -->
+  <button id="hamburgerBtn" class="hamburger">
+    <i class="fas fa-bars"></i>
+  </button>
+
     <nav class="main-nav">
       <ul>
         <li class="dropdown">
@@ -643,10 +649,6 @@ html[lang="zh"] .left-floating-nav .circle-button {
       </ul>
     </nav>
     
-      <!-- 햄버거 버튼 (모바일 전용) -->
-  <button id="hamburgerBtn" class="hamburger">
-    <i class="fas fa-bars"></i>
-  </button>
 
   <!-- 모바일 메뉴 -->
   <div id="mobileMenu" class="mobile-nav">
@@ -659,7 +661,7 @@ html[lang="zh"] .left-floating-nav .circle-button {
     </ul>
   </div>
 
-    <div class="lang-dropdown">
+    <div class="lang-dropdown mobile-lang">
       <button class="lang-btn">
         <i class="fas fa-globe"></i> Language <i class="fas fa-caret-down"></i>
       </button>
@@ -912,26 +914,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
 
-    hamburgerBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-    });
+    if (hamburgerBtn && mobileMenu) {
+      hamburgerBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('open');
+      });
 
-    // 화면 크기 변경 시 메뉴 초기화 (예: PC로 전환 시 숨기기)
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        mobileMenu.classList.remove('open');
-      }
-    });
+      // 모바일 메뉴 애니메이션
+      mobileMenu.style.maxHeight = '0';
+      mobileMenu.style.overflow = 'hidden';
+      mobileMenu.style.transition = 'max-height 0.4s ease';
+
+      const toggleMobileMenu = () => {
+        if (mobileMenu.classList.contains('open')) {
+          mobileMenu.style.maxHeight = '500px'; // 조정 가능
+        } else {
+          mobileMenu.style.maxHeight = '0';
+        }
+      };
+
+      hamburgerBtn.addEventListener('click', toggleMobileMenu);
+
+      // 화면 크기 변경 시 메뉴 리셋
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+          mobileMenu.classList.remove('open');
+          mobileMenu.style.maxHeight = '0';
+        }
+      });
+    }
   });
-
-  // 메뉴 항목 클릭 시 메뉴 닫기
-document.querySelectorAll('#mobileMenu a').forEach(link => {
-  link.addEventListener('click', () => {
-    mobileMenu.classList.remove('open');
-  });
-});
-
 </script>
+
 
 
   
