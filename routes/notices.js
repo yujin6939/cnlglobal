@@ -18,30 +18,52 @@ const upload = multer({ storage });
 // ✅ 공지사항 조회 및 검색 + 언어 필터링 (기본 10개씩)
 router.get('/', async (req, res) => {
   const page = parseInt(req.query.page) || 1;
-  const perPage = 10;
-  const keyword = req.query.q;
-  const category = req.query.category;
-  const lang = req.query.lang || 'ko';
+const perPage = parseInt(req.query.limit) || 10;
 
-  const keywordFilter = keyword
-    ? {
+  const keyword = req.query.q;
+  const lang = req.query.lang || null;
+
+let query = {};
+const category = req.query.category;
+
+if (keyword && lang) {
+  query = {
+    $and: [
+      { category: category }, // ✅ 카테고리 필터
+      {
         $or: [
           { [`title.${lang}`]: new RegExp(keyword, 'i') },
           { [`content.${lang}`]: new RegExp(keyword, 'i') }
         ]
       }
-    : {};
-
-  const langFilter = {
-    [`title.${lang}`]: { $exists: true, $ne: null },
-    [`content.${lang}`]: { $exists: true, $ne: null }
+    ]
   };
-
-  const query = {
-    ...keywordFilter,
-    ...(category ? { category } : {}),
-    ...langFilter
+} else if (lang && category) {
+  query = {
+    category: category,
+    [`title.${lang}`]: { $ne: null },
+    [`content.${lang}`]: { $ne: null }
   };
+} else if (lang) {
+  query = {
+    [`title.${lang}`]: { $ne: null },
+    [`content.${lang}`]: { $ne: null }
+  };
+} else if (category) {
+  query = { category: category };
+} else if (keyword) {
+  query = {
+    $or: [
+      { 'title.ko': new RegExp(keyword, 'i') },
+      { 'title.en': new RegExp(keyword, 'i') },
+      { 'title.zh': new RegExp(keyword, 'i') },
+      { 'content.ko': new RegExp(keyword, 'i') },
+      { 'content.en': new RegExp(keyword, 'i') },
+      { 'content.zh': new RegExp(keyword, 'i') }
+    ]
+  };
+}
+
 
   try {
     const total = await Notice.countDocuments(query);
@@ -86,17 +108,17 @@ router.post('/', async (req, res) => {
   }
 
   try {
-const notice = new Notice({
-  ...filteredPayload,
-  category: req.body.category || 'notice'  // 기본값은 notice
-});
-
+    const notice = new Notice({
+      ...filteredPayload,
+      category: req.body.category || 'notice' // ✅ category 저장되도록 추가
+    });
     await notice.save();
     res.status(201).json(notice);
   } catch (err) {
     res.status(500).json({ error: '저장 중 오류' });
   }
 });
+
 
 // ✅ 수정
 router.put('/:id', async (req, res) => {

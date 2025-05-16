@@ -496,7 +496,7 @@
 <script>
   function renderPostsFromServer(page = 1) {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-    fetch('/api/notices?category=newsletter&lang=${lang}')
+    fetch(`/api/notices?page=${page}&lang=${lang}&category=newsletter`)
       .then(res => res.json())
       .then(response => {
         const allPosts = response.notices || [];

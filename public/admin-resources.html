@@ -302,6 +302,7 @@
 </div>
 
   <script>
+      const postsPerPage = 10;
 const uploadInput = document.getElementById('file-upload');
 const previewArea = document.getElementById('preview');
     const contentField = document.getElementById('content-ko');
@@ -507,31 +508,36 @@ document.getElementById('notice-form').addEventListener('submit', async (e) => {
 
   const id = document.getElementById('notice-id').value;
   const langs = ['ko', 'en', 'zh'];
+  const title = {};
+  const content = {};
   let hasAtLeastOne = false;
 
+  langs.forEach(lang => {
+    const t = document.getElementById(`title-${lang}`).value.trim();
+    const c = document.getElementById(`content-${lang}`).value.trim();
+    if (t || c) hasAtLeastOne = true;
+    title[lang] = t || null;
+    content[lang] = c || null;
+  });
 
+  if (!hasAtLeastOne) {
+    alert("최소 한 언어 이상의 제목 또는 내용을 입력해야 합니다.");
+    return;
+  }
 
-  const currentTabLang = document.querySelector('.tab-btn.active').dataset.tab;
+  const currentPath = window.location.pathname;
+  let category = 'notice';
+  if (currentPath.includes('resources')) {
+    category = 'resource';
+  } else if (currentPath.includes('newsletter')) {
+    category = 'newsletter';
+  }
 
-const titleInput = document.getElementById(`title-${currentTabLang}`);
-const contentInput = document.getElementById(`content-${currentTabLang}`);
-
-const title = titleInput?.value?.trim();
-const content = contentInput?.value?.trim();
-
-if (!title && !content) {
-  alert("제목 또는 내용을 입력하세요.");
-  return;
-}
-
-const payload = {
-  title: { [currentTabLang]: title },
-  content: { [currentTabLang]: content },
-  category: 'resource' // ✅ 자료실용으로 변경
-};
-
-
-
+  const payload = {
+    title,
+    content,
+    category
+  };
 
   const method = id ? 'PUT' : 'POST';
   const url = id ? `/api/notices/${id}` : '/api/notices';
@@ -544,26 +550,12 @@ const payload = {
 
   document.getElementById('notice-form').reset();
   document.getElementById('notice-id').value = '';
-
-  // ✅ 첨부파일 초기화
-uploadInput.value = '';
-previewArea.innerHTML = '';
-
-  // ✅ 저장된 언어 탭을 선택 상태로 반영
-  selectedLang = currentTabLang;
-
-  // 탭 버튼 시각적으로도 활성화 처리
-  document.querySelectorAll('.lang-btn-filter').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === selectedLang);
-  });
-
-  // ✅ 선택 언어 기준으로 공지사항 다시 렌더링
+  uploadInput.value = '';
+  previewArea.innerHTML = '';
   renderPostsFromServer(1);
-
-  
-// ✅ 저장 완료 알림
-alert("저장되었습니다.");
+  alert("저장되었습니다.");
 });
+
 
 
 
@@ -583,12 +575,11 @@ document.querySelectorAll('.lang-btn-filter').forEach(btn => {
 });
 
 function renderPostsFromServer(page = 1, query = "") {
-  fetch('/api/notices?category=resource&q=' + encodeURIComponent(query))
+  fetch(`/api/notices?category=resource&page=${page}&q=${encodeURIComponent(query)}`)
 
     .then(res => res.json())
     .then(resData => {
   const allPosts = resData.notices || []; // ✅ 공지 배열 추출
-  const postsPerPage = 5;
   const start = (page - 1) * postsPerPage;
   const sliced = allPosts.slice(start, start + postsPerPage); // ✅ 이제 정상
 
@@ -628,7 +619,7 @@ function insertImageToActiveContent(url) {
 }
 
 function renderPagination(totalPosts, currentPage) {
-  const totalPages = Math.ceil(totalPosts / 5);
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
   const pagination = document.getElementById("pagination");
 
   if (!pagination) return;

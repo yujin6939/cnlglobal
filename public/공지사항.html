@@ -662,32 +662,32 @@ swiper.on('slideChangeTransitionStart', () => {
   const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
 
 function renderPostsFromServer(page = 1) {
-    fetch(`/api/notices?category=notice&lang=${lang}`)
+  fetch(`/api/notices?page=${page}&lang=${lang}&category=notice`) // ✅ lang은 위에서 정의됨
+
     .then(res => res.json())
     .then(response => {
-      const allPosts = response.notices || []; // ✅ 수정된 부분
-      const postsPerPage = 10;
-      const start = (page - 1) * postsPerPage;
-      const sliced = allPosts.slice(start, start + postsPerPage);
+const listContainer = document.getElementById("notice-list");
+listContainer.innerHTML = "";
 
-      const listContainer = document.getElementById("notice-list");
-      listContainer.innerHTML = "";
+const filtered = (response.notices || []).filter(post =>
+  post.title?.[lang] && post.content?.[lang]
+);
 
-      sliced.forEach(post => {
-        const title = post.title?.[lang];
-        const content = post.content?.[lang];
-        if (!title || !content) return;
+filtered.forEach(post => {
+  const title = post.title?.[lang];
+  const content = post.content?.[lang];
+  if (!title || !content) return;
 
-        const div = document.createElement("div");
-        div.className = "notice-item";
-        div.innerHTML = `
-          <a href="javascript:void(0)" onclick='showPostDetail(${JSON.stringify(post)})'>
-            ${title}
-          </a>
-        `;
-        listContainer.appendChild(div);
-        document.getElementById("pagination").style.display = "block";
-      });
+  const div = document.createElement("div");
+  div.className = "notice-item";
+  div.innerHTML = `
+    <a href="javascript:void(0)" onclick='showPostDetail(${JSON.stringify(post)})'>
+      ${title}
+    </a>
+  `;
+  listContainer.appendChild(div);
+});
+
 
       if (listContainer.children.length === 0) {
         const msg = document.createElement("p");
@@ -703,7 +703,7 @@ msg.className = "alert-message";
         listContainer.appendChild(msg);
       }
 
-      renderPagination(allPosts.length, page);
+renderPagination(response.total, page); // ✅ 서버에서 내려준 전체 개수 기준
     });
 }
 

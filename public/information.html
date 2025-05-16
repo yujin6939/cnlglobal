@@ -903,20 +903,18 @@ a.partner-card:hover {
 </script>
 
 <script>
+const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
+
+// 게시글 리스트 로딩
 function renderResourcesFromServer(page = 1) {
-  const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-  fetch('/api/notices?category=resource&lang=${lang}')
+  fetch(`/api/notices?page=${page}&lang=${lang}&category=resource`)
     .then(res => res.json())
     .then(response => {
-      const allPosts = response.notices || [];
-      const postsPerPage = 10;
-      const start = (page - 1) * postsPerPage;
-      const sliced = allPosts.slice(start, start + postsPerPage);
-
+      const posts = response.notices || [];
       const listContainer = document.getElementById("resource-list");
       listContainer.innerHTML = "";
 
-      sliced.forEach(post => {
+      posts.forEach(post => {
         const title = post.title?.[lang];
         const content = post.content?.[lang];
         if (!title || !content) return;
@@ -924,7 +922,7 @@ function renderResourcesFromServer(page = 1) {
         const div = document.createElement("div");
         div.className = "notice-item";
         div.innerHTML = `
-          <a href="javascript:void(0)" onclick='showResourceDetail(${JSON.stringify(post)})'>
+          <a href="javascript:void(0)" class="resource-link" data-id="${post._id}">
             ${title}
           </a>
         `;
@@ -939,10 +937,12 @@ function renderResourcesFromServer(page = 1) {
         listContainer.appendChild(msg);
       }
 
-      renderResourcePagination(allPosts.length, page);
+      renderResourcePagination(response.total || posts.length, page);
+      document.getElementById("resource-pagination").style.display = "block";
     });
 }
 
+// 페이지네이션 렌더링
 function renderResourcePagination(totalPosts, currentPage) {
   const totalPages = Math.ceil(totalPosts / 10);
   const pagination = document.getElementById("resource-pagination");
@@ -957,8 +957,8 @@ function renderResourcePagination(totalPosts, currentPage) {
   }
 }
 
+// 상세 보기 렌더링
 function showResourceDetail(post) {
-  const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
   const container = document.getElementById("resource-list");
   container.innerHTML = "";
 
@@ -966,14 +966,11 @@ function showResourceDetail(post) {
   const content = post.content?.[lang];
 
   if (!title || !content) {
-    container.innerHTML = "<p>해당 언어로 작성된 내용이 없습니다.</p>";
+    container.innerHTML = "<p>해당 언어로 작성된 자료가 없습니다.</p>";
     return;
   }
 
-  const detailDiv = document.createElement("div");
-  detailDiv.className = "notice-detail";
-
-  // 이미지 추출
+  // 첨부 이미지 추출
   let attachmentsHTML = "";
   const fileRegex = /<img[^>]+src="([^"]+\/uploads\/[^"]+)"[^>]*>/g;
   let match;
@@ -991,6 +988,8 @@ function showResourceDetail(post) {
     attachmentsHTML += `</div>`;
   }
 
+  const detailDiv = document.createElement("div");
+  detailDiv.className = "notice-detail";
   detailDiv.innerHTML = `
     <h2>${title}</h2>
     <p class="meta">${new Date(post.createdAt).toLocaleString()}</p>
@@ -998,109 +997,16 @@ function showResourceDetail(post) {
     ${attachmentsHTML}
     <button class="back-btn" onclick="renderResourcesFromServer(1)">← 목록으로 돌아가기</button>
   `;
-
   container.appendChild(detailDiv);
   document.getElementById("resource-pagination").style.display = "none";
 }
 
-// 탭 전환 시 리소스 로딩
-document.querySelector('[data-tab="resources"]').addEventListener("click", () => {
-  renderResourcesFromServer(1);
-});
-</script>
-
-<script>
-function renderResourcesFromServer(page = 1) {
-  const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-  fetch('/api/notices?category=resource')
-    .then(res => res.json())
-    .then(response => {
-      const allPosts = response.notices || [];
-      const postsPerPage = 10;
-      const start = (page - 1) * postsPerPage;
-      const sliced = allPosts.slice(start, start + postsPerPage);
-
-      const listContainer = document.getElementById("resource-list");
-      listContainer.innerHTML = "";
-
-      sliced.forEach(post => {
-        const title = post.title?.[lang];
-        const content = post.content?.[lang];
-        if (!title || !content) return;
-
-        const div = document.createElement("div");
-        div.className = "notice-item";
-        div.innerHTML = `
-          <a href="javascript:void(0)" class="resource-link" data-id="${post._id}">
-            ${title}
-          </a>
-        `;
-        listContainer.appendChild(div);
-        document.getElementById("resource-pagination").style.display = "block";
-      });
-
-      if (listContainer.children.length === 0) {
-        const msg = document.createElement("p");
-        msg.textContent = "등록된 자료가 없습니다.";
-        msg.style.color = "#666";
-        msg.style.textAlign = "center";
-        listContainer.appendChild(msg);
-      }
-
-      renderResourcePagination(allPosts.length, page);
-    });
-}
-
-function renderResourcePagination(totalPosts, currentPage) {
-  const totalPages = Math.ceil(totalPosts / 10);
-  const pagination = document.getElementById("resource-pagination");
-  pagination.innerHTML = "";
-
-  for (let i = 1; i <= totalPages; i++) {
-    const button = document.createElement("button");
-    button.textContent = i;
-    if (i === currentPage) button.classList.add("active");
-    button.addEventListener("click", () => renderResourcesFromServer(i));
-    pagination.appendChild(button);
-  }
-}
-
-function showResourceDetail(post) {
-  const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-  const container = document.getElementById("resource-list");
-  container.innerHTML = "";
-
-  const title = post.title?.[lang];
-  const content = post.content?.[lang];
-
-  if (!title || !content) {
-    container.innerHTML = "<p>해당 언어로 작성된 자료가 없습니다.</p>";
-    return;
-  }
-
-  const detailDiv = document.createElement("div");
-  detailDiv.className = "notice-item";
-  detailDiv.innerHTML = `
-    <h2 style="color:#002244;">${title}</h2>
-    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: gray;">
-      ${new Date(post.createdAt).toLocaleString()}
-    </p>
-    <div style="margin-top: 1rem;">${content.replace(/\n/g, "<br>")}</div>
-    <button onclick="renderResourcesFromServer(1)" style="margin-top: 2rem; background:#002244; color:white; border:none; padding: 0.5rem 1rem; cursor:pointer;">
-      ← 목록으로 돌아가기
-    </button>
-  `;
-
-  container.appendChild(detailDiv);
-  document.getElementById("resource-pagination").style.display = "none";
-}
-
-// 리소스 탭 전환 시 자동 호출
+// 리소스 탭 클릭 시 자동 로딩
 document.querySelector('[data-tab="resources"]').addEventListener("click", () => {
   renderResourcesFromServer(1);
 });
 
-// 게시글 클릭 이벤트
+// 게시글 클릭 이벤트 위임
 document.addEventListener("click", async (e) => {
   if (e.target.classList.contains("resource-link")) {
     const postId = e.target.dataset.id;
@@ -1110,6 +1016,7 @@ document.addEventListener("click", async (e) => {
   }
 });
 </script>
+
 
 <script>
 swiper.on('slideChangeTransitionStart', () => {

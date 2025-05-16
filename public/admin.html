@@ -272,6 +272,7 @@
       
   <h1>공지사항 관리</h1>
   
+  
 <div class="main-layout">
 
       <div class="preview-panel">
@@ -325,6 +326,7 @@
 
 
   <script>
+          const postsPerPage = 10;
 const uploadInput = document.getElementById('file-upload');
 const previewArea = document.getElementById('preview');
     const contentField = document.getElementById('content-ko');
@@ -354,11 +356,11 @@ sessionStorage.removeItem('token');
     window.location.href = '/admin-login.html';
   });
 });
-
   
     // 공지사항 불러오기
     async function loadNotices(q = "") {
-      const res = await fetch('/api/notices?q=' + encodeURIComponent(q));
+const res = await fetch('/api/notices?category=notice&q=' + encodeURIComponent(q));
+
       const data = await res.json();
       const notices = data.notices || [];         // ✅ 추가
       const list = document.getElementById('notice-list');
@@ -536,33 +538,40 @@ document.getElementById('notice-form').addEventListener('submit', async (e) => {
 
   const id = document.getElementById('notice-id').value;
   const langs = ['ko', 'en', 'zh'];
+  const title = {};
+  const content = {};
   let hasAtLeastOne = false;
 
+  langs.forEach(lang => {
+    const t = document.getElementById(`title-${lang}`).value.trim();
+    const c = document.getElementById(`content-${lang}`).value.trim();
+    if (t || c) hasAtLeastOne = true;
+    title[lang] = t || null;
+    content[lang] = c || null;
+  });
 
+  if (!hasAtLeastOne) {
+    alert("최소 한 언어 이상 제목이나 내용을 입력해야 합니다.");
+    return;
+  }
 
-  const currentTabLang = document.querySelector('.tab-btn.active').dataset.tab;
+// ✅ 정확히 여기서 자동 category 설정
+  const currentPath = window.location.pathname;
+  let category = 'notice';
+  if (currentPath.includes('newsletter')) category = 'newsletter';
+  else if (currentPath.includes('resources')) category = 'resource';
 
-const titleInput = document.getElementById(`title-${currentTabLang}`);
-const contentInput = document.getElementById(`content-${currentTabLang}`);
-
-const title = titleInput?.value?.trim();
-const content = contentInput?.value?.trim();
-
-if (!title && !content) {
-  alert("제목 또는 내용을 입력하세요.");
-  return;
-}
-
-const payload = {
-  title: { [currentTabLang]: title },
-  content: { [currentTabLang]: content },
-  category: 'notice' // ← 반드시 포함
-};
-
+  const payload = {
+    title,
+    content,
+    category  // ← 반드시 변수로 전달
+  };
 
 
   const method = id ? 'PUT' : 'POST';
   const url = id ? `/api/notices/${id}` : '/api/notices';
+  console.log("💾 저장 payload", payload);
+
 
   await fetch(url, {
     method,
@@ -572,24 +581,12 @@ const payload = {
 
   document.getElementById('notice-form').reset();
   document.getElementById('notice-id').value = '';
-
-  // ✅ 첨부파일 초기화
-uploadInput.value = '';
-previewArea.innerHTML = '';
-
-  // ✅ 저장된 언어 탭을 선택 상태로 반영
-  selectedLang = currentTabLang;
-
-  // 탭 버튼 시각적으로도 활성화 처리
-  document.querySelectorAll('.lang-btn-filter').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === selectedLang);
-  });
-
-  // ✅ 선택 언어 기준으로 공지사항 다시 렌더링
+  uploadInput.value = '';
+  previewArea.innerHTML = '';
   renderPostsFromServer(1);
-
   alert("저장되었습니다.");
 });
+
 
 
 
@@ -618,20 +615,21 @@ document.querySelectorAll('.lang-btn-filter').forEach(btn => {
 
 
 function renderPostsFromServer(page = 1, query = "") {
-  fetch('/api/notices?category=notice&q=' + encodeURIComponent(query))
+fetch(`/api/notices?category=notice&page=${page}&limit=${postsPerPage}&q=${encodeURIComponent(query)}`)
+
     .then(res => res.json())
     .then(resData => {
       const allPosts = resData.notices || [];
       const lang = selectedLang || 'ko';
 
-      // ✅ 언어별 필터링된 게시글만 따로 분리
-      const filtered = allPosts.filter(post =>
-        post.title?.[lang] && post.content?.[lang]
-      );
+      // ✅ 필터링된 게시글
+const filtered = allPosts.filter(post =>
+  post.title?.[lang] && post.content?.[lang]
+);
 
-      const postsPerPage = 5;
-      const start = (page - 1) * postsPerPage;
-      const sliced = filtered.slice(start, start + postsPerPage);
+// 이미 서버에서 10개만 내려줬으므로, 그냥 filtered 사용
+const sliced = filtered;  // ✅ slice 제거
+
 
       const listContainer = document.getElementById("notice-list");
       listContainer.innerHTML = "";
@@ -653,10 +651,12 @@ function renderPostsFromServer(page = 1, query = "") {
         listContainer.appendChild(div);
       });
 
-      // ✅ 페이지네이션도 실제 필터링된 개수 기준
-      renderPagination(filtered.length, page);
+      // ✅ 이제 정상적으로 페이지 수 계산됨
+renderPagination(resData.total, page); // 서버에서 준 total 기준
+
     });
 }
+
 
 
 function insertImageToActiveContent(url) {
@@ -689,7 +689,7 @@ function switchLanguage(lang) {
 }
 
 function renderPagination(totalPosts, currentPage) {
-  const totalPages = Math.ceil(totalPosts / 5); // 페이지 수 계산
+  const totalPages = Math.ceil(totalPosts / postsPerPage); // 페이지 수 계산
   const pagination = document.getElementById("pagination");
 
   if (!pagination) return; // pagination 요소가 없을 경우 예외 처리
