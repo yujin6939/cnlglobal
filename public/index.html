@@ -591,6 +591,31 @@ html[lang="zh"] .left-floating-nav .circle-button {
   color: white;
 }
 
+.floating-circle-link {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background-color: #44609c;
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.floating-circle-link:hover {
+  background-color: #004f9e;
+  transform: scale(1.1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
   </style>
   
 <link rel="stylesheet" href="responsive.css" />
@@ -737,6 +762,11 @@ html[lang="zh"] .left-floating-nav .circle-button {
     
 
   </section>
+
+  <!-- 외부 링크 동그란 버튼 -->
+<a href="https://www.ecount.com/kr/?S=01&C=21721812878&K=162864478970&keyword=wms&matchtype=p&gad_source=1&gad_campaignid=21721812878&gbraid=0AAAAAD_I9wh92uJapBvgkn729Y7Cibq_u&gclid=Cj0KCQjwxJvBBhDuARIsAGUgNfjhaChGcCz-NJKwzSnsBwp34WbUS2xRJFxsBiwQUczFhr3s7Zwcw5IaAv1xEALw_wcB" class="floating-circle-link" target="_blank" title="Visit Partner Site" aria-label="Partner Site">
+  <i class="fas fa-link"></i>
+</a>
 
 
   <footer class="footer">
