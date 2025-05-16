@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/index_mobile.css" media="only screen and (max-width: 768px)">
+
 
   <style>
     * {
@@ -640,6 +642,22 @@ html[lang="zh"] .left-floating-nav .circle-button {
         </li>        
       </ul>
     </nav>
+    
+      <!-- 햄버거 버튼 (모바일 전용) -->
+  <button id="hamburgerBtn" class="hamburger">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- 모바일 메뉴 -->
+  <div id="mobileMenu" class="mobile-nav">
+    <ul>
+      <li><a href="index.html" data-ko="홈" data-en="Home" data-zh="首页"></a></li>
+      <li><a href="aboutus.html" data-ko="회사소개" data-en="About us" data-zh="关于我们"></a></li>
+      <li><a href="ourservice1.html" data-ko="서비스 안내" data-en="Our Service" data-zh="我们的服务"></a></li>
+      <li><a href="공지사항.html" data-ko="회사/산업 소식" data-en="Information/News" data-zh="公司/行业新闻"></a></li>
+      <li><a href="contactus.html" data-ko="문의하기" data-en="Contact us" data-zh="联系我们"></a></li>
+    </ul>
+  </div>
 
     <div class="lang-dropdown">
       <button class="lang-btn">
@@ -889,7 +907,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   </script>
   
-  
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    // 화면 크기 변경 시 메뉴 초기화 (예: PC로 전환 시 숨기기)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        mobileMenu.classList.remove('open');
+      }
+    });
+  });
+
+  // 메뉴 항목 클릭 시 메뉴 닫기
+document.querySelectorAll('#mobileMenu a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+  });
+});
+
+</script>
+
+
   
       
 <script src="js/lang.js"></script>

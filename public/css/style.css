@@ -168,4 +168,8 @@ html {
   }
 }
 
-
+/* 기본: PC에서는 모바일 메뉴 숨김 */
+.hamburger,
+.mobile-nav {
+  display: none !important;
+}

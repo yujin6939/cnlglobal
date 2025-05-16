@@ -1,0 +1,69 @@
+/* 햄버거 버튼 */
+.hamburger {
+  display: block;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #002244;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 2000;
+}
+
+/* 기본적으로 PC에서는 안 보이게 */
+@media (min-width: 769px) {
+  .hamburger {
+    display: none !important;
+  }
+  .mobile-nav {
+    display: none !important;
+  }
+}
+
+/* 모바일 메뉴 */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 80px;
+  right: 0;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 1500;
+}
+
+.mobile-nav ul {
+  list-style: none;
+  padding: 1rem;
+}
+
+.mobile-nav li {
+  margin: 1rem 0;
+}
+
+.mobile-nav a {
+  text-decoration: none;
+  color: #002244;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* 기존 nav 메뉴와 circle 버튼 숨김 */
+.main-nav,
+.circle-button-group {
+  display: none !important;
+}
+
+/* 슬라이드 애니메이션 기본 상태 */
+.mobile-nav {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+/* 메뉴가 열렸을 때 사용할 클래스 */
+.mobile-nav.open {
+  max-height: 500px; /* 메뉴 높이에 맞춰 조절 */
+}
