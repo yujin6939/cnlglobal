@@ -597,7 +597,7 @@ html[lang="zh"] .circle-button {
       <div class="card animate-on-load" style="animation-delay: 0.3s">
         <i class="fa-solid fa-globe"></i>
         <h4 data-ko="입력하세요."
-            data-en="OCEAN FCL / LCL / Multimodal"
+            data-en="OCEAN / Air / FCL / LCL / Multimodal"
             data-zh="입력하세요."></h4>
         <p data-ko="입력하세요."
            data-en="J.O.C Top 100 Exporter & Direct contracts with all shipping lines"
@@ -608,7 +608,7 @@ html[lang="zh"] .circle-button {
       <div class="card animate-on-load" style="animation-delay: 0.4s">
         <i class="fa-solid fa-plane-departure"></i>
         <h4 data-ko="입력하세요."
-            data-en="CONSOLIDATION & AIR"
+            data-en="Consolidation"
             data-zh="입력하세요."></h4>
         <p data-ko="입력하세요."
            data-en="Consolidated cargo to Asia and air shipping across countries"
@@ -616,7 +616,7 @@ html[lang="zh"] .circle-button {
 <a id="dynamic-link"
    href="#"
    target="_blank"
-   style="display:inline-block; margin-top:0.5rem; color:#0055aa; font-weight:600; text-decoration:underline;">
+   style="display:inline-block; margin-top:0.5rem; color:#0055aa; font-weight:300; text-decoration:underline; font-size: 14px;">
   이동 중...
 </a>
 
@@ -628,7 +628,7 @@ html[lang="zh"] .circle-button {
             data-en="SPECIALIZED DOCUMENTATION"
             data-zh="입력하세요."></h4>
         <p data-ko="입력하세요."
-           data-en="AES / ITN / CAED / USDA / Phytosanitary Cert. / Certificate of Origin / Manifest / Maritime Insurance"
+           data-en="AES / ITN / CAED / USDA / Phytosanitary Cert. / CO / Manifest / Maritime Insurance"
            data-zh="입력하세요."></p>
         
       </div>
@@ -647,10 +647,10 @@ html[lang="zh"] .circle-button {
       <div class="card animate-on-load" style="animation-delay: 0.8s">
         <i class="fa-solid fa-wheat-awn"></i>
         <h4 data-ko="입력하세요."
-            data-en="COMMODITY CARGO"
+            data-en="Commodity Cargo"
             data-zh="입력하세요."></h4>
         <p data-ko="입력하세요."
-           data-en="Agricultural / Forest Products / Metal / Resin / CARGO NOS"
+           data-en="Agricultural / Forest Products / Metal / NOS cargo"
            data-zh="입력하세요."></p>
         
       </div>
@@ -658,7 +658,7 @@ html[lang="zh"] .circle-button {
       <div class="card animate-on-load" style="animation-delay: 0.7s">
         <i class="fa-solid fa-triangle-exclamation"></i>
         <h4 data-ko="입력하세요."
-            data-en="PROJECT CARGO"
+            data-en="Project Cargo"
             data-zh="입력하세요."></h4>
         <p data-ko="입력하세요."
            data-en="Hazardous / Refrigerated / Special Equipment"
@@ -812,7 +812,7 @@ html[lang="zh"] .circle-button {
   </script>
   
 <script>
-fetch('/api/notices/68259a5412c3b66201f5a955')
+fetch('/api/notices/6825ae860bb4160d19ca2d25')
   .then(res => res.json())
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();

@@ -599,9 +599,9 @@ html[lang="zh"] .left-floating-nav .circle-button {
 
 <body id="top">
   <header>
-          <a href="index.html"><img src="images/logo.png" alt="C&L Global 로고" /></a>  
-          
-                <!-- 햄버거 버튼 (모바일 전용) -->
+          <a href="index.html"><img src="images/logo.png" alt="C&L Global 로고" /></a>    
+
+  <!-- 햄버거 버튼: 로고 오른쪽 -->
   <button id="hamburgerBtn" class="hamburger">
     <i class="fas fa-bars"></i>
   </button>
@@ -650,18 +650,7 @@ html[lang="zh"] .left-floating-nav .circle-button {
     </nav>
     
 
-  <!-- 모바일 메뉴 -->
-  <div id="mobileMenu" class="mobile-nav">
-    <ul>
-      <li><a href="index.html" data-ko="홈" data-en="Home" data-zh="首页"></a></li>
-      <li><a href="aboutus.html" data-ko="회사소개" data-en="About us" data-zh="关于我们"></a></li>
-      <li><a href="ourservice1.html" data-ko="서비스 안내" data-en="Our Service" data-zh="我们的服务"></a></li>
-      <li><a href="공지사항.html" data-ko="회사/산업 소식" data-en="Information/News" data-zh="公司/行业新闻"></a></li>
-      <li><a href="contactus.html" data-ko="문의하기" data-en="Contact us" data-zh="联系我们"></a></li>
-    </ul>
-  </div>
-
-    <div class="lang-dropdown mobile-lang">
+    <div class="lang-dropdown">
       <button class="lang-btn">
         <i class="fas fa-globe"></i> Language <i class="fas fa-caret-down"></i>
       </button>
@@ -671,6 +660,30 @@ html[lang="zh"] .left-floating-nav .circle-button {
         <li onclick="setLanguage('zh')">中文</li>
       </ul>
     </div>
+
+  <!-- 모바일 전용 메뉴 -->
+  <div id="mobileMenu" class="mobile-nav">
+    <ul>
+      <li><a href="index.html">홈</a></li>
+      <li><a href="aboutus.html">회사소개</a></li>
+      <li><a href="ourservice1.html">서비스 안내</a></li>
+      <li><a href="공지사항.html">공지사항</a></li>
+      <li><a href="contactus.html">문의하기</a></li>
+    </ul>
+
+    <!-- 모바일용 언어 토글 메뉴 -->
+    <div class="lang-dropdown lang-mobile">
+      <button class="lang-btn">
+        <i class="fas fa-globe"></i> Language <i class="fas fa-caret-down"></i>
+      </button>
+      <ul class="lang-menu">
+        <li onclick="setLanguage('en')">English</li>
+        <li onclick="setLanguage('ko')">한국어</li>
+        <li onclick="setLanguage('zh')">中文</li>
+      </ul>
+    </div>
+  </div>
+
   </header>
 
   <section class="hero">
@@ -913,38 +926,27 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('DOMContentLoaded', () => {
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
+    const langToggleBtn = document.querySelector('.lang-mobile .lang-btn');
+    const langDropdown = document.querySelector('.lang-mobile');
 
-    if (hamburgerBtn && mobileMenu) {
-      hamburgerBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('open');
-      });
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
 
-      // 모바일 메뉴 애니메이션
-      mobileMenu.style.maxHeight = '0';
-      mobileMenu.style.overflow = 'hidden';
-      mobileMenu.style.transition = 'max-height 0.4s ease';
-
-      const toggleMobileMenu = () => {
-        if (mobileMenu.classList.contains('open')) {
-          mobileMenu.style.maxHeight = '500px'; // 조정 가능
-        } else {
-          mobileMenu.style.maxHeight = '0';
-        }
-      };
-
-      hamburgerBtn.addEventListener('click', toggleMobileMenu);
-
-      // 화면 크기 변경 시 메뉴 리셋
-      window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-          mobileMenu.classList.remove('open');
-          mobileMenu.style.maxHeight = '0';
-        }
+    if (langToggleBtn) {
+      langToggleBtn.addEventListener('click', () => {
+        langDropdown.classList.toggle('open');
       });
     }
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        mobileMenu.classList.remove('open');
+        langDropdown.classList.remove('open');
+      }
+    });
   });
 </script>
-
 
 
   

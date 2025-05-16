@@ -594,23 +594,23 @@ html[lang="zh"] .circle-button {
           data-zh="展览物流">
       </h3>
       <p class="subtitle fade-down-on-load" style="animation-delay: 0.2s;"
-         data-ko="어디든 정확하게, C&L Global이 함께합니다."
-         data-en="Experienced Logistics service provide located nearby major convention centers in U.S."
-         data-zh="无论您身处何地，C&L Global都能精准交付。">
+         data-ko="미국 주요 전시장 인근 물류 거점과 현장 맞춤형 전시 물류 서비스"
+         data-en="Specialized Exhibition Logistics Near Major U.S. Venues with On-Site Support"
+         data-zh="美国主要会展中心附近的展览物流与现场支持服务">
       </p>
     </div>
   
     <div class="cards">
       <div class="card animate-on-load" style="animation-delay: 0.3s">
         <i class="fa-solid fa-award"></i>
-        <h4 data-ko="입력하세요." data-en="Leading exhibition logistic provider" data-zh="입력하세요."></h4>
+        <h4 data-ko="입력하세요." data-en="Leading Exhibition Logistic Provider" data-zh="입력하세요."></h4>
         <p data-ko="" data-en="TOP 5 Exhibition Logistics Company" data-zh=""></p>
      
       </div>
   
       <div class="card animate-on-load" style="animation-delay: 0.4s">
         <i class="fa-solid fa-location-dot"></i>
-        <h4 data-ko="입력하세요." data-en="Warehouse located nearby major convention centers in U.S" data-zh="입력하세요."></h4>
+        <h4 data-ko="입력하세요." data-en="Warehouse Located nearby Major Convention Center<br>in Las Vegas" data-zh="입력하세요."></h4>
         <p data-ko="입력하세요." data-en="" data-zh="입력하세요."></p>
      
       </div>
@@ -619,7 +619,7 @@ html[lang="zh"] .circle-button {
     <div class="cards">
       <div class="card animate-on-load" style="animation-delay: 0.5s">
         <i class="fa-solid fa-truck-arrow-right"></i>
-        <h4 data-ko="입력하세요." data-en="Dedicated trucking for exhibition cargo" data-zh="입력하세요."></h4>
+        <h4 data-ko="입력하세요." data-en="Dedicated Trucking for Exhibition Cargo" data-zh="입력하세요."></h4>
         <p data-ko="입력하세요." data-en="" data-zh="입력하세요."></p>
      
       </div>
@@ -633,7 +633,7 @@ html[lang="zh"] .circle-button {
   
       <div class="card animate-on-load" style="animation-delay: 0.7s">
         <i class="fa-solid fa-user-tie"></i>
-        <h4 data-ko="입력하세요." data-en="On-site coordinators for show support" data-zh="입력하세요."></h4>
+        <h4 data-ko="입력하세요." data-en="On-Site Coordinators for Show Support" data-zh="입력하세요."></h4>
         <p data-ko="입력하세요." data-en="" data-zh="입력하세요."></p>
      
       </div>
@@ -642,14 +642,20 @@ html[lang="zh"] .circle-button {
     <div class="cards">
       <div class="card animate-on-load" style="animation-delay: 0.8s">
         <i class="fa-solid fa-building-flag"></i>
-        <h4 data-ko="입력하세요." data-en="Experienced Logistics Company partnered with Major Brands" data-zh="입력하세요."></h4>
+        <h4 data-ko="입력하세요." data-en="Experienced Logistic Company Partner for<br>Major Brands" data-zh="입력하세요."></h4>
         <p data-ko="입력하세요." data-en="such as Hisense , TCL, etc." data-zh="입력하세요."></p>
       </div>
   
       <div class="card animate-on-load" style="animation-delay: 0.9s">
         <i class="fa-solid fa-bolt"></i>
-        <h4 data-ko="입력하세요." data-en="Urgent DEMONSTRATION CARGO HANDLING" data-zh="입력하세요."></h4>
+        <h4 data-ko="입력하세요." data-en="Exhibition Logistics Brochure" data-zh="입력하세요."></h4>
         <p data-ko="입력하세요." data-en="" data-zh="입력하세요."></p>
+        <a id="dynamic-link"
+        href="#"
+        target="_blank"
+        style="display:inline-block; margin-top:0.5rem; color:#0055aa; font-weight:300; text-decoration:underline; font-size: 16px;">
+        이동 중...
+        </a>
      
       </div>
     </div>
@@ -783,6 +789,35 @@ html[lang="zh"] .circle-button {
   });
 
   </script>
+
+  <script>
+fetch('/api/notices/6826da60d098f905eee1beff')
+  .then(res => res.json())
+  .then(post => {
+    const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
+    const content = post.content?.[lang] || "";
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
+    const firstLink = doc.querySelector('a[href^="http"]');
+
+    const linkEl = document.getElementById("dynamic-link");
+
+    if (firstLink) {
+      const href = firstLink.getAttribute('href');
+      const text = firstLink.textContent?.trim() || href;
+      linkEl.href = href;
+      linkEl.textContent = text;
+    } else {
+      linkEl.href = "#";
+      linkEl.textContent = "링크 없음";
+    }
+  })
+  .catch(err => {
+    document.getElementById("dynamic-link").textContent = "링크 불러오기 실패";
+    console.error("링크 로딩 오류:", err);
+  });
+</script>
   
 <script src="js/lang.js"></script>
 

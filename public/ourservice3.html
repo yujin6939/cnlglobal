@@ -610,24 +610,30 @@ html[lang="zh"] .circle-button {
           data-zh="电商履约服务">
       </h3>
       <p class="subtitle fade-down-on-load" style="animation-delay: 0.2s;"
-         data-ko="어디든 정확하게, C&L Global이 함께합니다."
-         data-en="Wherever you need, C&L Global delivers with precision."
-         data-zh="无论您身处何地，C&L Global都能精准交付。">
+         data-ko="글로벌 셀러를 위한 전문 이커머스 물류 파트너"
+         data-en="Your Trusted Fulfillment Partner for Global E-Commerce"
+         data-zh="为全球电商打造的专业履约服务伙伴">
       </p>
     </div>
   
     <div class="cards">
       <div class="card animate-on-load" style="animation-delay: 0.3s">
         <i class="fa-solid fa-warehouse"></i>
-        <h4 data-ko="입력하세요." data-en="WAREHOUSE" data-zh="입력하세요."></h4>
+        <h4 data-ko="입력하세요." data-en="Warehouse" data-zh="입력하세요."></h4>
         <p data-ko="" data-en="Asset & Contract based nationwide warehouses with advanced WMS & precise inventory control" data-zh=""></p>
         
       </div>
   
       <div class="card animate-on-load" style="animation-delay: 0.4s">
         <i class="fa-solid fa-dolly"></i>
-        <h4 data-ko="입력하세요." data-en="3PL SERVICE FBA & FBM" data-zh="입력하세요."></h4>
+        <h4 data-ko="입력하세요." data-en="3PL Service FBA & FBM" data-zh="입력하세요."></h4>
         <p data-ko="입력하세요." data-en="Optimized service for prep, return , Storage" data-zh="입력하세요."></p>
+        <a id="dynamic-link"
+        href="#"
+        target="_blank"
+        style="display:inline-block; margin-top:0.5rem; color:#0055aa; font-weight:300; text-decoration:underline; font-size: 14px;">
+        이동 중...
+        </a>
      
       </div>
     </div>
@@ -635,22 +641,28 @@ html[lang="zh"] .circle-button {
     <div class="cards">
       <div class="card animate-on-load" style="animation-delay: 0.5s">
         <i class="fa-solid fa-network-wired"></i>
-        <h4 data-ko="입력하세요." data-en="EXPERIENCE BASED E-COMMERCE SERVICE" data-zh="입력하세요."></h4>
-        <p data-ko="입력하세요." data-en="Amazon, E-Bay, Walmart, Tik-Tok, ETSY, ETC." data-zh="입력하세요."></p>
+        <h4 data-ko="입력하세요." data-en="Experience Based<br>E-Commerce Service" data-zh="입력하세요."></h4>
+        <p data-ko="입력하세요." data-en="Amazon / E-Bay / Walmart /<br>Tik-Tok / ETSY / ETC." data-zh="입력하세요."></p>
      
       </div>
   
       <div class="card animate-on-load" style="animation-delay: 0.6s">
         <i class="fa-solid fa-truck-fast"></i>
-        <h4 data-ko="입력하세요." data-en="CONTRACT BASED Last-Mile Delivery" data-zh="입력하세요."></h4>
-        <p data-ko="입력하세요." data-en="UPS / FedEx / USPS PICK UP" data-zh="입력하세요."></p>
+        <h4 data-ko="입력하세요." data-en="Contract Based<br>Last-Mile Delivery" data-zh="입력하세요."></h4>
+        <p data-ko="입력하세요." data-en="UPS / FedEx / USps / Amazon" data-zh="입력하세요."></p>
      
       </div>
   
       <div class="card animate-on-load" style="animation-delay: 0.7s">
         <i class="fa-solid fa-globe-asia"></i>
-        <h4 data-ko="입력하세요." data-en="CONSOLE FROM KOREA & CHINA" data-zh="입력하세요."></h4>
-        <p data-ko="입력하세요." data-en="" data-zh="입력하세요."></p>
+        <h4 data-ko="입력하세요." data-en="Express Console Service from Korea & China" data-zh="입력하세요."></h4>
+        <p data-ko="입력하세요." data-en="Sea / Air" data-zh="입력하세요."></p>
+        <a id="dynamic-link-2"
+        href="#"
+        target="_blank"
+        style="display:inline-block; margin-top:0.5rem; color:#0055aa; font-weight:300; text-decoration:underline; font-size: 14px;">
+        이동 중...
+        </a>
      
       </div>
     </div>
@@ -784,6 +796,56 @@ html[lang="zh"] .circle-button {
   });
 
   </script>
+
+  <script>
+fetch('/api/notices/6826d9a6d098f905eee1bee9')
+  .then(res => res.json())
+  .then(post => {
+    const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
+    const content = post.content?.[lang] || "";
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
+    const firstLink = doc.querySelector('a[href^="http"]');
+
+    const linkEl = document.getElementById("dynamic-link");
+
+    if (firstLink) {
+      const href = firstLink.getAttribute('href');
+      const text = firstLink.textContent?.trim() || href;
+      linkEl.href = href;
+      linkEl.textContent = text;
+    } else {
+      linkEl.href = "#";
+      linkEl.textContent = "링크 없음";
+    }
+  })
+  .catch(err => {
+    document.getElementById("dynamic-link").textContent = "링크 불러오기 실패";
+    console.error("링크 로딩 오류:", err);
+  });
+
+  // 두 번째 링크 처리
+fetch('/api/notices/6826db14d098f905eee1bf24')
+  .then(res => res.json())
+  .then(post => {
+    const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
+    const content = post.content?.[lang] || "";
+    const doc = new DOMParser().parseFromString(content, 'text/html');
+    const firstLink = doc.querySelector('a[href^="http"]');
+    const linkEl = document.getElementById("dynamic-link-2");
+    if (firstLink) {
+      linkEl.href = firstLink.href;
+      linkEl.textContent = firstLink.textContent?.trim() || firstLink.href;
+    } else {
+      linkEl.textContent = "링크 없음";
+    }
+      })
+  .catch(err => {
+    document.getElementById("dynamic-link").textContent = "링크 불러오기 실패";
+    console.error("링크 로딩 오류:", err);
+  });
+</script>
   
 <script src="js/lang.js"></script>
 
