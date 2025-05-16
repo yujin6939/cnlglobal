@@ -519,7 +519,7 @@ html[lang="zh"] .left-floating-nav .circle-button {
 
 
 .circle-button.edge-button:hover {
-  background-color: purple !important;
+  background-color: rgb(102, 24, 148) !important;
   color: white !important;
 }
 
@@ -595,26 +595,48 @@ html[lang="zh"] .left-floating-nav .circle-button {
   position: fixed;
   bottom: 100px;
   right: 30px;
-  width: 60px;
-  height: 60px;
-  background-color: #44609c;
+  width: 100px;
+  height: 100px;
+  background-color: #169e28;
   color: white;
   border-radius: 50%;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column; /* 아이콘과 텍스트 수직 정렬 */
   font-size: 1.5rem;
   z-index: 1000;
   transition: all 0.3s ease;
   text-decoration: none;
+  text-align: center;
+}
+
+.floating-circle-link .circle-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-circle-link .circle-content i {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+
+.floating-circle-link .circle-content span {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .floating-circle-link:hover {
-  background-color: #004f9e;
+  background-color: #19d39b;
   transform: scale(1.1);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+  color : black
 }
+
 
   </style>
   
@@ -764,8 +786,12 @@ html[lang="zh"] .left-floating-nav .circle-button {
   </section>
 
   <!-- 외부 링크 동그란 버튼 -->
-<a href="https://www.ecount.com/kr/?S=01&C=21721812878&K=162864478970&keyword=wms&matchtype=p&gad_source=1&gad_campaignid=21721812878&gbraid=0AAAAAD_I9wh92uJapBvgkn729Y7Cibq_u&gclid=Cj0KCQjwxJvBBhDuARIsAGUgNfjhaChGcCz-NJKwzSnsBwp34WbUS2xRJFxsBiwQUczFhr3s7Zwcw5IaAv1xEALw_wcB" class="floating-circle-link" target="_blank" title="Visit Partner Site" aria-label="Partner Site">
-  <i class="fas fa-link"></i>
+<a href="https://www.ecount.com/kr/?S=01&C=21721812878&K=162864478970&keyword=wms&matchtype=p&gad_source=1&gad_campaignid=21721812878&gbraid=0AAAAAD_I9wh92uJapBvgkn729Y7Cibq_u&gclid=Cj0KCQjwxJvBBhDuARIsAGUgNfjhaChGcCz-NJKwzSnsBwp34WbUS2xRJFxsBiwQUczFhr3s7Zwcw5IaAv1xEALw_wcB"
+ class="floating-circle-link" target="_blank" title="Visit Partner Site" aria-label="Partner Site">
+  <div class="circle-content">
+    <i class="fas fa-link"></i>
+    <span>WMS</span>
+  </div>
 </a>
 
 

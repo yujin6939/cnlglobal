@@ -656,8 +656,14 @@ html[lang="zh"] .circle-button {
       <div class="card animate-on-load" style="animation-delay: 0.7s">
         <i class="fa-solid fa-globe-asia"></i>
         <h4 data-ko="입력하세요." data-en="Express Console Service from Korea & China" data-zh="입력하세요."></h4>
-        <p data-ko="입력하세요." data-en="Sea / Air" data-zh="입력하세요."></p>
+        <p data-ko="" data-en="" data-zh=""></p>
         <a id="dynamic-link-2"
+        href="#"
+        target="_blank"
+        style="display:inline-block; margin-top:0.5rem; color:#0055aa; font-weight:300; text-decoration:underline; font-size: 14px;">
+        이동 중...
+        </a> <br>
+        <a id="dynamic-link-3"
         href="#"
         target="_blank"
         style="display:inline-block; margin-top:0.5rem; color:#0055aa; font-weight:300; text-decoration:underline; font-size: 14px;">
@@ -834,6 +840,27 @@ fetch('/api/notices/6826db14d098f905eee1bf24')
     const doc = new DOMParser().parseFromString(content, 'text/html');
     const firstLink = doc.querySelector('a[href^="http"]');
     const linkEl = document.getElementById("dynamic-link-2");
+    if (firstLink) {
+      linkEl.href = firstLink.href;
+      linkEl.textContent = firstLink.textContent?.trim() || firstLink.href;
+    } else {
+      linkEl.textContent = "링크 없음";
+    }
+      })
+  .catch(err => {
+    document.getElementById("dynamic-link").textContent = "링크 불러오기 실패";
+    console.error("링크 로딩 오류:", err);
+  });
+
+    // 세세 번째 링크 처리
+fetch('/api/notices/6826eb2cd098f905eee1bf76')
+  .then(res => res.json())
+  .then(post => {
+    const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
+    const content = post.content?.[lang] || "";
+    const doc = new DOMParser().parseFromString(content, 'text/html');
+    const firstLink = doc.querySelector('a[href^="http"]');
+    const linkEl = document.getElementById("dynamic-link-3");
     if (firstLink) {
       linkEl.href = firstLink.href;
       linkEl.textContent = firstLink.textContent?.trim() || firstLink.href;
