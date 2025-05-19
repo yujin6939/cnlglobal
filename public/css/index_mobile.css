@@ -25,7 +25,7 @@
     right: 16px;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 2000;
+    z-index: 3000;
   }
 
   /* 데스크탑용 언어 토글 숨기기 */
