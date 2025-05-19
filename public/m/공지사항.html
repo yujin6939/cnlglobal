@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-en="Notices - C&L Global" data-ko="공지사항 - C&L Global" data-zh="公告 - C&L Global">Notices - C&L Global</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 1rem; height: 58px; background-color: white; position: fixed; top: 0; left: 0; right: 0; z-index: 3000; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    #logoImg { height: 24px; }
+    .hamburger { font-size: 1.6rem; background: none; border: none; color: #002244; position: relative; z-index: 3001; }
+    .lang-select { margin-top: 0.5rem; font-size: 1rem; padding: 0.3rem; border-radius: 4px; border: 1px solid #ccc; }
+    .mobile-nav { display: none; flex-direction: column; position: fixed; top: 58px; left: 0; width: 100%; background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 2500; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav ul { list-style: none; padding: 1rem; margin: 0; }
+    .mobile-nav li { margin: 1rem 0; }
+    .mobile-nav a { text-decoration: none; color: #002244; font-weight: bold; font-size: 1.2rem; }
+    main { padding: 70px 1rem 2rem; }
+    h1 { font-size: 1.4rem; color: #002244; text-align: center; margin-bottom: 1.5rem; }
+    .notice-list { list-style: none; padding: 0; }
+    .notice-item { background: white; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); padding: 1rem; }
+    .notice-item h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #002244; }
+    .notice-item p { font-size: 0.95rem; color: #444; }
+    footer { background-color: #002244; color: white; text-align: center; padding: 1.2rem; margin-top: 2rem; font-size: 0.9rem; }
+  </style>
+  <style>
+  .pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .page-btn {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    color: #002244;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .page-btn:hover {
+    background-color: #002244;
+    color: white;
+  }
+  .page-btn.active {
+    background-color: #002244;
+    color: white;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <a href="../index.html"><img src="../images/logo.png" alt="C&L Global logo" id="logoImg"></a>
+    <button id="hamburgerBtn" class="hamburger">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+
+  <nav id="mobileMenu" class="mobile-nav">
+    <ul>
+      <li><a href="index.html" data-en="Home" data-ko="홈" data-zh="首页">Home</a></li>
+      <li><a href="aboutus.html" data-en="About Us" data-ko="회사소개" data-zh="关于我们">About Us</a></li>
+      <li><a href="ourservice1.html" data-en="Services" data-ko="서비스 안내" data-zh="服务内容">Services</a></li>
+      <li><a href="공지사항.html" data-en="Notices" data-ko="공지사항" data-zh="公告">Notices</a></li>
+      <li><a href="뉴스레터.html" data-en="Newsletter" data-ko="뉴스레터" data-zh="新闻简报">Newsletter</a></li>
+      <li><a href="information.html" data-en="Resources" data-ko="자료실" data-zh="资料室">Resources</a></li>
+      <li><a href="contactus.html" data-en="Contact" data-ko="문의하기" data-zh="联系我们">Contact</a></li>
+    </ul>
+    <select class="lang-select" id="langSelect">
+      <option value="en">English</option>
+      <option value="ko">한국어</option>
+      <option value="zh">中文</option>
+    </select>
+  </nav>
+
+  <main>
+    <h1 data-en="Notices" data-ko="공지사항" data-zh="公告">Notices</h1>
+    <ul class="notice-list" id="noticeList">
+      <!-- Loaded via JS -->
+    </ul>
+  </main>
+<div id="pagination"></div>
+  <footer>
+    &copy; 2025 C&L Global. All rights reserved.
+  </footer>
+
+<script src="../js/lang.js"></script>
+<script>
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const langSelect = document.getElementById('langSelect');
+
+  hamburgerBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+
+  langSelect.addEventListener('change', (e) => {
+    setLanguage(e.target.value);
+    fetchNotices(e.target.value, 1);
+  });
+
+  function fetchNotices(lang, page = 1) {
+    fetch(`/api/notices?lang=${lang}`)
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('noticeList');
+        list.innerHTML = '';
+
+        const langKey = lang.toLowerCase();
+        const filtered = data.notices.filter(n => n.title?.[langKey]);
+
+        const startIndex = (page - 1) * 5;
+        const paginated = filtered.slice(startIndex, startIndex + 5);
+
+        paginated.forEach(notice => {
+          const item = document.createElement('li');
+          const title = notice.title?.[langKey] || '(No title)';
+          const date = new Date(notice.createdAt).toLocaleDateString();
+
+          item.className = 'notice-item';
+          item.innerHTML = `<h3>${title}</h3><p>${date}</p>`;
+          list.appendChild(item);
+        });
+
+        renderPagination(filtered.length, page, lang);
+      })
+      .catch(err => console.error('Error loading notices:', err));
+  }
+
+  function renderPagination(total, currentPage, lang) {
+    const paginationWrapper = document.getElementById('pagination');
+    if (!paginationWrapper) return;
+
+    const totalPages = Math.ceil(total / 5);
+    let html = '';
+
+    if (totalPages > 1) {
+      for (let i = 1; i <= totalPages; i++) {
+        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+      }
+    }
+
+    paginationWrapper.innerHTML = `<div class="pagination-wrapper">${html}</div>`;
+
+    document.querySelectorAll('.page-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selectedPage = parseInt(btn.dataset.page);
+        fetchNotices(lang, selectedPage);
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    window.renderEdgeBoxes = window.renderEdgeBoxes || function () {};
+    const defaultLang = localStorage.getItem('siteLanguage') || 'en';
+    setLanguage(defaultLang);
+    fetchNotices(defaultLang, 1);
+  });
+    let html = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+    }
+
+    paginationWrapper.innerHTML = `<div class="pagination-wrapper">${html}</div>`;
+
+    document.querySelectorAll('.page-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selectedPage = parseInt(btn.dataset.page);
+        fetchNotices(lang, selectedPage);
+      });
+    });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    window.renderEdgeBoxes = window.renderEdgeBoxes || function () {};
+    const defaultLang = localStorage.getItem('siteLanguage') || 'en';
+    setLanguage(defaultLang);
+    fetchNotices(defaultLang, 1);
+  });
+</script>
+
+
+</body>
+</html>

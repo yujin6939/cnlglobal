@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-en="Contact Us - C&L Global" data-ko="문의하기 - C&L Global" data-zh="联系我们 - C&L Global">Contact Us - C&L Global</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 1rem;
+      height: 58px;
+      background-color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 3000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    #logoImg {
+      height: 24px;
+    }
+    .hamburger {
+      font-size: 1.6rem;
+      background: none;
+      border: none;
+      color: #002244;
+      position: relative;
+      z-index: 3001;
+    }
+    .lang-select {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      padding: 0.3rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 58px;
+      left: 0;
+      width: 100%;
+      background-color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 2500;
+    }
+    .mobile-nav.open {
+      display: flex;
+    }
+    .mobile-nav ul {
+      list-style: none;
+      padding: 1rem;
+      margin: 0;
+    }
+    .mobile-nav li {
+      margin: 1rem 0;
+    }
+    .mobile-nav a {
+      text-decoration: none;
+      color: #002244;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    main {
+      padding: 70px 1rem 2rem;
+    }
+    h1 {
+      font-size: 1.4rem;
+      color: #002244;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .hero-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+    .contact-info {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .contact-info h2 {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      color: #003366;
+    }
+    .contact-info p {
+      font-size: 0.95rem;
+      color: #333;
+      margin: 0.3rem 0;
+    }
+    footer {
+      background-color: #002244;
+      color: white;
+      text-align: center;
+      padding: 1.2rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../index.html"><img src="../images/logo.png" alt="C&L Global logo" id="logoImg"></a>
+    <button id="hamburgerBtn" class="hamburger">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+
+  <nav id="mobileMenu" class="mobile-nav">
+    <ul>
+      <li><a href="index.html" data-en="Home" data-ko="홈" data-zh="首页">Home</a></li>
+      <li><a href="aboutus.html" data-en="About Us" data-ko="회사소개" data-zh="关于我们">About Us</a></li>
+      <li><a href="ourservice1.html" data-en="Services" data-ko="서비스 안내" data-zh="服务内容">Services</a></li>
+      <li><a href="공지사항.html" data-en="Notices" data-ko="공지사항" data-zh="公告">Notices</a></li>
+      <li><a href="뉴스레터.html" data-en="Newsletter" data-ko="뉴스레터" data-zh="新闻简报">Newsletter</a></li>
+      <li><a href="information.html" data-en="Resources" data-ko="자료실" data-zh="资料室">Resources</a></li>
+      <li><a href="contactus.html" data-en="Contact" data-ko="문의하기" data-zh="联系我们">Contact</a></li>
+    </ul>
+    <select class="lang-select" id="langSelect">
+      <option value="en">English</option>
+      <option value="ko">한국어</option>
+      <option value="zh">中文</option>
+    </select>
+  </nav>
+
+  <main>
+    <h1 data-en="Contact Us" data-ko="문의하기" data-zh="联系我们">Contact Us</h1>
+    <img src="../images/port_ai.jpg" class="hero-img" alt="Main Image">
+    <section class="contact-info">
+      <h2 data-en="U.S. Office" data-ko="미국 본사" data-zh="美国总部">U.S. Office</h2>
+      <p>1234 USA Way, Los Angeles, CA</p>
+      <p>+1-310-123-4567</p>
+      <p>usa@clglobal.com</p>
+
+      <h2 data-en="Korea Office" data-ko="한국 지사" data-zh="韩国分公司">Korea Office</h2>
+      <p>서울시 강남구 역삼동 123-45</p>
+      <p>+82-2-9876-5432</p>
+      <p>korea@clglobal.com</p>
+
+      <h2 data-en="China Office" data-ko="중국 사무소" data-zh="中国办事处">China Office</h2>
+      <p>上海市静安区北京西路123号</p>
+      <p>+86-21-6789-1234</p>
+      <p>china@clglobal.com</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 C&L Global. All rights reserved.
+  </footer>
+
+  <script src="../js/lang.js"></script>
+  <script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const langSelect = document.getElementById('langSelect');
+
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    langSelect.addEventListener('change', (e) => {
+      setLanguage(e.target.value);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setLanguage('en');
+    });
+  </script>
+</body>
+</html>

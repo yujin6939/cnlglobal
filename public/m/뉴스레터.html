@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-en="Newsletter - C&L Global" data-ko="뉴스레터 - C&L Global" data-zh="新闻简报 - C&L Global">Newsletter - C&L Global</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 1rem; height: 58px; background-color: white; position: fixed; top: 0; left: 0; right: 0; z-index: 3000; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    #logoImg { height: 24px; }
+    .hamburger { font-size: 1.6rem; background: none; border: none; color: #002244; position: relative; z-index: 3001; }
+    .lang-select { margin-top: 0.5rem; font-size: 1rem; padding: 0.3rem; border-radius: 4px; border: 1px solid #ccc; }
+    .mobile-nav { display: none; flex-direction: column; position: fixed; top: 58px; left: 0; width: 100%; background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 2500; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav ul { list-style: none; padding: 1rem; margin: 0; }
+    .mobile-nav li { margin: 1rem 0; }
+    .mobile-nav a { text-decoration: none; color: #002244; font-weight: bold; font-size: 1.2rem; }
+    main { padding: 70px 1rem 2rem; }
+    h1 { font-size: 1.4rem; color: #002244; text-align: center; margin-bottom: 1.5rem; }
+    .newsletter-list { list-style: none; padding: 0; }
+    .newsletter-item { background: white; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); padding: 1rem; }
+    .newsletter-item h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #002244; }
+    .newsletter-item p { font-size: 0.95rem; color: #444; }
+    footer { background-color: #002244; color: white; text-align: center; padding: 1.2rem; margin-top: 2rem; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../index.html"><img src="../images/logo.png" alt="C&L Global logo" id="logoImg"></a>
+    <button id="hamburgerBtn" class="hamburger">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+
+  <nav id="mobileMenu" class="mobile-nav">
+    <ul>
+      <li><a href="index.html" data-en="Home" data-ko="홈" data-zh="首页">Home</a></li>
+      <li><a href="aboutus.html" data-en="About Us" data-ko="회사소개" data-zh="关于我们">About Us</a></li>
+      <li><a href="ourservice1.html" data-en="Services" data-ko="서비스 안내" data-zh="服务内容">Services</a></li>
+      <li><a href="공지사항.html" data-en="Notices" data-ko="공지사항" data-zh="公告">Notices</a></li>
+      <li><a href="뉴스레터.html" data-en="Newsletter" data-ko="뉴스레터" data-zh="新闻简报">Newsletter</a></li>
+      <li><a href="information.html" data-en="Resources" data-ko="자료실" data-zh="资料室">Resources</a></li>
+      <li><a href="contactus.html" data-en="Contact" data-ko="문의하기" data-zh="联系我们">Contact</a></li>
+    </ul>
+    <select class="lang-select" id="langSelect">
+      <option value="en">English</option>
+      <option value="ko">한국어</option>
+      <option value="zh">中文</option>
+    </select>
+  </nav>
+
+  <main>
+    <h1 data-en="Newsletter" data-ko="뉴스레터" data-zh="新闻简报">Newsletter</h1>
+    <ul class="newsletter-list" id="newsletterList">
+      <!-- JS loaded content -->
+    </ul>
+  </main>
+
+  <footer>
+    &copy; 2025 C&L Global. All rights reserved.
+  </footer>
+
+  <script src="../js/lang.js"></script>
+  <script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const langSelect = document.getElementById('langSelect');
+
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    langSelect.addEventListener('change', (e) => {
+      setLanguage(e.target.value);
+      fetchNewsletters(e.target.value);
+    });
+
+    function fetchNewsletters(lang) {
+      fetch(`/api/newsletters?lang=${lang}`)
+        .then(res => res.json())
+        .then(data => {
+          const list = document.getElementById('newsletterList');
+          list.innerHTML = '';
+          data.forEach(news => {
+            const item = document.createElement('li');
+            item.className = 'newsletter-item';
+            item.innerHTML = `<h3>${news.title}</h3><p>${news.date}</p>`;
+            list.appendChild(item);
+          });
+        })
+        .catch(err => console.error('Newsletter fetch error:', err));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const defaultLang = 'en';
+      setLanguage(defaultLang);
+      fetchNewsletters(defaultLang);
+    });
+  </script>
+</body>
+</html>
