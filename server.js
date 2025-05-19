@@ -29,8 +29,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  const ua = req.headers['user-agent'];
+  const isMobile = /mobile|android|iphone|ipad/i.test(ua);
+
+  if (isMobile) {
+    res.redirect('/m/index.html'); // 모바일일 경우 m 폴더로 이동
+  } else {
+    res.sendFile(path.join(__dirname, 'public', 'index.html')); // PC는 기존 경로 유지
+  }
 });
+
 
 // ✅ 라우터
 const noticeRoutes = require('./routes/notices');
