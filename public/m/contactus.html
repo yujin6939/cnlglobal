@@ -7,11 +7,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
   <style>
+    html {
+  scroll-behavior: smooth;
+}
+
     body {
       font-family: 'Noto Sans KR', sans-serif;
       margin: 0;
       padding: 0;
       background-color: #f4f4f4;
+      background: url('images/earth.jpg') no-repeat center center fixed;
+background-size: cover;
     }
     header {
       display: flex;
@@ -57,7 +63,7 @@
       margin-bottom: 1.5rem;
     }
     .contact-info {
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0.8); /* 하얀색 + 투명도 */
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       padding: 1.2rem;
@@ -287,16 +293,16 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
       <li><a href="index.html" style="width: 55px; background-color: rgb(124, 54, 124);" data-en="Home" data-ko="홈" data-zh="首页">Home</a></li>
       <li><a href="aboutus.html" style="width: 80px;" data-en="About Us" data-ko="회사소개" data-zh="关于我们">About Us</a>
         <ul>
-          <li><a href="aboutus.html" data-en="Company Overview" data-ko="회사소개" data-zh=""></a></li>
-          <li><a href="aboutus.html" data-en="Competitiveness" data-ko="경쟁력" data-zh=""></a></li>
+          <li><a href="aboutus.html#1" data-en="Company Overview" data-ko="회사소개" data-zh=""></a></li>
+          <li><a href="aboutus.html#2" data-en="Competitiveness" data-ko="경쟁력" data-zh=""></a></li>
         </ul>
       </li>
       <li><a href="ourservice1.html" style="width: 100px;" data-en="Our Service" data-ko="서비스 안내" data-zh="服务内容">Services</a>
         <ul>
-          <li><a href="ourservice1.html" data-en="Global Shipping" data-ko="글로벌 운송" data-zh=""></a></li>
-          <li><a href="ourservice1.html" data-en="Domestic Trucking" data-ko="국내 트럭 운송" data-zh=""></a></li>
-          <li><a href="ourservice1.html" data-en="E-Commerce Fulfillment" data-ko="전자상거래 이행" data-zh=""></a></li>
-          <li><a href="ourservice1.html" data-en="Exhibition Logistics" data-ko="전시 물류" data-zh=""></a></li>
+          <li><a href="ourservice1.html#1" data-en="Global Shipping" data-ko="글로벌 운송" data-zh=""></a></li>
+          <li><a href="ourservice1.html#2" data-en="Domestic Trucking" data-ko="국내 트럭 운송" data-zh=""></a></li>
+          <li><a href="ourservice1.html#3" data-en="E-Commerce Fulfillment" data-ko="전자상거래 이행" data-zh=""></a></li>
+          <li><a href="ourservice1.html#4" data-en="Exhibition Logistics" data-ko="전시 물류" data-zh=""></a></li>
         </ul>
       </li>
       <li><a href="공지사항.html" style="width: 160px;" data-en="Information/News" data-ko="정보/뉴스" data-zh=""></a>
@@ -319,9 +325,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   </nav>
 
   <main>
-    <h1 data-en="Contact Us" data-ko="문의하기" data-zh="联系我们">Contact Us</h1>
-
-      <section class="contact-info" id="us-east" style="scroll-margin-top: 150px; margin-top: 50px;" data-aos="fade-up">
+      <section class="contact-info" id="us-east" style="scroll-margin-top: 100px; margin-top: 50px;" data-aos="fade-up">
     <h3><i></i>
       <span data-ko="미국" data-en="UNITED STATES" data-zh="美国"></span></h3>
     
@@ -386,7 +390,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   </div>
       </div>
     </section>
-<section class="contact-info" id="us-west" style="scroll-margin-top: 250px;" data-aos="fade-up">
+<section class="contact-info" id="us-west" style="scroll-margin-top: 100px;" data-aos="fade-up">
       <h3><i></i>
         <span data-ko="미국" data-en="UNITED STATES(LAS VEGAS)" data-zh="美国"></span></h3>
         <div class="map-wrapper" style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
@@ -425,7 +429,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 
   </section>
 
-  <section class="contact-info" id="ko" style="scroll-margin-top: 250px;" data-aos="fade-up">
+  <section class="contact-info" id="ko" style="scroll-margin-top: 100px;" data-aos="fade-up">
     <h3>
       <i></i>
       <span data-ko="한국" data-en="KOREA" data-zh="韩国"></span>
@@ -472,7 +476,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
     </div>
   </section>
 
-  <section class="contact-info" id="cn" style="scroll-margin-top: 250px;" data-aos="fade-up">
+  <section class="contact-info" id="cn" style="scroll-margin-top: 100px;" data-aos="fade-up">
     <h3>
       <i></i>
       <span data-ko="중국" data-en="CHINA" data-zh="中国"></span>
@@ -516,7 +520,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
     </div>
   </section>
 
-  <section class="contact-info" id="wh" style="scroll-margin-top: 200px;" data-aos="fade-up">
+  <section class="contact-info" id="wh" style="scroll-margin-top: 100px;" data-aos="fade-up">
     <h3>
       <i></i>
       <span data-ko="웨어하우스" data-en="WAREHOUSE" data-zh="仓库"></span>
@@ -537,23 +541,6 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   </footer>
 
   <script src="../js/lang.js"></script>
-  <script>
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const langSelect = document.getElementById('langSelect');
-
-    hamburgerBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-    });
-
-    langSelect.addEventListener('change', (e) => {
-      setLanguage(e.target.value);
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-      setLanguage('en');
-    });
-  </script>
 
   <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -580,9 +567,24 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    // 메뉴 열기/닫기
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    // 메뉴 내 a 태그 클릭 시 자동 닫힘
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // 언어 셀렉터는 기존대로 유지
     const langToggleBtn = document.querySelector('.lang-toggle-btn');
     const langDropdown = document.querySelector('.mobile-lang-dropdown');
-
     if (langToggleBtn && langDropdown) {
       langToggleBtn.addEventListener('click', () => {
         langDropdown.classList.toggle('open');
@@ -590,5 +592,6 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
     }
   });
 </script>
+
 </body>
 </html>

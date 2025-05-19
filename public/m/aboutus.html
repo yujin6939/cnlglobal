@@ -7,7 +7,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
   <style>
-    body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: #002244; }
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      margin: 0; 
+      padding: 0; 
+      background-color: #002244; 
+      background: url('images/night_port.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
     header { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 1rem; height: 58px; background-color: white; position: fixed; top: 0; left: 0; right: 0; z-index: 3000; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     #logoImg { height: 40px; }
     .hamburger { font-size: 1.6rem; background: none; border: none; color: #002244; position: relative; z-index: 3001; }
@@ -165,6 +172,150 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   margin-top: 58px; /* 헤더만큼 아래로 이동 */
   overflow-y: auto;
 }
+
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1150px;
+  margin: 6rem auto; /* ← 상하 여백 충분히 줌 */
+      margin-bottom: 40rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      background-color: rgba(255, 255, 255, 0.8); /* 하얀색 + 투명도 */
+    }
+  
+    .section h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .section .subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+    .text-center {
+      text-align: center;
+    }
+
+    .certification-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 2.5rem;
+  padding: 1.5rem 2rem;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  flex-wrap: wrap;
+}
+
+    .cert-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 160px;
+  margin-top: 20px;
+}
+
+.cert-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.cert-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cert-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #002244;
+}
+
+.cert-desc {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.cert-item:hover img {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.card {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.card-icon {
+  font-size: 1rem;
+  color: #0055aa;
+  margin-bottom: 1rem;
+}
+
+.edge-features {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.edge-features .row {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.edge-features .feature {
+  width: 250px;
+  min-height: 100px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.edge-features .feature:hover {
+  transform: translateY(-6px);
+}
+
+.edge-features i {
+  font-size: 2rem;
+  color: #004f9e;
+  margin-bottom: 1rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
   </style>
 </head>
 <body>
@@ -195,16 +346,16 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
       <li><a href="index.html" style="width: 55px; background-color: rgb(124, 54, 124);" data-en="Home" data-ko="홈" data-zh="首页">Home</a></li>
       <li><a href="aboutus.html" style="width: 80px;" data-en="About Us" data-ko="회사소개" data-zh="关于我们">About Us</a>
         <ul>
-          <li><a href="aboutus.html" data-en="Company Overview" data-ko="회사소개" data-zh=""></a></li>
-          <li><a href="aboutus.html" data-en="Competitiveness" data-ko="경쟁력" data-zh=""></a></li>
+          <li><a href="aboutus.html#1" data-en="Company Overview" data-ko="회사소개" data-zh=""></a></li>
+          <li><a href="aboutus.html#2" data-en="Competitiveness" data-ko="경쟁력" data-zh=""></a></li>
         </ul>
       </li>
       <li><a href="ourservice1.html" style="width: 100px;" data-en="Our Service" data-ko="서비스 안내" data-zh="服务内容">Services</a>
         <ul>
-          <li><a href="ourservice1.html" data-en="Global Shipping" data-ko="글로벌 운송" data-zh=""></a></li>
-          <li><a href="ourservice1.html" data-en="Domestic Trucking" data-ko="국내 트럭 운송" data-zh=""></a></li>
-          <li><a href="ourservice1.html" data-en="E-Commerce Fulfillment" data-ko="전자상거래 이행" data-zh=""></a></li>
-          <li><a href="ourservice1.html" data-en="Exhibition Logistics" data-ko="전시 물류" data-zh=""></a></li>
+          <li><a href="ourservice1.html#1" data-en="Global Shipping" data-ko="글로벌 운송" data-zh=""></a></li>
+          <li><a href="ourservice1.html#2" data-en="Domestic Trucking" data-ko="국내 트럭 운송" data-zh=""></a></li>
+          <li><a href="ourservice1.html#3" data-en="E-Commerce Fulfillment" data-ko="전자상거래 이행" data-zh=""></a></li>
+          <li><a href="ourservice1.html#4" data-en="Exhibition Logistics" data-ko="전시 물류" data-zh=""></a></li>
         </ul>
       </li>
       <li><a href="공지사항.html" style="width: 160px;" data-en="Information/News" data-ko="정보/뉴스" data-zh=""></a>
@@ -227,52 +378,154 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   </nav>
 
   <main>
-    <h1 data-en="About C&L Global" data-ko="회사 소개" data-zh="关于 C&L 国际">About C&L Global</h1>
-    <section>
-      <h2 data-en="Company Overview" data-ko="회사 개요" data-zh="公司概况">Company Overview</h2>
-      <p data-en="C&L Global offers tailored logistics solutions across the globe. We support global business with innovation and reliability."
-         data-ko="C&L 글로벌은 전 세계 맞춤형 물류 솔루션을 제공합니다. 혁신과 신뢰로 고객의 글로벌 비즈니스를 지원합니다."
-         data-zh="C&L 国际为全球客户提供定制物流解决方案，以创新与信赖支持客户的国际业务。">
-         C&L Global offers tailored logistics solutions across the globe. We support global business with innovation and reliability.
-      </p>
-    </section>
-    <section>
-      <h2 data-en="Certifications & Awards" data-ko="인증 및 수상" data-zh="认证与奖项">Certifications & Awards</h2>
-      <p data-en="- J.O.C Top 100 Exporter\n- Multiple global logistics certifications\n- Accredited air & ocean freight carrier"
-         data-ko="- J.O.C 수출 100대 기업 선정\n- 글로벌 물류 인증 다수 보유\n- 항공 및 해상 운송 공식 인증 보유"
-         data-zh="- J.O.C 百强出口商\n- 多项国际物流认证\n- 获得航空与海运运输资质">
-        - J.O.C Top 100 Exporter<br>- Multiple global logistics certifications<br>- Accredited air & ocean freight carrier
-      </p>
-    </section>
+  <section class="section" id="1" style="scroll-margin-top: 100px; margin-bottom: -10px;" data-aos="fade-up">
+    <h3>
+      <span data-ko="회사 개요" data-en="COMPANY OVERVIEW" data-zh="公司概况"></span>
+    </h3>
+  
+    <div class="overview-container">
+      <div class="overview-text">
+        <div class="lang-text" 
+       data-ko="<br>모든 방향에서의 헌신, C&L Global
+        <br><br><br>
+        C&L Global은 탁월한 물류 전문 인력, 고객 맞춤형 서비스, 그리고 함께 성장하고자 하는 끊임없는 노력으로 ‘헌신’의 가치를 실현하는 기업입니다.<br>우리는 매일 고객에게 최상의 서비스를 제공하기 위해 한 걸음 더 나아가며, 물류 업계에서 차별화된 존재가 되기 위해 끊임없이 노력하고 있습니다.<br><br>
+        지난 10년 동안, C&L Global은 물류 산업의 다양한 분야에서 지속적인 성장을 추구해 왔으며, 전 세계로 그 영역을 확장해 왔습니다. 특히, 수출 컨테이너 운송 사업에서 쌓은 경험을 바탕으로, 수입 운송, 화물 보관, 다양한 물류 서비스로 사업을 확장했습니다. 고객에 대한 책임과 신뢰를 바탕으로 미국, 중국, 한국에 새로운 지사를 설립했습니다.<br><br>
+        오늘날 우리는 C&L Global의 고품질 서비스가 파트너사의 비즈니스 기회를 무한히 확장시킬 수 있는 역량을 갖추고 있다고 확신합니다. 우리의 사명은 간단합니다. 바로 변화를 만들어내는 의미 있는 솔루션을 만드는 것입니다.<br>헌신적인 팀과 함께, 우리는 유산을 계승하고 C&L이 앞으로 더 큰 성과를 거둘 수 있도록 이끌어갈 것입니다.
+        <br><br>감사합니다.
+        <br><br><div style='text-align:right;'>대표이사 조윤호(Joe Cho)</div>"
+       data-en="<br>“ Commitment in Every Direction ”
+      <br><br><br>
+       First and foremost, C&L Global thrives to be a beacon of commitment, marked by high-caliber logistic team, unmatched customer service for every client, & relentless effort to grow the business together. Every day, we strive to go extra mile to service our customers and stand out among others.<br><br>  
+       Over the last decade, we aimed to grow each year for different sides of the logistic business & throughout the world. Following our experience in the export containerized business, we expanded to offer diversified services, including import & cargo warehousing. Moreover, our commitment and responsibility for our customers led us to open new branches in the United States, China and Korea.<br><br>
+       Today, I am more than certain than ever that our top tier service can cultivate and expand our partner’s business opportunities in countless ways. Our mission is simple-to create meaningful solutions that make a difference. Together with our dedicated team, we will continue to build on our legacy and lead C&L to even greater achievements in the years ahead.<br><br>             
+       <br><br><div style='text-align:right;'>Sincerely, Joe Cho, President</div>"
+      
+       data-zh="总裁致辞">
+      </div>
+      
+      <div class="certification-list" data-aos="fade-up">
+  <div class="cert-item">
+    <img src="images/NVOCC.png" alt="FMC registered NVOCC">
+    <div class="cert-info">
+      <div class="cert-title" data-ko="FMC registered NVOCC" data-en="FMC registered NVOCC" data-zh="FMC registered NVOCC"></div>
+      <div class="cert-desc" data-ko="Bond No.: 0597921<br>FMC No.:023082NF" data-en="Bond No.: 0597921<br>FMC No.:023082NF" data-zh="Bond No.: 0597921<br>FMC No.:023082NF"></div>
+    </div>
+  </div>
+  <div class="cert-item">
+    <img src="images/IAC.png" alt="Member of IAC">
+    <div class="cert-info">
+      <div class="cert-title" data-ko="Member of IAC" data-en="Member of IAC" data-zh="Member of IAC"></div>
+      <div class="cert-desc" data-ko="Indirect Air Carrier" data-en="Indirect Air Carrier" data-zh="Indirect Air Carrier"></div>
+    </div>
+  </div>
+  <div class="cert-item">
+    <img src="images/C-TPAT.png" alt="Member of C-TPAT">
+    <div class="cert-info">
+      <div class="cert-title" data-ko="Member of C-TPAT" data-en="Member of C-TPAT" data-zh="Member of C-TPAT"></div>
+      <div class="cert-desc" data-ko=" The Customs-Trade Partnership Against Terrorism program" data-en=" The Customs-Trade Partnership Against Terrorism program" data-zh=" The Customs-Trade Partnership Against Terrorism program"></div>
+    </div>
+  </div>
+</div>
+    </div>
+    
+  </section>
+
+
+
+  
+  <section class="section" id="2" style="scroll-margin-top: 100px; margin-top: 500px;" data-aos="fade-up">
+    <h3 data-aos="fade-up">
+      <span data-ko="경쟁력" data-en="COMPETITIVENESS" data-zh="竞争优势"></span>
+    </h3>
+    <p class="subtitle fade-down-on-load" style="animation-delay: 0.2s;"
+   data-ko="글로벌 시장에서 검증된 우리의 경쟁력."
+   data-en="Proven competitiveness in the global market."
+   data-zh="在全球市场中验证的竞争力。">
+</p>
+
+    <br><br>
+    <div id="edgeBoxes" data-aos="fade-up" data-aos-delay="100"></div>
+    <br>
+    
+  
+  </section>
   </main>
   <footer class="footer">
     <p>&copy; 2025 C&L Global. All rights reserved.</p>
   </footer>
 
   <script src="../js/lang.js"></script>
-  <script>
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const langSelect = document.getElementById('langSelect');
 
-    hamburgerBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
+<script>
+  fetch('/data/links.json')
+    .then(res => res.json())
+    .then(links => {
+      const lang = localStorage.getItem('siteLanguage') || 'ko';
+      document.querySelectorAll('.link-anchor').forEach(el => {
+        const linkData = links.find(l => l.id === el.dataset.id);
+        if (linkData) {
+          el.href = linkData.url;
+          el.textContent = linkData[`label_${lang}`] || linkData.label_ko;
+        }
+      });
+    });
+</script>
+
+<script>
+  fetch('data/links.json')
+    .then(res => res.json())
+    .then((linkList) => {
+      const lang = localStorage.getItem('siteLanguage') || 'ko';
+  
+      document.querySelectorAll('a[data-id="link"]').forEach(el => {
+        const id = el.dataset.linkId;
+        const linkData = linkList.find(link => link.id === id);
+        if (linkData) {
+          el.href = linkData.url;
+          el.textContent = linkData[`label_${lang}`] || linkData.label_ko;
+        }
+      });
     });
 
-    langSelect.addEventListener('change', (e) => {
-      setLanguage(e.target.value);
+    fetch('/data/links.json')
+  .then(res => res.json())
+  .then(data => {
+    document.querySelectorAll('a[data-id]').forEach(a => {
+      const id = a.dataset.id;
+      const [svc, index] = id.split('-'); // 예: ourservice1-2
+      const linkData = data[svc]?.[index];
+      if (linkData) {
+        a.href = linkData.url;
+        a.setAttribute('data-ko', linkData.ko);
+        a.setAttribute('data-en', linkData.en);
+        a.setAttribute('data-zh', linkData.zh);
+        a.textContent = linkData.ko; // 또는 현재 언어 설정에 따라
+      }
     });
+  });
 
-    document.addEventListener('DOMContentLoaded', () => {
-      setLanguage('en');
-    });
   </script>
 
   <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    // 메뉴 열기/닫기
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    // 메뉴 내 a 태그 클릭 시 자동 닫힘
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // 언어 셀렉터는 기존대로 유지
     const langToggleBtn = document.querySelector('.lang-toggle-btn');
     const langDropdown = document.querySelector('.mobile-lang-dropdown');
-
     if (langToggleBtn && langDropdown) {
       langToggleBtn.addEventListener('click', () => {
         langDropdown.classList.toggle('open');
@@ -280,5 +533,143 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
     }
   });
 </script>
+
+
+<script>
+  const edgeData = {
+    en: `
+      <div class="edge-features">
+        <div class="row">
+          <div class="feature" data-aos="fade-up">
+            <i class="fa-solid fa-globe"></i>
+            <h4>USA Out bound Leader</h4>
+            <p>Unlimited carrier selection,<br>JOC top100 exporter</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="feature" data-aos="fade-up" data-aos-delay="100">
+            <i class="fa-solid fa-warehouse"></i>
+            <h4>Fulfillment Service</h4>
+            <p>Warehousing, 3PL, LMD</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="feature" data-aos="fade-up" data-aos-delay="200">
+            <i class="fa-solid fa-trailer"></i>
+            <h4>Domestic Trucking</h4>
+            <p>Trucking & Special Cargo</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="feature" data-aos="fade-up" data-aos-delay="300">
+            <i class="	fa-solid fa-building-columns"></i>
+            <h4>Exhibition Logistics</h4>
+            <p>Experienced service provider<br>Near to Las Vegas main convention center</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="feature" data-aos="fade-up" data-aos-delay="400">
+            <i class="fas fa-comments"></i>
+            <h4>Communication</h4>
+            <p>7D, 24H Trained Korean/Chinese Staff<br>Perfection in end-to-end networks</p>
+          </div>
+        </div>
+      </div>
+    `,
+    ko: `
+      <div class="edge-features">
+      <div class="row">
+        <div class="feature" data-aos="fade-up">
+          <i class="fas fa-ship"></i>
+          <h4>미국 수출 리더</h4>
+          <p>무제한 선사 선택<br>JOC 수출 100대 업체</p>
+        </div>
+        </div>
+        <div class="row">
+        <div class="feature" data-aos="fade-up" data-aos-delay="100">
+          <i class="fas fa-boxes"></i>
+          <h4>풀필먼트 서비스</h4>
+          <p>창고 운영, 3PL, 마지막 배송</p>
+        </div>
+        </div>
+        <div class="row">
+        <div class="feature" data-aos="fade-up" data-aos-delay="200">
+          <i class="fas fa-truck"></i>
+          <h4>국내 운송</h4>
+          <p>FTL, LTL 및 특수화물</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="feature" data-aos="fade-up" data-aos-delay="300">
+          <i class="fas fa-briefcase"></i>
+          <h4>전시 물류</h4>
+          <p>라스베가스 주요 전시장 인근의 경험 많은 업체</p>
+        </div>
+        </div>
+        <div class="row">
+        <div class="feature" data-aos="fade-up" data-aos-delay="400">
+          <i class="fas fa-comments"></i>
+          <h4>커뮤니케이션</h4>
+          <p>연중무휴 한ㆍ중 전문 인력<br>End-to-End 기반의 완벽한 네트워크</p>
+        </div>
+      </div>
+    </div>
+    `,
+    zh: `
+      <div class="edge-features">
+        <div class="row">
+        <div class="feature" data-aos="fade-up">
+          <i class="fas fa-ship"></i>
+          <h4>美国出口领导者</h4>
+          <p>不限承运人选择<br>JOC前100出口商</p>
+        </div>
+        </div>
+        <div class="row">
+        <div class="feature" data-aos="fade-up" data-aos-delay="100">
+          <i class="fas fa-boxes"></i>
+          <h4>履约服务</h4>
+          <p>仓储, 第三方物流, 末端配送</p>
+        </div>
+        </div>
+        <div class="row">
+        <div class="feature" data-aos="fade-up" data-aos-delay="200">
+          <i class="fas fa-truck"></i>
+          <h4>国内运输</h4>
+          <p>整车/零担及特殊货物</p>
+        </div>
+        </div>
+        <div class="row">
+        <div class="feature" data-aos="fade-up" data-aos-delay="300">
+          <i class="fas fa-briefcase"></i>
+          <h4>展览物流</h4>
+          <p>拉斯维加斯主展馆周边专业服务</p>
+        </div>
+        </div>
+        <div class="row">
+        <div class="feature" data-aos="fade-up" data-aos-delay="400">
+          <i class="fas fa-comments"></i>
+          <h4>沟通能力</h4>
+          <p>全年无休中韩专员<br>端到端完美沟通</p>
+        </div>
+        </div>
+      </div>
+    `
+  };
+  
+  function renderEdgeBoxes(lang) {
+    const container = document.getElementById('edgeBoxes');
+    if (container && edgeData[lang]) {
+      container.innerHTML = edgeData[lang];
+    }
+  }
+  
+  // 예: 페이지 로드 시 언어에 맞게 초기 렌더링
+  document.addEventListener('DOMContentLoaded', () => {
+    const lang = document.documentElement.lang || 'en';
+    renderEdgeBoxes(lang);
+  });
+  </script>
+
+  
 </body>
 </html>

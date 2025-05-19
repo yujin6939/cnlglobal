@@ -11,16 +11,14 @@
     header { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 1rem; height: 58px; background-color: white; position: fixed; top: 0; left: 0; right: 0; z-index: 3000; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     #logoImg { height: 40px; }
     .hamburger { font-size: 1.6rem; background: none; border: none; color: #002244; position: relative; z-index: 3001; }
-    .lang-select { margin-top: 0.5rem; font-size: 1rem; padding: 0.3rem; border-radius: 4px; border: 1px solid #ccc; }
-    .mobile-nav { display: none; flex-direction: column; position: fixed; top: 58px; left: 0; width: 100%; background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 2500; }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav ul { list-style: none; padding: 1rem; margin: 0; }
-    .mobile-nav li { margin: 1rem 0; }
-    .mobile-nav a { text-decoration: none; color: #002244; font-weight: bold; font-size: 1.2rem; }
     main { padding: 70px 1rem 2rem; }
     h1 { font-size: 1.4rem; color: #002244; text-align: center; margin-bottom: 1.5rem; }
   </style>
   <style>
+    html {
+  scroll-behavior: smooth;
+}
+
     .notice-list {
       flex: 3;
     }
@@ -382,16 +380,16 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
       <li><a href="index.html" style="width: 55px; background-color: rgb(124, 54, 124);" data-en="Home" data-ko="홈" data-zh="首页">Home</a></li>
       <li><a href="aboutus.html" style="width: 80px;" data-en="About Us" data-ko="회사소개" data-zh="关于我们">About Us</a>
         <ul>
-          <li><a href="aboutus.html" data-en="Company Overview" data-ko="회사소개" data-zh=""></a></li>
-          <li><a href="aboutus.html" data-en="Competitiveness" data-ko="경쟁력" data-zh=""></a></li>
+          <li><a href="aboutus.html#1" data-en="Company Overview" data-ko="회사소개" data-zh=""></a></li>
+          <li><a href="aboutus.html#2" data-en="Competitiveness" data-ko="경쟁력" data-zh=""></a></li>
         </ul>
       </li>
       <li><a href="ourservice1.html" style="width: 100px;" data-en="Our Service" data-ko="서비스 안내" data-zh="服务内容">Services</a>
         <ul>
-          <li><a href="ourservice1.html" data-en="Global Shipping" data-ko="글로벌 운송" data-zh=""></a></li>
-          <li><a href="ourservice1.html" data-en="Domestic Trucking" data-ko="국내 트럭 운송" data-zh=""></a></li>
-          <li><a href="ourservice1.html" data-en="E-Commerce Fulfillment" data-ko="전자상거래 이행" data-zh=""></a></li>
-          <li><a href="ourservice1.html" data-en="Exhibition Logistics" data-ko="전시 물류" data-zh=""></a></li>
+          <li><a href="ourservice1.html#1" data-en="Global Shipping" data-ko="글로벌 운송" data-zh=""></a></li>
+          <li><a href="ourservice1.html#2" data-en="Domestic Trucking" data-ko="국내 트럭 운송" data-zh=""></a></li>
+          <li><a href="ourservice1.html#3" data-en="E-Commerce Fulfillment" data-ko="전자상거래 이행" data-zh=""></a></li>
+          <li><a href="ourservice1.html#4" data-en="Exhibition Logistics" data-ko="전시 물류" data-zh=""></a></li>
         </ul>
       </li>
       <li><a href="공지사항.html" style="width: 160px;" data-en="Information/News" data-ko="정보/뉴스" data-zh=""></a>
@@ -428,20 +426,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   </footer>
 
 <script src="../js/lang.js"></script>
-<script>
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const langSelect = document.getElementById('langSelect');
 
-  hamburgerBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('open');
-  });
-
-  langSelect.addEventListener('change', (e) => {
-    setLanguage(e.target.value);
-    fetchNotices(e.target.value, 1);
-  });
-  </script>
 <script>
   const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
 
@@ -570,9 +555,24 @@ if (!title || !content) {
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    // 메뉴 열기/닫기
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    // 메뉴 내 a 태그 클릭 시 자동 닫힘
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // 언어 셀렉터는 기존대로 유지
     const langToggleBtn = document.querySelector('.lang-toggle-btn');
     const langDropdown = document.querySelector('.mobile-lang-dropdown');
-
     if (langToggleBtn && langDropdown) {
       langToggleBtn.addEventListener('click', () => {
         langDropdown.classList.toggle('open');
@@ -580,6 +580,7 @@ if (!title || !content) {
     }
   });
 </script>
+
 
 </body>
 </html>
