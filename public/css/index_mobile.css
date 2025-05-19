@@ -1,9 +1,10 @@
 /* 기본 모바일 레이아웃 설정 */
 @media (max-width: 768px) {
   /* 로고 크기 줄이기 */
-  #logoImg {
-    height: 42px !important;
-  }
+#logoImg {
+  height: 32px !important; /* 기존 42px → 32px */
+}
+
 
   header {
     display: flex;
