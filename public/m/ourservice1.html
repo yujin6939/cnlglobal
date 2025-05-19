@@ -9,7 +9,7 @@
   <style>
     body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
     header { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 1rem; height: 58px; background-color: white; position: fixed; top: 0; left: 0; right: 0; z-index: 3000; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-    #logoImg { height: 24px; }
+    #logoImg { height: 40px; }
     .hamburger { font-size: 1.6rem; background: none; border: none; color: #002244; position: relative; z-index: 3001; }
     .lang-select { margin-top: 0.5rem; font-size: 1rem; padding: 0.3rem; border-radius: 4px; border: 1px solid #ccc; }
     .mobile-nav { display: none; flex-direction: column; position: fixed; top: 58px; left: 0; width: 100%; background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 2500; }
@@ -32,6 +32,147 @@
       padding: 2rem;
       margin-top: 0;
     }
+
+        .mobile-nav {
+  position: fixed;
+  top: 0px;
+  right: -100%; /* 처음에는 오른쪽 바깥으로 */
+  width: 80%;
+  height: calc(100vh - 58px); /* 화면 높이 - 헤더 */
+background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.1);
+  z-index: 2500;
+  overflow-y: auto; /* 스크롤 가능하게 */
+  transition: right 0.4s ease; /* 슬라이드 효과 */
+}
+    .mobile-nav.open {
+      display: block;
+        right: 0;
+    }
+.mobile-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 1.2rem;
+}
+.mobile-nav li {
+  position: relative;
+  margin-bottom: 1.2rem;
+}
+    .mobile-nav a {
+      text-decoration: none;
+      color: #002244;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+.mobile-nav > .mobile-nav-inner > ul > li > a {
+  display: block;
+  padding: 0.8rem 1.2rem;
+  background-color: #002244;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.mobile-nav > .mobile-nav-inner > ul > li > a:hover {
+  background-color: #dde6f7;
+  transform: translateX(5px);
+}
+
+.mobile-nav ul ul {
+  margin-top: 0.6rem;
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid #002244;
+}
+
+.mobile-nav ul ul li a {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  color: black;
+  font-weight: 500;
+  background-color: none;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-nav ul ul li a:hover {
+  background-color: #e2e6ea;
+}
+
+.mobile-lang-dropdown {
+  padding: 1rem 1rem 0.3rem; /* 아래 여백만 줄이기 */
+  background-color: rgba(255, 255, 255, 0.05);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* ← 버튼을 오른쪽 정렬 */
+}
+
+.lang-toggle-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #002244;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 0.8rem;
+}
+
+.lang-options {
+  list-style: none;
+  margin-top: 0.3rem;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 100px;
+  text-align: left;
+
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+
+.lang-options li {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  color: #002244;
+}
+
+.lang-options li:hover {
+  background-color: #f0f0f0;
+}
+
+.mobile-lang-dropdown.open .lang-options {
+  max-height: 300px;  /* 충분히 큰 값 */
+  opacity: 1;
+}
+
+.lang-toggle-btn i:last-child {
+  transition: transform 0.3s ease;
+}
+.mobile-lang-dropdown.open .lang-toggle-btn i:last-child {
+  transform: rotate(180deg);
+}
+
+.mobile-nav-inner {
+  height: calc(100vh - 58px); /* 헤더 높이만큼 빼기 */
+  margin-top: 58px; /* 헤더만큼 아래로 이동 */
+  overflow-y: auto;
+}
   </style>
 </head>
 <body>
@@ -41,21 +182,56 @@
       <i class="fas fa-bars"></i>
     </button>
   </header>
-  <nav id="mobileMenu" class="mobile-nav">
+
+      <nav id="mobileMenu" class="mobile-nav">
+      <div class="mobile-nav-inner">
+<!-- 언어 드롭다운 -->
+<div class="mobile-lang-dropdown">
+  <button class="lang-toggle-btn">
+    <i class="fas fa-globe"></i> Language <i class="fas fa-caret-down"></i>
+  </button>
+  <ul class="lang-options">
+    <li onclick="setLanguage('en')">English</li>
+    <li onclick="setLanguage('ko')">한국어</li>
+    <li onclick="setLanguage('zh')">中文</li>
+  </ul>
+</div>
+
+
+  <!-- 메뉴 리스트 -->
     <ul>
-      <li><a href="index.html" data-en="Home" data-ko="홈" data-zh="首页">Home</a></li>
-      <li><a href="aboutus.html" data-en="About Us" data-ko="회사소개" data-zh="关于我们">About Us</a></li>
-      <li><a href="ourservice1.html" data-en="Services" data-ko="서비스 안내" data-zh="服务内容">Services</a></li>
-      <li><a href="공지사항.html" data-en="Notices" data-ko="공지사항" data-zh="公告">Notices</a></li>
-      <li><a href="뉴스레터.html" data-en="Newsletter" data-ko="뉴스레터" data-zh="新闻简报">Newsletter</a></li>
-      <li><a href="information.html" data-en="Resources" data-ko="자료실" data-zh="资料室">Resources</a></li>
-      <li><a href="contactus.html" data-en="Contact" data-ko="문의하기" data-zh="联系我们">Contact</a></li>
+      <li><a href="index.html" style="width: 55px; background-color: rgb(124, 54, 124);" data-en="Home" data-ko="홈" data-zh="首页">Home</a></li>
+      <li><a href="aboutus.html" style="width: 80px;" data-en="About Us" data-ko="회사소개" data-zh="关于我们">About Us</a>
+        <ul>
+          <li><a href="aboutus.html" data-en="Company Overview" data-ko="회사소개" data-zh=""></a></li>
+          <li><a href="aboutus.html" data-en="Competitiveness" data-ko="경쟁력" data-zh=""></a></li>
+        </ul>
+      </li>
+      <li><a href="ourservice1.html" style="width: 100px;" data-en="Our Service" data-ko="서비스 안내" data-zh="服务内容">Services</a>
+        <ul>
+          <li><a href="ourservice1.html" data-en="Global Shipping" data-ko="글로벌 운송" data-zh=""></a></li>
+          <li><a href="ourservice1.html" data-en="Domestic Trucking" data-ko="국내 트럭 운송" data-zh=""></a></li>
+          <li><a href="ourservice1.html" data-en="E-Commerce Fulfillment" data-ko="전자상거래 이행" data-zh=""></a></li>
+          <li><a href="ourservice1.html" data-en="Exhibition Logistics" data-ko="전시 물류" data-zh=""></a></li>
+        </ul>
+      </li>
+      <li><a href="공지사항.html" style="width: 160px;" data-en="Information/News" data-ko="정보/뉴스" data-zh=""></a>
+      <ul>
+          <li><a href="공지사항.html" data-en="Notice" data-ko="공지사항" data-zh="公告">Notices</a></li>
+          <li><a href="뉴스레터.html" data-en="Newsletter" data-ko="뉴스레터" data-zh="新闻简报">Newsletter</a></li>
+          <li><a href="information.html" data-en="Resources" data-ko="자료실" data-zh="资料室">Resources</a></li>
+      </ul>
+      </li>
+      <li><a href="contactus.html" style="width: 95px;" data-en="Contact us" data-ko="문의하기" data-zh="联系我们">Contact</a>
+        <ul>
+          <li><a href="contactus.html#us-east" data-en="U.S." data-ko="미국" data-zh="美国"></a></li>
+          <li><a href="contactus.html#ko" data-ko="한국" data-en="Korea" data-zh="韩国"></a></li>
+          <li><a href="contactus.html#cn" data-ko="중국" data-en="China" data-zh="中国"></a></li>
+          <li><a href="contactus.html#wh" data-ko="웨어하우스" data-en="Warehouse" data-zh="仓库"></a></li>
+        </ul>
+      </li> 
     </ul>
-    <select class="lang-select" id="langSelect">
-      <option value="en">English</option>
-      <option value="ko">한국어</option>
-      <option value="zh">中文</option>
-    </select>
+  </div>
   </nav>
 
   <main>
@@ -120,5 +296,18 @@
       setLanguage('en');
     });
   </script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const langToggleBtn = document.querySelector('.lang-toggle-btn');
+    const langDropdown = document.querySelector('.mobile-lang-dropdown');
+
+    if (langToggleBtn && langDropdown) {
+      langToggleBtn.addEventListener('click', () => {
+        langDropdown.classList.toggle('open');
+      });
+    }
+  });
+</script>
 </body>
 </html>
