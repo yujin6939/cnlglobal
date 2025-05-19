@@ -981,6 +981,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 </script>
 
+<script>
+  // 모바일이면 /m/index.html 로 이동
+  const isMobile = /mobile|android|iphone|ipad/i.test(navigator.userAgent.toLowerCase());
+  const currentPath = window.location.pathname;
+
+  if (isMobile && !currentPath.startsWith('/m/')) {
+    window.location.href = '/m/index.html';
+  }
+</script>
 
   
       
