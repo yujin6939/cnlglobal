@@ -19,44 +19,197 @@
     .mobile-nav a { text-decoration: none; color: #002244; font-weight: bold; font-size: 1.2rem; }
     main { padding: 70px 1rem 2rem; }
     h1 { font-size: 1.4rem; color: #002244; text-align: center; margin-bottom: 1.5rem; }
-    .notice-list { list-style: none; padding: 0; }
-    .notice-item { background: white; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); padding: 1rem; }
-    .notice-item h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #002244; }
-    .notice-item p { font-size: 0.95rem; color: #444; }
     footer { background-color: #002244; color: white; text-align: center; padding: 1.2rem; margin-top: 2rem; font-size: 0.9rem; }
   </style>
   <style>
-  .pagination-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 0.4rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .page-btn {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-    color: #002244;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
-  }
-  .page-btn:hover {
-    background-color: #002244;
-    color: white;
-  }
-  .page-btn.active {
-    background-color: #002244;
-    color: white;
+    .notice-list {
+      flex: 3;
+    }
+
+    .notice-item {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0;
+    }
+
+    .notice-item a {
+    text-decoration: none;
     font-weight: bold;
-  }
+    color: #002244;
+    }
+
+    .notice-item a:hover {
+    color: #0055aa;
+    }
+
+    .pagination {
+    text-align: center;
+    margin: 2rem 0;
+    }
+
+    .pagination button {
+    background: #002244;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    cursor: pointer;
+    }
+
+    .pagination button.active {
+    background: #004488;
+    }
+
+    .post-card {
+  background: #fff;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.post-title {
+  font-size: 1.6rem;
+  color: #002244;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.post-title i {
+  color: #0055aa;
+}
+
+.post-meta {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.post-content {
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: #333;
+  border-top: 1px solid #ccc;
+  padding-top: 1.5rem;
+}
+
+.post-content ul {
+  padding-left: 1.2rem;
+  margin: 1rem 0;
+}
+
+.post-content li {
+  margin-bottom: 0.5rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 2rem;
+  color: #0055aa;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 3rem auto;
+      gap: 2rem;
+      padding: 0 1rem;
+      align-items: stretch;
+    }
+
+    .notice-detail {
+  flex: 3;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.notice-detail h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: #002244;
+}
+
+.notice-detail .meta {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+.notice-detail .content {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #333;
+  border-top: 1px solid #ccc;
+  padding-top: 1.5rem;
+}
+
+.notice-detail .back-btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  background: #002244;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.notice-detail .back-btn:hover {
+  background: #004488;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.notice-detail .attachments img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.notice-detail .attachments a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #0055aa;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.alert-message {
+  color: #666;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
 </style>
 </head>
 <body>
   <header>
-    <a href="../index.html"><img src="../images/logo.png" alt="C&L Global logo" id="logoImg"></a>
+    <a href="../m/index.html"><img src="../images/logo.png" alt="C&L Global logo" id="logoImg"></a>
     <button id="hamburgerBtn" class="hamburger">
       <i class="fas fa-bars"></i>
     </button>
@@ -81,11 +234,14 @@
 
   <main>
     <h1 data-en="Notices" data-ko="공지사항" data-zh="公告">Notices</h1>
-    <ul class="notice-list" id="noticeList">
-      <!-- Loaded via JS -->
-    </ul>
-  </main>
-<div id="pagination"></div>
+  <section class="notice-list fade-left-on-load" id="notice-list">
+    <!-- 공지사항 리스트 동적 로딩 영역 -->
+  </section>
+</main>
+
+  <!-- 페이지네이션 -->
+    <div class="pagination" id="pagination"></div>
+
   <footer>
     &copy; 2025 C&L Global. All rights reserved.
   </footer>
@@ -104,87 +260,133 @@
     setLanguage(e.target.value);
     fetchNotices(e.target.value, 1);
   });
+  </script>
+<script>
+  const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
 
-  function fetchNotices(lang, page = 1) {
-    fetch(`/api/notices?lang=${lang}`)
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById('noticeList');
-        list.innerHTML = '';
+function renderPostsFromServer(page = 1) {
+  fetch(`/api/notices?page=${page}&lang=${lang}&category=notice`) // ✅ lang은 위에서 정의됨
 
-        const langKey = lang.toLowerCase();
-        const filtered = data.notices.filter(n => n.title?.[langKey]);
+    .then(res => res.json())
+    .then(response => {
+const listContainer = document.getElementById("notice-list");
+listContainer.innerHTML = "";
 
-        const startIndex = (page - 1) * 5;
-        const paginated = filtered.slice(startIndex, startIndex + 5);
+const filtered = (response.notices || []).filter(post =>
+  post.title?.[lang] && post.content?.[lang]
+);
 
-        paginated.forEach(notice => {
-          const item = document.createElement('li');
-          const title = notice.title?.[langKey] || '(No title)';
-          const date = new Date(notice.createdAt).toLocaleDateString();
+filtered.forEach(post => {
+  const title = post.title?.[lang];
+  const content = post.content?.[lang];
+  if (!title || !content) return;
 
-          item.className = 'notice-item';
-          item.innerHTML = `<h3>${title}</h3><p>${date}</p>`;
-          list.appendChild(item);
-        });
+  const div = document.createElement("div");
+  div.className = "notice-item";
+  div.innerHTML = `
+    <a href="javascript:void(0)" onclick='showPostDetail(${JSON.stringify(post)})'>
+      ${title}
+    </a>
+  `;
+  listContainer.appendChild(div);
+});
 
-        renderPagination(filtered.length, page, lang);
-      })
-      .catch(err => console.error('Error loading notices:', err));
-  }
 
-  function renderPagination(total, currentPage, lang) {
-    const paginationWrapper = document.getElementById('pagination');
-    if (!paginationWrapper) return;
+      if (listContainer.children.length === 0) {
+        const msg = document.createElement("p");
+const messages = {
+  ko: "등록된 공지사항이 없습니다.",
+  en: "No notices available.",
+  zh: "暂无公告。"
+};
+msg.textContent = messages[lang] || messages.ko;
 
-    const totalPages = Math.ceil(total / 5);
-    let html = '';
+msg.className = "alert-message";
 
-    if (totalPages > 1) {
-      for (let i = 1; i <= totalPages; i++) {
-        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        listContainer.appendChild(msg);
       }
-    }
 
-    paginationWrapper.innerHTML = `<div class="pagination-wrapper">${html}</div>`;
+renderPagination(response.total, page); // ✅ 서버에서 내려준 전체 개수 기준
+document.getElementById("pagination").classList.remove("hidden");
 
-    document.querySelectorAll('.page-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const selectedPage = parseInt(btn.dataset.page);
-        fetchNotices(lang, selectedPage);
-      });
     });
+}
+
+
+function renderPagination(totalPosts, currentPage) {
+  const totalPages = Math.ceil(totalPosts / 10);
+  const pagination = document.getElementById("pagination");
+  pagination.innerHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    const button = document.createElement("button");
+    button.textContent = i;
+    if (i === currentPage) button.classList.add("active");
+    button.addEventListener("click", () => renderPostsFromServer(i));
+    pagination.appendChild(button);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  renderPostsFromServer(1);
+});
+
+function showPostDetail(post) {
+  const container = document.getElementById("notice-list");
+  container.innerHTML = "";
+
+  const title = post.title?.[lang];
+  const content = post.content?.[lang];
+
+  const noContentMessages = {
+  ko: "해당 언어로 작성된 내용이 없습니다.",
+  en: "This post is not available in the selected language.",
+  zh: "该语言版本的内容不可用。"
+};
+
+if (!title || !content) {
+  const message = noContentMessages[lang] || noContentMessages["ko"];
+  container.innerHTML = `<p>${message}</p>`;
+  return;
+}
+
+
+  const detailDiv = document.createElement("div");
+  detailDiv.className = "notice-detail";
+
+  // 이미지 또는 첨부 파일 포함
+  let attachmentsHTML = "";
+  const fileRegex = /<img[^>]+src="([^"]+\/uploads\/[^"]+)"[^>]*>/g;
+  let match;
+  const foundImages = [];
+
+  while ((match = fileRegex.exec(content)) !== null) {
+    foundImages.push(match[1]);
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    window.renderEdgeBoxes = window.renderEdgeBoxes || function () {};
-    const defaultLang = localStorage.getItem('siteLanguage') || 'en';
-    setLanguage(defaultLang);
-    fetchNotices(defaultLang, 1);
-  });
-    let html = '';
-
-    for (let i = 1; i <= totalPages; i++) {
-      html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
-    }
-
-    paginationWrapper.innerHTML = `<div class="pagination-wrapper">${html}</div>`;
-
-    document.querySelectorAll('.page-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const selectedPage = parseInt(btn.dataset.page);
-        fetchNotices(lang, selectedPage);
-      });
+  if (foundImages.length > 0) {
+    attachmentsHTML += `<div class="attachments">`;
+    foundImages.forEach(src => {
+      attachmentsHTML += `<img src="${src}" alt="첨부 이미지" />`;
     });
+    attachmentsHTML += `</div>`;
+  }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    window.renderEdgeBoxes = window.renderEdgeBoxes || function () {};
-    const defaultLang = localStorage.getItem('siteLanguage') || 'en';
-    setLanguage(defaultLang);
-    fetchNotices(defaultLang, 1);
-  });
-</script>
+  detailDiv.innerHTML = `
+    <h2>${title}</h2>
+    <p class="meta">${new Date(post.createdAt).toLocaleString()}</p>
+    <div class="content">${content.replace(/\n/g, "<br>")}</div>
+    ${attachmentsHTML}
+    <button class="back-btn" onclick="renderPostsFromServer(1)">← 목록으로 돌아가기</button>
+  `;
+ 
+  container.appendChild(detailDiv);
 
+  document.getElementById("pagination").classList.add("hidden");
+}
+
+
+</script>  
 
 </body>
 </html>
