@@ -713,7 +713,7 @@ html[lang="zh"] .circle-button {
 
 
   
-  <section class="section" id="2" style="scroll-margin-top: 180px;" data-aos="fade-up">
+  <section class="section" id="2" style="scroll-margin-top: 180px; margin-top: 500px;" data-aos="fade-up">
     <h3 data-aos="fade-up">
       <span data-ko="경쟁력" data-en="COMPETITIVENESS" data-zh="竞争优势"></span>
     </h3>
@@ -921,6 +921,43 @@ html[lang="zh"] .circle-button {
   });
   </script>
   
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  let currentIndex = 0;
+  let scrollTicks = 0;
+  let isScrolling = false;
+
+  // 휠 스크롤 감지
+  window.addEventListener('wheel', (e) => {
+    if (isScrolling) return;
+
+    // deltaY: 양수 = 아래, 음수 = 위
+    scrollTicks += e.deltaY > 0 ? 1 : -1;
+
+    if (scrollTicks >= 4 && currentIndex < sections.length - 1) {
+      currentIndex++;
+      scrollToSection(currentIndex);
+    } else if (scrollTicks <= -4 && currentIndex > 0) {
+      currentIndex--;
+      scrollToSection(currentIndex);
+    }
+  }, { passive: true });
+
+  // 부드러운 스크롤
+  function scrollToSection(index) {
+    isScrolling = true;
+    scrollTicks = 0;
+    sections[index].scrollIntoView({ behavior: 'smooth' });
+
+    // 스크롤 중복 방지 타이머
+    setTimeout(() => {
+      isScrolling = false;
+    }, 1200); // 이동 애니메이션 시간과 동일하게 설정
+  }
+});
+</script>
+
 
 <script src="js/lang.js"></script>
 

@@ -1305,6 +1305,46 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  let currentIndex = 0;
+  let scrollTicks = 0;
+  let isScrolling = false;
+
+  // 휠 감지 및 티커 누적
+  window.addEventListener('wheel', (e) => {
+    if (isScrolling) return;
+
+    scrollTicks += e.deltaY > 0 ? 1 : -1;
+
+    // 스크롤 내림: 4틱 누적 시 다음 섹션
+    if (scrollTicks >= 4 && currentIndex < sections.length - 1) {
+      currentIndex++;
+      scrollToSection(currentIndex);
+    }
+
+    // 스크롤 올림
+    if (scrollTicks <= -4 && currentIndex > 0) {
+      currentIndex--;
+      scrollToSection(currentIndex);
+    }
+  }, { passive: true });
+
+  // 부드러운 스크롤 함수
+  function scrollToSection(index) {
+    isScrolling = true;
+    scrollTicks = 0;
+    sections[index].scrollIntoView({
+      behavior: 'smooth'
+    });
+
+    setTimeout(() => {
+      isScrolling = false;
+    }, 1200); // 스크롤 애니메이션 시간
+  }
+});
+</script>
 
   
 <script src="js/lang.js"></script>

@@ -542,7 +542,7 @@ header img {
         <li class="dropdown">
           <a href="contactus.html" data-ko="문의하기" data-en="Contact us" data-zh="联系我们"></a>
           <ul class="dropdown-menu">
-            <li><a href="contactus.html#us" data-ko="미국" data-en="U.S." data-zh="美国"></a></li>
+            <li><a href="contactus.html#us-east" data-ko="미국" data-en="U.S." data-zh="美国"></a></li>
             <li><a href="contactus.html#ko" data-ko="한국" data-en="Korea" data-zh="韩国"></a></li>
             <li><a href="contactus.html#cn" data-ko="중국" data-en="China" data-zh="中国"></a></li>
             <li><a href="contactus.html#wh" data-ko="웨어하우스" data-en="Warehouse" data-zh="仓库"></a></li>
@@ -566,7 +566,7 @@ header img {
       
 
 
-  <section class="section" id="us" style="scroll-margin-top: 150px; margin-top: 50px;" data-aos="fade-up">
+  <section class="section" id="us-east" style="scroll-margin-top: 150px; margin-top: 50px;" data-aos="fade-up">
     <h3><i></i>
       <span data-ko="미국" data-en="UNITED STATES" data-zh="美国"></span></h3>
     
@@ -630,8 +630,9 @@ header img {
     </p>
   </div>
       </div>
-
-      <h3><i></i><br><br>
+    </section>
+<section class="section" id="us-west" style="scroll-margin-top: 250px;" data-aos="fade-up">
+      <h3><i></i>
         <span data-ko="미국" data-en="UNITED STATES(LAS VEGAS)" data-zh="美国"></span></h3>
         <div class="map-wrapper" style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3223.281122539776!2d-115.19491832375418!3d36.11100830624509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c8c7893022b855%3A0x8f15f0d1f330e654!2sC%20%26%20L%20GLOBAL%20INC!5e0!3m2!1sko!2skr!4v1747111459507!5m2!1sko!2skr"
@@ -669,7 +670,7 @@ header img {
 
   </section>
 
-  <section class="section" id="ko" style="scroll-margin-top: 150px; margin-top: -300px;" data-aos="fade-up">
+  <section class="section" id="ko" style="scroll-margin-top: 250px;" data-aos="fade-up">
     <h3>
       <i></i>
       <span data-ko="한국" data-en="KOREA" data-zh="韩国"></span>
@@ -716,7 +717,7 @@ header img {
     </div>
   </section>
 
-  <section class="section" id="cn" style="scroll-margin-top: 150px; margin-top: -300px;" data-aos="fade-up">
+  <section class="section" id="cn" style="scroll-margin-top: 250px;" data-aos="fade-up">
     <h3>
       <i></i>
       <span data-ko="중국" data-en="CHINA" data-zh="中国"></span>
@@ -760,7 +761,7 @@ header img {
     </div>
   </section>
 
-  <section class="section" id="wh" style="scroll-margin-top: 150px; margin-top: -300px;" data-aos="fade-up">
+  <section class="section" id="wh" style="scroll-margin-top: 200px;" data-aos="fade-up">
     <h3>
       <i></i>
       <span data-ko="웨어하우스" data-en="WAREHOUSE" data-zh="仓库"></span>
@@ -867,6 +868,50 @@ header img {
     });
   });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = [
+    document.getElementById('us-east'),
+    document.getElementById('us-west'),
+    document.getElementById('ko'),
+    document.getElementById('cn'),
+    document.getElementById('wh')
+  ];
+
+  let currentIndex = 0;
+  let scrollTicks = 0;
+  let isScrolling = false;
+  let lastScrollTime = 0;
+  const tickThreshold = 4;  // 휠 4틱당
+  const scrollDelay = 1000; // 1초 간격
+
+  window.addEventListener('wheel', (e) => {
+    const now = Date.now();
+
+    // 연속 스크롤 방지
+    if (now - lastScrollTime < scrollDelay) return;
+
+    // 휠 방향 체크
+    scrollTicks += e.deltaY > 0 ? 1 : -1;
+
+    if (scrollTicks >= tickThreshold && currentIndex < sections.length - 1) {
+      currentIndex++;
+      scrollToSection(currentIndex);
+    } else if (scrollTicks <= -tickThreshold && currentIndex > 0) {
+      currentIndex--;
+      scrollToSection(currentIndex);
+    }
+  }, { passive: true });
+
+  function scrollToSection(index) {
+    scrollTicks = 0;
+    lastScrollTime = Date.now();
+    sections[index].scrollIntoView({ behavior: 'smooth' });
+  }
+});
+</script>
+
 
 
 <script src="js/lang.js"></script>
