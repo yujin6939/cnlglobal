@@ -28,7 +28,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     #logoImg {
-      height: 24px;
+      height: 40px;
     }
     .hamburger {
       font-size: 1.6rem;
@@ -86,9 +86,9 @@
       width: 100%;
       height: 180px;
       object-fit: cover;
-      border-radius: 6px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       margin-bottom: 1.5rem;
+      margin-top: 1.5rem;
     }
     .quick-links {
       display: grid;
@@ -107,13 +107,12 @@
       text-decoration: none;
       color: #002244;
     }
-    footer {
+    .footer {
       background-color: #002244;
       color: white;
       text-align: center;
-      padding: 1.2rem;
-      margin-top: 2rem;
-      font-size: 0.9rem;
+      padding: 2rem;
+      margin-top: 0;
     }
   </style>
 </head>
@@ -128,12 +127,35 @@
   <nav id="mobileMenu" class="mobile-nav">
     <ul>
       <li><a href="index.html" data-en="Home" data-ko="홈" data-zh="首页">Home</a></li>
-      <li><a href="aboutus.html" data-en="About Us" data-ko="회사소개" data-zh="关于我们">About Us</a></li>
-      <li><a href="ourservice1.html" data-en="Services" data-ko="서비스 안내" data-zh="服务内容">Services</a></li>
-      <li><a href="공지사항.html" data-en="Notices" data-ko="공지사항" data-zh="公告">Notices</a></li>
-      <li><a href="뉴스레터.html" data-en="Newsletter" data-ko="뉴스레터" data-zh="新闻简报">Newsletter</a></li>
-      <li><a href="information.html" data-en="Resources" data-ko="자료실" data-zh="资料室">Resources</a></li>
-      <li><a href="contactus.html" data-en="Contact" data-ko="문의하기" data-zh="联系我们">Contact</a></li>
+      <li><a href="aboutus.html" data-en="About Us" data-ko="회사소개" data-zh="关于我们">About Us</a>
+        <ul>
+          <li><a href="aboutus.html" data-en="Company Overview" data-ko="회사소개" data-zh=""></a></li>
+          <li><a href="aboutus.html" data-en="Competitiveness" data-ko="경쟁력" data-zh=""></a></li>
+        </ul>
+      </li>
+      <li><a href="ourservice1.html" data-en="Services" data-ko="서비스 안내" data-zh="服务内容">Services</a>
+        <ul>
+          <li><a href="ourservice1.html" data-en="Global Shipping" data-ko="글로벌 운송" data-zh=""></a></li>
+          <li><a href="ourservice1.html" data-en="Domestic Trucking" data-ko="국내 트럭 운송" data-zh=""></a></li>
+          <li><a href="ourservice1.html" data-en="E-Commerce Fulfillment" data-ko="전자상거래 이행" data-zh=""></a></li>
+          <li><a href="ourservice1.html" data-en="Exhibition Logistics" data-ko="전시 물류" data-zh=""></a></li>
+        </ul>
+      </li>
+      <li><a href="공지사항.html" data-en="Information/News" data-ko="정보/뉴스" data-zh=""></a>
+      <ul>
+          <li><a href="공지사항.html" data-en="Notice" data-ko="공지사항" data-zh="公告">Notices</a></li>
+          <li><a href="뉴스레터.html" data-en="Newsletter" data-ko="뉴스레터" data-zh="新闻简报">Newsletter</a></li>
+          <li><a href="information.html" data-en="Resources" data-ko="자료실" data-zh="资料室">Resources</a></li>
+      </ul>
+      </li>
+      <li><a href="contactus.html" data-en="Contact us" data-ko="문의하기" data-zh="联系我们">Contact</a>
+        <ul>
+          <li><a href="contactus.html#us-east" data-en="U.S." data-ko="미국" data-zh="美国"></a></li>
+          <li><a href="contactus.html#ko" data-ko="한국" data-en="Korea" data-zh="韩国"></a></li>
+          <li><a href="contactus.html#cn" data-ko="중국" data-en="China" data-zh="中国"></a></li>
+          <li><a href="contactus.html#wh" data-ko="웨어하우스" data-en="Warehouse" data-zh="仓库"></a></li>
+        </ul>
+      </li> 
     </ul>
     <select class="lang-select" id="langSelect">
       <option value="en">English</option>
@@ -143,7 +165,6 @@
   </nav>
 
   <main>
-    <h1 data-en="Welcome to C&L Global" data-ko="C&L 글로벌에 오신 것을 환영합니다" data-zh="欢迎来到 C&L 国际">Welcome to C&L Global</h1>
     <img src="../images/port_ai.jpg" class="hero-img" alt="Main Image">
     <div class="quick-links">
       <a href="공지사항.html" data-en="Notices" data-ko="공지사항" data-zh="公告">Notices</a>
@@ -153,8 +174,8 @@
     </div>
   </main>
 
-  <footer>
-    &copy; 2025 C&L Global. All rights reserved.
+  <footer class="footer">
+    <p>&copy; 2025 C&L Global. All rights reserved.</p>
   </footer>
 
   <script src="../js/lang.js"></script>
