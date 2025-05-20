@@ -1101,7 +1101,7 @@ fetch('/api/notices/6825ae860bb4160d19ca2d25')
   .then(res => res.json())
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-    const content = post.content?.[lang] || "";
+    const content = post.content?.[lang] || post.content?.en || "";
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
@@ -1130,7 +1130,7 @@ fetch('/api/notices/6826d9a6d098f905eee1bee9')
   .then(res => res.json())
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-    const content = post.content?.[lang] || "";
+    const content = post.content?.[lang] || post.content?.en || "";
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
@@ -1158,7 +1158,7 @@ fetch('/api/notices/6826db14d098f905eee1bf24')
   .then(res => res.json())
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-    const content = post.content?.[lang] || "";
+    const content = post.content?.[lang] || post.content?.en || "";
     const doc = new DOMParser().parseFromString(content, 'text/html');
     const firstLink = doc.querySelector('a[href^="http"]');
     const linkEl = document.getElementById("dynamic-link-3");
@@ -1179,7 +1179,7 @@ fetch('/api/notices/6826eb2cd098f905eee1bf76')
   .then(res => res.json())
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-    const content = post.content?.[lang] || "";
+    const content = post.content?.[lang] || post.content?.en || "";
     const doc = new DOMParser().parseFromString(content, 'text/html');
     const firstLink = doc.querySelector('a[href^="http"]');
     const linkEl = document.getElementById("dynamic-link-4");
@@ -1201,7 +1201,7 @@ fetch('/api/notices/6826da60d098f905eee1beff')
   .then(res => res.json())
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
-    const content = post.content?.[lang] || "";
+    const content = post.content?.[lang] || post.content?.en || "";
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
