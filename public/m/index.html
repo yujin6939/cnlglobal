@@ -317,6 +317,51 @@ html {
   scroll-behavior: smooth;
 }
 
+.floating-circle-link {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  width: 80px;
+  height: 80px;
+  background-color: #169e28;
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* 아이콘과 텍스트 수직 정렬 */
+  font-size: 1.5rem;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+.floating-circle-link .circle-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-circle-link .circle-content i {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+
+.floating-circle-link .circle-content span {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.floating-circle-link:hover {
+  background-color: #19d39b;
+  transform: scale(1.1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+  color : black
+}
   </style>
 </head>
 <body>
@@ -387,7 +432,7 @@ html {
       <img src="../images/containers.jpg" class="slide" alt="Slide 3">
 
       <!-- 동그란 버튼들 -->
-<div class="circle-buttons-wrapper" style="margin-top: 80px;">
+<div class="circle-buttons-wrapper" style="margin-top: 30px;">
   <a href="aboutus.html#2" class="circle-button large" data-en="COMPETITIVENESS" data-ko="경쟁력" data-zh="竞争力"></a>
 
   <div class="circle-button-grid">
@@ -398,6 +443,14 @@ html {
   </div>
 </div>
 
+  <!-- 외부 링크 동그란 버튼 -->
+<a href="https://www.ecount.com/kr/?S=01&C=21721812878&K=162864478970&keyword=wms&matchtype=p&gad_source=1&gad_campaignid=21721812878&gbraid=0AAAAAD_I9wh92uJapBvgkn729Y7Cibq_u&gclid=Cj0KCQjwxJvBBhDuARIsAGUgNfjhaChGcCz-NJKwzSnsBwp34WbUS2xRJFxsBiwQUczFhr3s7Zwcw5IaAv1xEALw_wcB"
+ class="floating-circle-link" target="_blank" title="Visit Partner Site" aria-label="Partner Site">
+  <div class="circle-content">
+    <i class="fas fa-link"></i>
+    <span>WMS</span>
+  </div>
+</a>
     </div>
   </main>
 
