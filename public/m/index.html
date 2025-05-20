@@ -47,7 +47,7 @@
     }
 
     main {
-      padding: 70px 1rem 2rem;
+      padding: 0;
     }
     h1 {
       font-size: 1.4rem;
@@ -57,10 +57,10 @@
     }
 .hero-slider {
   position: relative;
-  width: 100%;
-  height: 700px; /* 원하는 세로 크기로 조정 가능 */
+  width: 100vw;
+  height: 100vh; /* 원하는 세로 크기로 조정 가능 */
   overflow: hidden;
-  
+  display: block; /* inline 속성 제거로 공백 방지 */
 }
 
 .hero-slider img.slide {
@@ -138,8 +138,8 @@
 }
 
 .circle-button {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background-color: rgba(0, 82, 158, 0.8);
   color: white;
@@ -156,8 +156,8 @@
 }
 
 .circle-button.large {
-  width: 140px;
-  height: 140px;
+  width: 150px;
+  height: 150px;
   font-size: 0.9rem;
   background-color: lavender;
   color: #002244;
@@ -175,7 +175,7 @@
   top: 0px;
   right: -100%; /* 처음에는 오른쪽 바깥으로 */
   width: 80%;
-  height: calc(100vh - 58px); /* 화면 높이 - 헤더 */
+  height: 100vh;
 background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   box-shadow: -2px 0 12px rgba(0, 0, 0, 0.1);
   z-index: 2500;
@@ -189,7 +189,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 .mobile-nav ul {
   list-style: none;
   margin: 0;
-  padding: 1.2rem;
+  padding: 0.1rem 1.2rem;
 }
 .mobile-nav li {
   position: relative;
@@ -261,12 +261,12 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  padding: 0.5rem 0.8rem;
+  padding: 1rem 0.5rem;
 }
 
 .lang-options {
   list-style: none;
-  margin-top: 0.3rem;
+  margin-top: 0.1rem;
   padding: 0;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -283,10 +283,11 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 
 
 .lang-options li {
-  padding: 0.6rem 1rem;
+  padding: 0.3rem 0rem;
   cursor: pointer;
   font-weight: bold;
   color: #002244;
+  text-align: center;
 }
 
 .lang-options li:hover {
@@ -294,7 +295,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 }
 
 .mobile-lang-dropdown.open .lang-options {
-  max-height: 300px;  /* 충분히 큰 값 */
+  max-height: 140px;  /* 충분히 큰 값 */
   opacity: 1;
 }
 
@@ -385,14 +386,14 @@ html {
       <img src="../images/containers.jpg" class="slide" alt="Slide 3">
 
       <!-- 동그란 버튼들 -->
-<div class="circle-buttons-wrapper">
-  <a href="aboutus.html" class="circle-button large" data-en="COMPETITIVENESS" data-ko="경쟁력" data-zh="竞争力"></a>
+<div class="circle-buttons-wrapper" style="margin-top: 80px;">
+  <a href="aboutus.html#2" class="circle-button large" data-en="COMPETITIVENESS" data-ko="경쟁력" data-zh="竞争力"></a>
 
   <div class="circle-button-grid">
     <a href="ourservice1.html#1" class="circle-button" data-en="GLOBAL SHIPPING" data-ko="글로벌 운송" data-zh="全球运输"></a>
-    <a href="ourservice1.html#2" class="circle-button" data-en="DOMESTIC TRUCKING" data-ko="국내 운송" data-zh="国内运输"></a>
-    <a href="ourservice1.html#3" class="circle-button" data-en="E-COMMERCE" data-ko="이커머스" data-zh="电商"></a>
-    <a href="ourservice1.html#4" class="circle-button" data-en="EXHIBITION" data-ko="전시 물류" data-zh="展览物流"></a>
+    <a href="ourservice1.html#2" class="circle-button" data-en="DOMESTIC TRUCKING" data-ko="국내 트럭 운송" data-zh="国内运输"></a>
+    <a href="ourservice1.html#3" class="circle-button" data-en="E-COMMERCE FULFILLMENT" data-ko="전자상거래 이행행" data-zh="电商"></a>
+    <a href="ourservice1.html#4" class="circle-button" data-en="EXHIBITION LOGISTICS" data-ko="전시 물류" data-zh="展览物流"></a>
   </div>
 </div>
 
@@ -498,18 +499,6 @@ html {
   setInterval(showNextSlide, 3000); // 4초마다 슬라이드 전환
 </script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const langToggleBtn = document.querySelector('.lang-toggle-btn');
-    const langDropdown = document.querySelector('.mobile-lang-dropdown');
-
-    if (langToggleBtn && langDropdown) {
-      langToggleBtn.addEventListener('click', () => {
-        langDropdown.classList.toggle('open');
-      });
-    }
-  });
-</script>
 
 
 </body>

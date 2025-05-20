@@ -37,7 +37,7 @@
   top: 0px;
   right: -100%; /* 처음에는 오른쪽 바깥으로 */
   width: 80%;
-  height: calc(100vh - 58px); /* 화면 높이 - 헤더 */
+  height: 100vh; /* 화면 높이 - 헤더 */
 background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   box-shadow: -2px 0 12px rgba(0, 0, 0, 0.1);
   z-index: 2500;
@@ -51,7 +51,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 .mobile-nav ul {
   list-style: none;
   margin: 0;
-  padding: 1.2rem;
+  padding: 0.1rem 1.2rem;
 }
 .mobile-nav li {
   position: relative;
@@ -123,12 +123,12 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  padding: 0.5rem 0.8rem;
+  padding: 1rem 0.5rem;
 }
 
 .lang-options {
   list-style: none;
-  margin-top: 0.3rem;
+  margin-top: 0.1rem;
   padding: 0;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -145,10 +145,11 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 
 
 .lang-options li {
-  padding: 0.6rem 1rem;
+  padding: 0.3rem 0rem;
   cursor: pointer;
   font-weight: bold;
   color: #002244;
+  text-align: center;
 }
 
 .lang-options li:hover {
@@ -156,7 +157,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 }
 
 .mobile-lang-dropdown.open .lang-options {
-  max-height: 300px;  /* 충분히 큰 값 */
+  max-height: 140px;  /* 충분히 큰 값 */
   opacity: 1;
 }
 
@@ -174,10 +175,10 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 }
 
     .section {
-      padding: 4rem 2rem;
+      padding: 1.5rem;
       max-width: 1150px;
-  margin: 6rem auto; /* ← 상하 여백 충분히 줌 */
-      margin-bottom: 40rem;
+      margin-top: 50px;
+      margin-bottom: 2rem;
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
       background-color: rgba(255, 255, 255, 0.8); /* 하얀색 + 투명도 */
@@ -378,7 +379,7 @@ html {
   </nav>
 
   <main>
-  <section class="section" id="1" style="scroll-margin-top: 100px; margin-bottom: -10px;" data-aos="fade-up">
+  <section class="section" id="1" style="scroll-margin-top: 100px;" data-aos="fade-up">
     <h3>
       <span data-ko="회사 개요" data-en="COMPANY OVERVIEW" data-zh="公司概况"></span>
     </h3>
@@ -433,7 +434,7 @@ html {
 
 
   
-  <section class="section" id="2" style="scroll-margin-top: 100px; margin-top: 500px;" data-aos="fade-up">
+  <section class="section" id="2" style="scroll-margin-top: 100px;" data-aos="fade-up">
     <h3 data-aos="fade-up">
       <span data-ko="경쟁력" data-en="COMPETITIVENESS" data-zh="竞争优势"></span>
     </h3>

@@ -36,7 +36,7 @@
   top: 0px;
   right: -100%; /* 처음에는 오른쪽 바깥으로 */
   width: 80%;
-  height: calc(100vh - 58px); /* 화면 높이 - 헤더 */
+  height: 100vh; /* 화면 높이 - 헤더 */
 background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   box-shadow: -2px 0 12px rgba(0, 0, 0, 0.1);
   z-index: 2500;
@@ -50,7 +50,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 .mobile-nav ul {
   list-style: none;
   margin: 0;
-  padding: 1.2rem;
+  padding: 0.1rem 1.2rem;
 }
 .mobile-nav li {
   position: relative;
@@ -122,12 +122,12 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  padding: 0.5rem 0.8rem;
+  padding: 1rem 0.5rem;
 }
 
 .lang-options {
   list-style: none;
-  margin-top: 0.3rem;
+  margin-top: 0.1rem;
   padding: 0;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -144,10 +144,11 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 
 
 .lang-options li {
-  padding: 0.6rem 1rem;
+  padding: 0.3rem 0rem;
   cursor: pointer;
   font-weight: bold;
   color: #002244;
+  text-align: center;
 }
 
 .lang-options li:hover {
@@ -155,7 +156,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 }
 
 .mobile-lang-dropdown.open .lang-options {
-  max-height: 300px;  /* 충분히 큰 값 */
+  max-height: 140px;  /* 충분히 큰 값 */
   opacity: 1;
 }
 
@@ -330,8 +331,8 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 .bg-layer {
   position: fixed;
   top: 0; left: 0;
-  width: 400px;
-  height: 900px;
+  width: 100vw;
+  height: 100vh;
   z-index: -1;
   background-size: cover;
   background-position: center;
@@ -828,20 +829,6 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   });
 </script>
 
-
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const langToggleBtn = document.querySelector('.lang-toggle-btn');
-    const langDropdown = document.querySelector('.mobile-lang-dropdown');
-
-    if (langToggleBtn && langDropdown) {
-      langToggleBtn.addEventListener('click', () => {
-        langDropdown.classList.toggle('open');
-      });
-    }
-  });
-</script>
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const bg1 = document.getElementById("bg1");
@@ -870,18 +857,19 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        if (backgrounds[id]) {
-          preloadAndFade(backgrounds[id]);
-        }
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      if (backgrounds[id]) {
+        preloadAndFade(backgrounds[id]);
       }
-    });
-  }, {
-    threshold: 0.4
+    }
   });
+}, {
+  threshold: 0.1 // ← 0.1로 낮춰서 더 쉽게 트리거되도록
+});
+
 
   Object.keys(backgrounds).forEach(id => {
     const section = document.getElementById(id);
