@@ -252,18 +252,18 @@
       <img src="images/logo.png" alt="C&L Global 로고" style="height: 40px;" />
     </a>
         <nav class="admin-tabs">
-          <a href="admin.html" class="admin-tab">공지사항 관리</a>
-          <a href="admin-newsletter.html" class="admin-tab active">뉴스레터 관리</a>
-          <a href="admin-resources.html" class="admin-tab">자료실 관리</a>
+          <a href="admin.html" class="admin-tab">Notice Management</a>
+          <a href="admin-newsletter.html" class="admin-tab active">Newsletter Management</a>
+          <a href="admin-resources.html" class="admin-tab">Resource Management</a>
         </nav>
-        <button class="logout-btn" id="logout-btn">로그아웃</button>
+        <button class="logout-btn" id="logout-btn">Sign out</button>
       </header>
       
       
 
       
       
-  <h1>뉴스레터 관리</h1>
+  <h1>Newsletter Management</h1>
 <div class="main-layout">  
   
   <div class="preview-panel">
@@ -304,13 +304,13 @@
       <textarea id="content-zh" placeholder="内容 (중국어)"></textarea>
     </div>
 
-    <button type="button" onclick="insertHyperlink()" style="margin-top: 0.5rem; width: 150px;">🔗 링크 삽입</button>
+    <button type="button" onclick="insertHyperlink()" style="margin-top: 0.5rem; width: 150px;">🔗 Add Link</button>
 
   
     <input type="file" id="file-upload" multiple />
     <div id="preview" style="margin-top: 1rem;"></div>
   
-    <button type="submit">저장</button>
+    <button type="submit">Submit</button>
   </form>
 
 </div>
@@ -326,7 +326,7 @@ const previewArea = document.getElementById('preview');
     // 로그인 검사
 const token = sessionStorage.getItem('token');
 if (!token) {
-  alert('로그인이 필요합니다.');
+  alert('Login is required.');
   window.location.href = '/admin-login.html';
 }
 
@@ -334,7 +334,7 @@ if (!token) {
     // 로그아웃
     function logout() {
       localStorage.removeItem('token');
-      alert("로그아웃 되었습니다.");
+      alert("You have been logged out.");
       window.location.href = '/admin-login.html';
     }
 
@@ -342,7 +342,7 @@ if (!token) {
   document.getElementById('logout-btn').addEventListener('click', () => {
 sessionStorage.removeItem('token');
 
-    alert("로그아웃 되었습니다.");
+    alert("You have been logged out.");
     window.location.href = '/admin-login.html';
   });
 });
@@ -359,7 +359,7 @@ sessionStorage.removeItem('token');
       const lang = localStorage.getItem('siteLanguage') || 'ko';
 
 notices.forEach(notice => {
-    const title = notice.title?.[lang] || notice.title?.en || notice.title?.ko || notice.title?.zh || '(제목 없음)';
+    const title = notice.title?.[lang] || notice.title?.en || notice.title?.ko || notice.title?.zh || '(Untitled)';
 const content = notice.content?.[lang] || notice.content?.en || notice.content?.ko || notice.title?.zh || '';
 
 const titleEl = document.createElement("strong");
@@ -375,11 +375,11 @@ const actionsDiv = document.createElement("div");
 actionsDiv.className = "notice-actions";
 
 const editBtn = document.createElement("button");
-editBtn.textContent = "✏ 수정";
+editBtn.textContent = "✏ Edit";
 editBtn.addEventListener("click", () => editNotice(notice));
 
 const deleteBtn = document.createElement("button");
-deleteBtn.textContent = "🗑 삭제";
+deleteBtn.textContent = "🗑 Delete";
 deleteBtn.addEventListener("click", () => deleteNotice(notice._id));
 
 actionsDiv.appendChild(editBtn);
@@ -420,7 +420,7 @@ if (searchInput) {
   
     // 글 삭제
     async function deleteNotice(id) {
-      if (!confirm('정말 삭제하시겠습니까?')) return;
+      if (!confirm('Are you sure you want to delete this?')) return;
       await fetch(`/api/notices/${id}`, { method: 'DELETE' });
       loadNotices();
     }
@@ -467,7 +467,7 @@ if (searchInput) {
 
     let insertTag = '';
     if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
-      insertTag = `<img src="${fileUrl}" alt="첨부 이미지">\n`;
+      insertTag = `<img src="${fileUrl}" alt="Attached Image">\n`;
     } else {
       insertTag = `<a href="${fileUrl}" download>${file.name}</a>\n`;
     }
@@ -536,7 +536,7 @@ document.getElementById('notice-form').addEventListener('submit', async (e) => {
   });
 
   if (!hasAtLeastOne) {
-    alert("최소 한 언어 이상 입력이 필요합니다.");
+    alert("You must enter the title or content in at least one language.");
     return;
   }
 
@@ -567,7 +567,7 @@ document.getElementById('notice-form').addEventListener('submit', async (e) => {
   uploadInput.value = '';
   previewArea.innerHTML = '';
   renderPostsFromServer(1);
-  alert("저장되었습니다.");
+  alert("Saved successfully.");
 });
 
 
@@ -613,8 +613,8 @@ function renderPostsFromServer(page = 1, query = "") {
           <small>${new Date(post.createdAt).toLocaleString()}</small>
           <p>${content}</p>
           <div class="notice-actions">
-            <button onclick='editNotice(${JSON.stringify(post)})'>✏ 수정</button>
-            <button onclick='deleteNotice("${post._id}")'>🗑 삭제</button>
+            <button onclick='editNotice(${JSON.stringify(post)})'>✏ Edit</button>
+            <button onclick='deleteNotice("${post._id}")'>🗑 Delete</button>
           </div>
         `;
         listContainer.appendChild(div);
@@ -628,7 +628,7 @@ function insertImageToActiveContent(url) {
   // 현재 활성 탭 찾기
   const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
   const textarea = document.getElementById(`content-${activeTab}`);
-  const imgTag = `<img src="${url}" alt="첨부 이미지">\n`;
+  const imgTag = `<img src="${url}" alt="Attached Image">\n`;
 
   textarea.value += `\n${imgTag}`; // 기존 내용 뒤에 이미지 삽입
 }
@@ -681,10 +681,10 @@ function insertHyperlink() {
   const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
   const textarea = document.getElementById(`content-${activeTab}`);
 
-  const url = prompt("링크할 주소를 입력하세요 (예: https://www.example.com)");
+  const url = prompt("Enter the URL to link to (https://www.example.com)");
   if (!url) return;
 
-  const text = prompt("링크에 표시할 텍스트를 입력하세요", url);
+  const text = prompt("Enter the text to display for the link", url);
   if (text === null) return;
 
   const linkTag = `<a href="${url}" target="_blank">${text}</a>`;
