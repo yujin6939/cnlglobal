@@ -314,28 +314,6 @@
   align-items: center;
 }
 
-/* 진입 애니메이션 */
-@keyframes fadeRight {
-  0% {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 .fade-right-on-load {
   opacity: 0;
@@ -412,6 +390,17 @@ a.partner-card:hover {
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -577,11 +566,11 @@ a.partner-card:hover {
         </li>
         
         <li class="dropdown">
-          <a href="공지사항.html" data-ko="회사/산업 소식" data-en="Information/News" data-zh="公司/行业新闻"></a>
+          <a href="공지사항.html" data-ko="회사/산업 소식" data-en="Information/News" data-zh="信息/新闻"></a>
           <ul class="dropdown-menu">
             <li><a href="공지사항.html" data-ko="공지사항" data-en="Notice" data-zh="通知"></a></li>
             <li><a href="뉴스레터.html" data-ko="뉴스레터" data-en="Newsletter" data-zh="新闻简报"></a></li>
-            <li><a href="information.html" data-ko="정보" data-en="Information" data-zh="Information"></a></li>
+            <li><a href="information.html" data-ko="정보" data-en="Information" data-zh="信息"></a></li>
           </ul>
         </li>
         

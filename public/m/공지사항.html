@@ -328,6 +328,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   font-weight: bold;
   color: #002244;
   text-align: center;
+  margin-top: 15px;
 }
 
 .lang-options li:hover {
@@ -335,7 +336,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 }
 
 .mobile-lang-dropdown.open .lang-options {
-  max-height: 140px;  /* 충분히 큰 값 */
+  max-height: 300px;  /* 충분히 큰 값 */
   opacity: 1;
 }
 
@@ -350,6 +351,71 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   height: calc(100vh - 58px); /* 헤더 높이만큼 빼기 */
   margin-top: 58px; /* 헤더만큼 아래로 이동 */
   overflow-y: auto;
+}
+
+.subpage-hero {
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slider {
+  position: relative;
+  height: 100%;
+}
+
+.hero-slider .slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  z-index: 0;
+}
+
+.hero-slider .slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.mobile-sidebar-tabs {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ccc;
+  overflow-x: auto;
+}
+
+.mobile-sidebar-tabs ul {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.mobile-sidebar-tabs li {
+  flex: none;
+}
+
+.mobile-sidebar-tabs a {
+  display: inline-block;
+  padding: 0.5rem 0.9rem;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  color: #002244;
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.mobile-sidebar-tabs a.active {
+  background-color: #002244;
+  color: white;
 }
 </style>
 </head>
@@ -393,11 +459,11 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
           <li><a href="ourservice1.html#4" data-en="Exhibition Logistics" data-ko="전시 물류" data-zh=""></a></li>
         </ul>
       </li>
-      <li><a href="공지사항.html" style="width: 160px;" data-en="Information/News" data-ko="정보/뉴스" data-zh=""></a>
+      <li><a href="공지사항.html" style="width: 160px;" data-en="Information/News" data-ko="정보/뉴스" data-zh="信息/新闻"></a>
       <ul>
           <li><a href="공지사항.html" data-en="Notice" data-ko="공지사항" data-zh="公告">Notices</a></li>
           <li><a href="뉴스레터.html" data-en="Newsletter" data-ko="뉴스레터" data-zh="新闻简报">Newsletter</a></li>
-          <li><a href="information.html" data-en="Resources" data-ko="자료실" data-zh="资料室">Resources</a></li>
+          <li><a href="information.html" data-en="Information" data-ko="정보" data-zh="信息">Information</a></li>
       </ul>
       </li>
       <li><a href="contactus.html" style="width: 95px;" data-en="Contact us" data-ko="문의하기" data-zh="联系我们">Contact</a>
@@ -412,8 +478,28 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   </div>
   </nav>
 
+    <!-- 슬라이더 -->
+  <section class="subpage-hero">
+  <div class="hero-slider">
+    <div class="slide active" style="background-image: url('images/port_dark.jpg');"></div>
+    <div class="slide" style="background-image: url('images/cut_sunset_truck.jpg');"></div>
+    <div class="slide" style="background-image: url('images/air_cargo2.jpg');"></div>
+    <div class="slide" style="background-image: url('images/warehouse.jpg');"></div>
+  </div>
+</section>
+
   <main>
-    <h1 data-en="Notices" data-ko="공지사항" data-zh="公告">Notices</h1>
+
+  <!-- 슬라이더 아래 새로운 사이드 탭 영역 -->
+<nav class="mobile-sidebar-tabs">
+  <ul>
+    <li><a href="공지사항.html" class="active" data-ko="공지사항" data-en="Notices" data-zh="通知">공지사항</a></li>
+    <li><a href="뉴스레터.html" data-ko="뉴스레터" data-en="Newsletter" data-zh="新闻简报">뉴스레터</a></li>
+    <li><a href="information.html" data-ko="정보" data-en="Information" data-zh="信息">정보</a></li>
+  </ul>
+</nav>
+
+    <h1 style="margin-top: 25px; border-bottom: 3px solid #ccc; padding-bottom: 1rem;" data-en="Notices" data-ko="공지사항" data-zh="公告">Notices</h1>
   <section class="notice-list fade-left-on-load" id="notice-list">
     <!-- 공지사항 리스트 동적 로딩 영역 -->
   </section>
@@ -581,6 +667,22 @@ if (!title || !content) {
     }
   });
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelectorAll('.hero-slider .slide');
+  let current = 0;
+
+  function showNextSlide() {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }
+
+  setInterval(showNextSlide, 5000); // 5초마다 전환
+});
+</script>
+
 
 
 </body>
