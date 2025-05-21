@@ -362,6 +362,41 @@ html {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
   color : black
 }
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.circle-button,
+.circle-button.large {
+  opacity: 0; /* 초기 상태: 안보이게 */
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.circle-button.large {
+  animation-delay: 0.2s;
+}
+
+.circle-button-grid .circle-button:nth-child(1) {
+  animation-delay: 0.4s;
+}
+.circle-button-grid .circle-button:nth-child(2) {
+  animation-delay: 0.6s;
+}
+.circle-button-grid .circle-button:nth-child(3) {
+  animation-delay: 0.8s;
+}
+.circle-button-grid .circle-button:nth-child(4) {
+  animation-delay: 1.0s;
+}
+
   </style>
 </head>
 <body>

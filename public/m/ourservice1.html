@@ -194,6 +194,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   font-size: 1.1rem;
   color: #666;
   margin-top: 0.5rem;
+  margin-bottom: 5rem;
 }
 
 .cards {
@@ -349,6 +350,34 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 .bg-layer.visible {
   opacity: 1;
 }
+
+.edge-texts {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+
+}
+
+.edge-texts div {
+  margin-bottom: 2rem;
+  border-top: 1px solid #ccc;
+}
+
+.edge-texts h4 {
+  font-size: 1.1rem;
+  color: black;
+  margin-bottom: 0.5rem;
+  margin-top: 0rem;
+}
+
+.edge-texts p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.edge-texts i {
+  margin-top: 2rem;
+}
   </style>
 </head>
 <body>
@@ -428,8 +457,8 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
       </p>
     </div>
   
-    <div class="cards">
-      <div class="card animate-on-load" style="animation-delay: 0.3s">
+  <div class="edge-texts">
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-globe"></i>
         <h4 data-ko="해상 / 항공 / FCL / LCL / 복합운송"
             data-en="OCEAN / Air / FCL / LCL / Multimodal"
@@ -437,11 +466,8 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
         <p data-ko="JOC 선정 Top 100 수출기업 & 전 세계 해운·항공사와의 직접 계약을 보유"
            data-en="J.O.C Top 100 Exporter & Direct contracts with all shipping lines and air shipping across countries"
            data-zh="입력하세요."></p>
-        
-      </div>
     </div>
-    <div class="cards">
-      <div class="card animate-on-load" style="animation-delay: 0.4s">
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-cubes"></i>
         <h4 data-ko="혼재 운송 서비스"
             data-en="Consolidation"
@@ -449,18 +475,14 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
         <p data-ko="아시아향 혼재 화물 운송"
            data-en="Consolidated cargo to Asia"
            data-zh="입력하세요."></p>
-<a id="dynamic-link"
-   href="#"
-   target="_blank"
-   style="display:inline-block; margin-top:0.5rem; color:#0055aa; font-weight:300; text-decoration:underline; font-size: 14px;">
-  이동 중...
-</a>
-      </div>
+                <a id="dynamic-link"
+                  href="#"
+                  target="_blank"
+                  style="display:inline-block; margin-top:0rem; color:#0055aa; font-weight:300; text-decoration:underline; font-size: 14px;">
+                  이동 중...
+                </a>
     </div>
-      
-    </div>
-    <div class="cards">
-      <div class="card animate-on-load" style="animation-delay: 0.6s">
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-file-contract"></i>
         <h4 data-ko="서류 서비스"
             data-en="SPECIALIZED DOCUMENTATION"
@@ -468,11 +490,8 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
         <p data-ko="AES / ITN / CAED / USDA / 식물검역증명서 <br>/ CO / 적하목록 / 해상보험"
            data-en="AES / ITN / CAED / USDA / Phytosanitary Cert. / CO / Manifest / Maritime Insurance"
            data-zh="입력하세요."></p>
-        
-      </div>
     </div>
-    <div class="cards">
-      <div class="card animate-on-load" style="animation-delay: 0.5s">
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-clipboard-check"></i>
         <h4 data-ko="수입/수출 규정 준수"
             data-en="Import / Export Compliance"
@@ -480,11 +499,8 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
         <p data-ko="수입&수출관련 과정 통합지원"
            data-en="End-to-end support for import & export regulations / documentation / customs clearance"
            data-zh="입력하세요."></p>
-        
-      </div>  
     </div>
-    <div class="cards">
-      <div class="card animate-on-load" style="animation-delay: 0.8s">
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-wheat-awn"></i>
         <h4 data-ko="상품화물"
             data-en="Commodity Cargo"
@@ -492,11 +508,8 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
         <p data-ko="농산물 / 임산물 / 금속 / NOS 화물"
            data-en="Agricultural / Forest Products / Metal / NOS cargo"
            data-zh="입력하세요."></p>
-        
-      </div>
     </div>
-    <div class="cards">
-      <div class="card animate-on-load" style="animation-delay: 0.7s">
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-triangle-exclamation"></i>
         <h4 data-ko="프로젝트 화물"
             data-en="Project Cargo"
@@ -504,10 +517,8 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
         <p data-ko="위험물 / 냉장 / 특수장비"
            data-en="Hazardous / Refrigerated / Special Equipment"
            data-zh="입력하세요."></p>
-        
-      </div>
-      </div>
     </div>
+  </div>
   </section>
 
     <section class="section section-service" id="2" style="scroll-margin-top: 100px;" data-aos="fade-up">
@@ -521,70 +532,43 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
            data-zh="无论您身处何地，C&L Global都能精准交付。">
         </p>
       </div>
-      
-      <!-- 기존 cards 내부에 중복된 cards 제거 -->
-      <div class="cards2">
-        <div class="card2 animate-on-load" style="animation-delay: 0.3s">
+  <div class="edge-texts">
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
           <i class="fa-solid fa-id-badge"></i>
           <h4 data-ko="미 연방정부(MC) 인증<br>브로커" data-en="MC Licensed Broker" data-zh="입력하세요."></h4>
           <p data-ko="" data-en="" data-zh=""></p>
-       
-        </div>
-      </div>
-    
-      <div class="cards2">
-        <div class="card2 animate-on-load" style="animation-delay: 0.4s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
           <i class="fa-solid fa-truck-front"></i>
           <h4 data-ko="1000명 이상의<br>계약 트럭 운전자" data-en="1000+ Contracted Truckers" data-zh="입력하세요."></h4>
           <p data-ko="" data-en="" data-zh=""></p>
-       
-        </div>
-      </div>
-    
-      <div class="cards2">
-        <div class="card2 animate-on-load" style="animation-delay: 0.5s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
           <i class="fa-solid fa-trailer"></i>
           <h4 data-ko="컨테이너 운송분야의 전문성" data-en="Expertise in Container Drayage" data-zh="입력하세요."></h4>
           <p data-ko="트럭 운송 및 특수 화물 운송" data-en="Trucking & Special Cargo" data-zh="입력하세요."></p>
-       
-        </div>
-      </div>
-    
-      <div class="cards2">
-        <div class="card2 animate-on-load" style="animation-delay: 0.6s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
           <i class="fa-solid fa-route"></i>
           <h4 data-ko="국경 간 트럭 운송" data-en="Cross border Trucking" data-zh="입력하세요."></h4>
           <p data-ko="캐나다 / 멕시코" data-en="Canada / Mexico" data-zh="입력하세요."></p>
-       
-        </div>
-      </div>
-    
-      <div class="cards2">
-        <div class="card2 animate-on-load" style="animation-delay: 0.7s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
           <i class="fas fa-comments"></i>
           <h4 data-ko="24시간 연중무휴<br>실시간 소통" data-en="Live Communication 24/7" data-zh="입력하세요."></h4>
           <p data-ko="24시간 연중무휴<br>다국어 소통 채널 운영" data-en="24/7 Multilingual Communication Channel" data-zh="입력하세요."></p>
-       
-        </div>
-      </div>
-    
-      <div class="cards2">
-        <div class="card2 animate-on-load" style="animation-delay: 0.8s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
           <i class="fa-solid fa-weight-hanging"></i>
           <h4 data-ko="특수화물" data-en="Special Cargo" data-zh="입력하세요."></h4>
           <p data-ko="위험물, 냉장화물,<br>고중량 & 초대형 화물, 고가 화물" data-en="HAZ, PERISHABLE,<br>HEAVY & OVER SIZE AND HIGH VALUE" data-zh="입력하세요."></p>
-       
-        </div>
-      </div>
-    
-      <div class="cards2">
-        <div class="card2 animate-on-load" style="animation-delay: 0.9s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
           <i class="fa-solid fa-hands-helping"></i>
           <h4 data-ko="국경 없는 서비스" data-en="Borderless Service" data-zh="입력하세요."></h4>
           <p data-ko="PTL / 공항 픽업 / CFS 픽업 / LMD" data-en="PTL / AIR PORT PICK UP / CFS PICK UP / LMD" data-zh="입력하세요."></p>
-       
-        </div>
-      </div>
+    </div>
+  </div>
   </section>
   
     <section class="section section-service" id="3" style="scroll-margin-top: 100px;" data-aos="fade-up">
@@ -601,17 +585,13 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
       </p>
     </div>
 
-      <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.3s">
+  <div class="edge-texts">
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-warehouse"></i>
         <h4 data-ko="창고" data-en="Warehouse" data-zh="입력하세요."></h4>
         <p data-ko="고급 WMS 및 정확한 재고 관리를 갖춘 자산 및 계약 기반 전국 창고" data-en="Asset & Contract based nationwide warehouses with advanced WMS & precise inventory control" data-zh=""></p>
-        
-      </div>
-      </div>
-    
-      <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.4s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-dolly"></i>
         <h4 data-ko="3PL 서비스 FBA&FBM" data-en="3PL Service FBA & FBM" data-zh="입력하세요."></h4>
         <p data-ko="준비, 반품, 보관을 위한 최적화된 서비스" data-en="Optimized service for prep, return , Storage" data-zh="입력하세요."></p>
@@ -621,29 +601,18 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
         style="display:inline-block; margin-top:0.5rem; color:#0055aa; font-weight:300; text-decoration:underline; font-size: 14px;">
         이동 중...
         </a>    
-      </div>
-      </div>
-    
-      <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.5s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-network-wired"></i>
         <h4 data-ko="경험 기반 전자상거래<br>전문 서비스" data-en="Experience Based<br>E-Commerce Service" data-zh="입력하세요."></h4>
         <p data-ko="Amazon / E-Bay / Walmart /<br>Tik-Tok / ETSY / ETC." data-en="Amazon / E-Bay / Walmart /<br>Tik-Tok / ETSY / ETC." data-zh="Amazon / E-Bay / Walmart /<br>Tik-Tok / ETSY / ETC."></p>
-     
-      </div>
-      </div>
-    
-      <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.6s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-truck-fast"></i>
         <h4 data-ko="계약 기반 라스트마일 배송" data-en="Contract Based<br>Last-Mile Delivery" data-zh="입력하세요."></h4>
         <p data-ko="UPS / FedEx / USps / Amazon" data-en="UPS / FedEx / USps / Amazon" data-zh="UPS / FedEx / USps / Amazon"></p>
-     
-      </div>
-      </div>
-    
-      <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.7s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-globe-asia"></i>
         <h4 data-ko="한국 및 중국에서의<br>특급 콘솔 서비스" data-en="Express Console Service from Korea & China" data-zh="입력하세요."></h4>
         <p data-ko="" data-en="" data-zh=""></p>
@@ -659,9 +628,8 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
         style="display:inline-block; margin-top:0.5rem; color:#0055aa; font-weight:300; text-decoration:underline; font-size: 14px;">
         이동 중...
         </a>
-     
-      </div>
     </div>
+  </div>
   </section>
 
     <section class="section section-service" id="4" style="scroll-margin-top: 100px;" data-aos="fade-up">
@@ -679,61 +647,38 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
       </p>
     </div>
   
-    <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.3s">
+  <div class="edge-texts">
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-award"></i>
         <h4 data-ko="전시 물류 분야의 선도 기업" data-en="Leading Exhibition Logistic Provider" data-zh="입력하세요."></h4>
         <p data-ko="미국 전시물류 전문 TOP 5 기업" data-en="TOP 5 Exhibition Logistics Company" data-zh="입력하세요."></p>
-     
-      </div>
-      </div>
-    
-      <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.4s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-location-dot"></i>
         <h4 data-ko="라스베이거스의<br>주요 컨벤션 센터 근처에<br>위치한 창고" data-en="Warehouse located nearby major Convention Center in Las Vegas & New York" data-zh="입력하세요."></h4>
         <p data-ko="" data-en="" data-zh=""></p>
-     
-      </div>
     </div>
-  
-    <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.5s">
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-truck-arrow-right"></i>
         <h4 data-ko="전시화물 전용 트럭 운송" data-en="Dedicated Trucking for Exhibition Cargo" data-zh="입력하세요."></h4>
         <p data-ko="" data-en="" data-zh=""></p>
-     
-      </div>
-      </div>
-    
-      <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.6s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-passport"></i>
         <h4 data-ko="ATA 카르네 통관 및 문서화 전문성" data-en="Expertise in ATA Carnet Customs Clearance & Documentation" data-zh="입력하세요."></h4>
         <p data-ko="" data-en="" data-zh=""></p>
-     
-      </div>
-      </div>
-    
-      <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.7s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-user-tie"></i>
         <h4 data-ko="현장 실무자 상주" data-en="On-Site Coordinators for Show Support" data-zh="입력하세요."></h4>
         <p data-ko="" data-en="" data-zh=""></p>
-     
-      </div>
     </div>
-  
-    <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.8s">
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fa-solid fa-building-flag"></i>
         <h4 data-ko="글로벌 브랜드의 물류 파트너" data-en="Experienced Logistic Company Partner for<br>Major Brands" data-zh="입력하세요."></h4>
         <p data-ko="Hisense, TLC 등" data-en="such as Hisense , TCL, etc." data-zh="입력하세요."></p>
-      </div>
-      </div>
-    
-      <div class="cards2">
-      <div class="card2 animate-on-load" style="animation-delay: 0.9s">
+    </div>
+    <div class="animate-on-load" style="animation-delay: 0.2s;">
         <i class="fas fa-link"></i>
         <h4 data-ko="전시 물류 브로셔" data-en="Exhibition Logistics Brochure" data-zh="입력하세요."></h4>
         <p data-ko="" data-en="" data-zh=""></p>
@@ -743,9 +688,8 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
         style="display:inline-block; margin-top:0.5rem; color:#0055aa; font-weight:300; text-decoration:underline; font-size: 16px;">
         이동 중...
         </a>
-     
-      </div>
     </div>
+  </div>
   </section>
   </main>
 
