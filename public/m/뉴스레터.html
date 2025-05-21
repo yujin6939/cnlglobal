@@ -491,7 +491,7 @@ if (!title || !content) {
     });
 
     // 메뉴 내 a 태그 클릭 시 자동 닫힘
-    mobileMenu.querySelectorAll('a').forEach(link => {
+    mobileMenu.querySelectorAll('li').forEach(link => {
       link.addEventListener('click', () => {
         mobileMenu.classList.remove('open');
       });
