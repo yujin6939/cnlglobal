@@ -185,6 +185,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
     }
   
     .section h3 {
+      color: #002244;
       font-size: 2rem;
       margin-bottom: 1rem;
       text-align: center;
@@ -251,67 +252,29 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   transition: transform 0.3s ease;
 }
 
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
 
-.card {
-  background: #f9f9f9;
-  border-radius: 12px;
-  padding: 2rem 1.5rem;
+
+.edge-texts {
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+.edge-texts div {
+  margin-bottom: 4rem;
 }
 
-.card-icon {
+.edge-texts h4 {
+  font-size: 1.1rem;
+  color: black;
+  margin-bottom: 0.5rem;
+}
+
+.edge-texts p {
   font-size: 1rem;
-  color: #0055aa;
-  margin-bottom: 1rem;
+  color: #333;
 }
 
-.edge-features {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.edge-features .row {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: nowrap;
-}
-
-.edge-features .feature {
-  width: 250px;
-  min-height: 100px;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
-}
-
-.edge-features .feature:hover {
-  transform: translateY(-6px);
-}
-
-.edge-features i {
-  font-size: 2rem;
-  color: #004f9e;
-  margin-bottom: 1rem;
-}
 
 html {
   scroll-behavior: smooth;
@@ -539,42 +502,27 @@ html {
 <script>
   const edgeData = {
     en: `
-      <div class="edge-features">
-        <div class="row">
-          <div class="feature" data-aos="fade-up">
-            <i class="fa-solid fa-globe"></i>
-            <h4>USA Out bound Leader</h4>
+      <div class="edge-texts">
+          <div>
+            <h4><i class="fa-solid fa-globe"></i> USA Out bound Leader</h4>
             <p>Unlimited carrier selection,<br>JOC top100 exporter</p>
           </div>
-        </div>
-        <div class="row">
-          <div class="feature" data-aos="fade-up" data-aos-delay="100">
-            <i class="fa-solid fa-warehouse"></i>
-            <h4>Fulfillment Service</h4>
+          <div>
+            <h4><i class="fa-solid fa-warehouse"></i> Fulfillment Service</h4>
             <p>Warehousing, 3PL, LMD</p>
           </div>
-        </div>
-        <div class="row">
-          <div class="feature" data-aos="fade-up" data-aos-delay="200">
-            <i class="fa-solid fa-trailer"></i>
-            <h4>Domestic Trucking</h4>
+          <div>
+            <h4><i class="fa-solid fa-trailer"></i> Domestic Trucking</h4>
             <p>Trucking & Special Cargo</p>
           </div>
-        </div>
-        <div class="row">
-          <div class="feature" data-aos="fade-up" data-aos-delay="300">
-            <i class="	fa-solid fa-building-columns"></i>
-            <h4>Exhibition Logistics</h4>
-            <p>Experienced service provider<br>Near to main convention center</p>
+          <div>
+            <h4><i class="	fa-solid fa-building-columns"></i> Exhibition Logistics</h4>
+            <p>Experienced service provider,<br>Near to main convention center</p>
           </div>
-        </div>
-        <div class="row">
-          <div class="feature" data-aos="fade-up" data-aos-delay="400">
-            <i class="fas fa-comments"></i>
-            <h4>Communication</h4>
-            <p>24/7 Trained Korean/Chinese Staff<br>Perfection in end-to-end networks</p>
+          <div>
+            <h4><i class="fas fa-comments"></i> Communication</h4>
+            <p>24/7 Trained Korean/Chinese Staff,<br>Perfection in end-to-end networks</p>
           </div>
-        </div>
       </div>
     `,
     ko: `
@@ -604,14 +552,14 @@ html {
         <div class="feature" data-aos="fade-up" data-aos-delay="300">
           <i class="fas fa-briefcase"></i>
           <h4>전시 물류</h4>
-          <p>라스베가스 주요 전시장 인근의 경험 많은 업체</p>
+          <p>라스베가스 주요 전시장,<br>인근의 경험 많은 업체</p>
         </div>
         </div>
         <div class="row">
         <div class="feature" data-aos="fade-up" data-aos-delay="400">
           <i class="fas fa-comments"></i>
           <h4>커뮤니케이션</h4>
-          <p>연중무휴 한ㆍ중 전문 인력<br>End-to-End 기반의 완벽한 네트워크</p>
+          <p>연중무휴 한ㆍ중 전문 인력,<br>End-to-End 기반의 완벽한 네트워크</p>
         </div>
       </div>
     </div>
@@ -622,7 +570,7 @@ html {
         <div class="feature" data-aos="fade-up">
           <i class="fas fa-ship"></i>
           <h4>美国出口领导者</h4>
-          <p>不限承运人选择<br>JOC前100出口商</p>
+          <p>不限承运人选择,<br>JOC前100出口商</p>
         </div>
         </div>
         <div class="row">
@@ -650,7 +598,7 @@ html {
         <div class="feature" data-aos="fade-up" data-aos-delay="400">
           <i class="fas fa-comments"></i>
           <h4>沟通能力</h4>
-          <p>全年无休中韩专员<br>端到端完美沟通</p>
+          <p>全年无休中韩专员,<br>端到端完美沟通</p>
         </div>
         </div>
       </div>
