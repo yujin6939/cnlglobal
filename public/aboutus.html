@@ -536,6 +536,36 @@ html[lang="zh"] .circle-button {
   margin-top: 0.5rem;
   text-align: center;
 }
+
+.certification-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+.certification-list {
+  flex: 1 1 60%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+    flex-direction: column;  /* 가로 → 세로 */
+}
+
+.certification-image {
+  flex: 1 1 35%;
+  text-align: center;
+}
+
+.certification-image img {
+  max-width: 400px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
   </style>
 </head>
 
@@ -619,12 +649,13 @@ html[lang="zh"] .circle-button {
        First and foremost, C&L Global thrives to be a beacon of commitment, marked by high-caliber logistic team, unmatched customer service for every client, & relentless effort to grow the business together. Every day, we strive to go extra mile to service our customers and stand out among others.<br><br>  
        Over the last decade, we aimed to grow each year for different sides of the logistic business & throughout the world. Following our experience in the export containerized business, we expanded to offer diversified services, including import & cargo warehousing. Moreover, our commitment and responsibility for our customers led us to open new branches in the China and Korea.<br><br>
        Today, I am more than certain than ever that our top tier service can cultivate and expand our partner’s business opportunities in countless ways. Our mission is simple-to create meaningful solutions that make a difference. Together with our dedicated team, we will continue to build on our legacy and lead C&L to even greater achievements in the years ahead.<br><br>             
-       <br><br><div style='text-align:right;'>Sincerely, Joe Cho, President</div>"
+       <br><div style='text-align:right;'>Sincerely, Joe Cho, President</div>"
       
        data-zh="总裁致辞">
       </div>
-      
-      <div class="certification-list" data-aos="fade-up">
+
+      <div class="certification-wrapper" data-aos="fade-up">
+      <div class="certification-list">
   <div class="cert-item">
     <img src="images/NVOCC.png" alt="FMC registered NVOCC">
     <div class="cert-info">
@@ -646,9 +677,13 @@ html[lang="zh"] .circle-button {
       <div class="cert-desc" data-ko=" The Customs-Trade Partnership Against Terrorism program" data-en=" The Customs-Trade Partnership Against Terrorism program" data-zh=" The Customs-Trade Partnership Against Terrorism program"></div>
     </div>
   </div>
-</div>
+      </div>
+    <div class="certification-image">
+    <img src="images/company/Company Photo.jpg" alt="Company Photo" />
+  </div>
+
     </div>
-    
+    </div>
   </section>
 
 
