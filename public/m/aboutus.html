@@ -282,6 +282,37 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   margin-top: 2rem;
 }
 
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-load {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-down-on-load {
+  opacity: 0;
+  animation: fadeDown 0.8s ease forwards;
+}
   </style>
 </head>
 <body>
@@ -345,13 +376,13 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 
   <main>
   <section class="section" id="1" style="scroll-margin-top: 100px;" data-aos="fade-up">
-    <h3>
+    <h3 class="fade-down-on-load" style="animation-delay: 0.1s;">
       <span data-ko="COMPANY OVERVIEW" data-en="COMPANY OVERVIEW" data-zh="COMPANY OVERVIEW"></span>
     </h3>
   
     <div class="overview-container">
       <div class="overview-text">
-        <div class="lang-text" 
+        <div class="lang-text subtitle fade-down-on-load" style="animation-delay: 0.2s;" 
        data-ko="<br>모든 방향에서의 헌신, C&L Global
         <br><br><br>
         C&L Global은 탁월한 물류 전문 인력, 고객 맞춤형 서비스, 그리고 함께 성장하고자 하는 끊임없는 노력으로 ‘헌신’의 가치를 실현하는 기업입니다.<br>우리는 매일 고객에게 최상의 서비스를 제공하기 위해 한 걸음 더 나아가며, 물류 업계에서 차별화된 존재가 되기 위해 끊임없이 노력하고 있습니다.<br><br>
@@ -400,7 +431,7 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
 
   
   <section class="section" id="2" style="scroll-margin-top: 100px;" data-aos="fade-up">
-    <h3 data-aos="fade-up">
+    <h3  class="fade-down-on-load" style="animation-delay: 0.1s;">
       <span data-ko="COMPETITIVENESS" data-en="COMPETITIVENESS" data-zh="COMPETITIVENESS"></span>
     </h3>
     <p class="subtitle fade-down-on-load" style="animation-delay: 0.2s;"
@@ -505,23 +536,23 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   const edgeData = {
     en: `
       <div class="edge-texts">
-          <div>
+          <div class="fade-down-on-load" style="animation-delay: 0.1s;">
             <h4><i class="fa-solid fa-globe"></i> USA Out bound Leader</h4>
             <p>Unlimited carrier selection,<br>JOC top100 exporter</p>
           </div>
-          <div>
+          <div class="fade-down-on-load" style="animation-delay: 0.2s;">
             <h4><i class="fa-solid fa-warehouse"></i> Fulfillment Service</h4>
             <p>Warehousing, 3PL, LMD</p>
           </div>
-          <div>
+          <div class="fade-down-on-load" style="animation-delay: 0.3s;">
             <h4><i class="fa-solid fa-trailer"></i> Domestic Trucking</h4>
             <p>Trucking & Special Cargo</p>
           </div>
-          <div>
+          <div class="fade-down-on-load" style="animation-delay: 0.4s;">
             <h4><i class="	fa-solid fa-building-columns"></i> Exhibition Logistics</h4>
             <p>Experienced service provider,<br>Near to main convention center</p>
           </div>
-          <div>
+          <div class="fade-down-on-load" style="animation-delay: 0.5s;">
             <h4><i class="fas fa-comments"></i> Communication</h4>
             <p>24/7 Trained Korean/Chinese Staff,<br>Perfection in end-to-end networks</p>
           </div>
@@ -529,23 +560,23 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
     `,
     ko: `
       <div class="edge-texts">
-        <div>
+        <div class="fade-down-on-load" style="animation-delay: 0.1s;">
           <h4><i class="fas fa-ship"></i> 미국 Out Bound 리더</h4>
           <p>무제한 선사 선택<br>JOC 수출 100대 업체</p>
         </div>
-        <div>
+        <div class="fade-down-on-load" style="animation-delay: 0.2s;">
           <h4><i class="fas fa-boxes"></i> 풀필먼트 서비스</h4>
           <p>창고 운영, 3PL, LMD</p>
         </div>
-        <div>
+        <div class="fade-down-on-load" style="animation-delay: 0.3s;">
           <h4><i class="fas fa-truck"></i> 전문 미국 국내 운송</h4>
           <p>FTL, LTL 및 특수화물</p>
         </div>
-        <div>
+        <div class="fade-down-on-load" style="animation-delay: 0.4s;">
           <h4><i class="fas fa-briefcase"></i> 전시 물류</h4>
           <p>주요 전시장 인근에 위치한<br>경험 많은 전문가 업체</p>
         </div>
-        <div>
+        <div class="fade-down-on-load" style="animation-delay: 0.5s;">
           <h4><i class="fas fa-comments"></i> 커뮤니케이션</h4>
           <p>24/7 연중무휴 전문 인력<br>End-to-End 기반의 완벽한 네트워크</p>
         </div>
@@ -553,28 +584,23 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
     `,
     zh: `
       <div class="edge-texts">
-        <div>
-          
+        <div class="fade-down-on-load" style="animation-delay: 0.1s;">          
           <h4><i class="fas fa-ship"></i> 美国出口领导者</h4>
           <p>不限承运人选择,<br>JOC前100出口商</p>
         </div>
-        <div>
-          
+        <div class="fade-down-on-load" style="animation-delay: 0.2s;">          
           <h4><i class="fas fa-boxes"></i> 履约服务</h4>
           <p>仓储, 第三方物流, 末端配送</p>
         </div>
-        <div>
-          
+        <div class="fade-down-on-load" style="animation-delay: 0.3s;">          
           <h4><i class="fas fa-truck"></i> 国内运输</h4>
           <p>整车/零担及特殊货物</p>
         </div>
-        <div>
-          
+        <div class="fade-down-on-load" style="animation-delay: 0.4s;">          
           <h4><i class="fas fa-briefcase"></i> 展览物流</h4>
           <p>拉斯维加斯主展馆周边专业服务</p>
         </div>
-        <div>
-          
+        <div class="fade-down-on-load" style="animation-delay: 0.5s;">          
           <h4><i class="fas fa-comments"></i> 沟通能力</h4>
           <p>全年无休中韩专员,<br>端到端完美沟通</p>
         </div>
@@ -596,6 +622,27 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   });
   </script>
 
-  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const animatedElements = document.querySelectorAll('.animate-on-load');
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running'; // 애니메이션 시작
+          observer.unobserve(entry.target); // 한 번만 실행하고 관찰 종료
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    animatedElements.forEach(el => {
+      // 초기 상태에서 애니메이션 일시정지
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  });
+</script>
 </body>
 </html>
