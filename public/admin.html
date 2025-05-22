@@ -492,7 +492,16 @@ uploadInput.addEventListener('change', async (e) => {
     let insertTag = '';
     if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
       insertTag = `<img src="${fileUrl}" alt="첨부 이미지">\n`;
-    } else {
+    } 
+
+    else if (['mp4', 'webm', 'ogg'].includes(ext)) {
+      insertTag = `<video controls playsinline preload="metadata" style="max-width:100%; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1);">
+        <source src="${fileUrl}" type="video/${ext}">
+        Your browser does not support the video tag.
+      </video>\n`;
+    }
+
+    else {
       insertTag = `<a href="${fileUrl}" download>${file.name}</a>\n`;
     }
 
@@ -503,20 +512,33 @@ uploadInput.addEventListener('change', async (e) => {
     wrapper.style.marginBottom = '0.5rem';
     wrapper.style.position = 'relative';
 
-    let previewElement;
-    if (insertTag.includes('<img')) {
-      previewElement = document.createElement('img');
-      previewElement.src = fileUrl;
-      previewElement.width = 100;
-      previewElement.style.borderRadius = '6px';
-      previewElement.style.boxShadow = '0 1px 4px rgba(0,0,0,0.1)';
-    } else {
-      previewElement = document.createElement('a');
-      previewElement.href = fileUrl;
-      previewElement.textContent = file.name;
-      previewElement.style.color = '#0055aa';
-      previewElement.download = '';
-    }
+let previewElement;
+if (insertTag.includes('<img')) {
+  // 이미지 미리보기
+  previewElement = document.createElement('img');
+  previewElement.src = fileUrl;
+  previewElement.width = 100;
+  previewElement.style.borderRadius = '6px';
+  previewElement.style.boxShadow = '0 1px 4px rgba(0,0,0,0.1)';
+} else if (insertTag.includes('<video')) {
+  // 🔥 동영상 미리보기
+  previewElement = document.createElement('video');
+  previewElement.src = fileUrl;
+  previewElement.controls = true;
+  previewElement.playsInline = true;
+  previewElement.preload = "metadata";
+  previewElement.width = 180;
+  previewElement.style.borderRadius = '6px';
+  previewElement.style.boxShadow = '0 1px 4px rgba(0,0,0,0.1)';
+} else {
+  // 파일 링크 미리보기
+  previewElement = document.createElement('a');
+  previewElement.href = fileUrl;
+  previewElement.textContent = file.name;
+  previewElement.style.color = '#0055aa';
+  previewElement.download = '';
+}
+
 
     // 삭제 버튼
     const deleteBtn = document.createElement('button');
