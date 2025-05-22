@@ -827,26 +827,24 @@ const observer = new IntersectionObserver((entries) => {
 </script>
 
 <script>
-fetch('/api/notices/6825ae860bb4160d19ca2d25')
+fetch('/api/notices/아이디')
   .then(res => res.json())
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
     const content = post.content?.[lang] || post.content?.en || "";
-
+    
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
-    const firstLink = doc.querySelector('a[href^="http"]');
-
+    const firstLink = doc.querySelector('a[href^="/uploads/"]');
+    
     const linkEl = document.getElementById("dynamic-link");
-
+    
     if (firstLink) {
-      const href = firstLink.getAttribute('href');
-      const text = firstLink.textContent?.trim() || href;
-      linkEl.href = href;
-      linkEl.textContent = text;
+      linkEl.href = firstLink.getAttribute("href");
+      linkEl.textContent = firstLink.textContent?.trim() || "PDF 다운로드";
     } else {
       linkEl.href = "#";
-      linkEl.textContent = "링크 없음";
+      linkEl.textContent = "PDF 없음";
     }
   })
   .catch(err => {
@@ -856,72 +854,78 @@ fetch('/api/notices/6825ae860bb4160d19ca2d25')
 </script>
 
 <script>
-fetch('/api/notices/6826d9a6d098f905eee1bee9')
+fetch('/api/notices/아이디')
   .then(res => res.json())
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
     const content = post.content?.[lang] || post.content?.en || "";
-
+    
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
-    const firstLink = doc.querySelector('a[href^="http"]');
-
+    const firstLink = doc.querySelector('a[href^="/uploads/"]');
+    
     const linkEl = document.getElementById("dynamic-link-2");
-
+    
     if (firstLink) {
-      const href = firstLink.getAttribute('href');
-      const text = firstLink.textContent?.trim() || href;
-      linkEl.href = href;
-      linkEl.textContent = text;
+      linkEl.href = firstLink.getAttribute("href");
+      linkEl.textContent = firstLink.textContent?.trim() || "PDF 다운로드";
     } else {
       linkEl.href = "#";
-      linkEl.textContent = "링크 없음";
+      linkEl.textContent = "PDF 없음";
     }
   })
   .catch(err => {
-    document.getElementById("dynamic-link").textContent = "링크 불러오기 실패";
+    document.getElementById("dynamic-link-2").textContent = "링크 불러오기 실패";
     console.error("링크 로딩 오류:", err);
   });
 
-  // 두 번째 링크 처리
-fetch('/api/notices/6826db14d098f905eee1bf24')
+fetch('/api/notices/아이디')
   .then(res => res.json())
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
     const content = post.content?.[lang] || post.content?.en || "";
-    const doc = new DOMParser().parseFromString(content, 'text/html');
-    const firstLink = doc.querySelector('a[href^="http"]');
+    
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
+    const firstLink = doc.querySelector('a[href^="/uploads/"]');
+    
     const linkEl = document.getElementById("dynamic-link-3");
+    
     if (firstLink) {
-      linkEl.href = firstLink.href;
-      linkEl.textContent = firstLink.textContent?.trim() || firstLink.href;
+      linkEl.href = firstLink.getAttribute("href");
+      linkEl.textContent = firstLink.textContent?.trim() || "PDF 다운로드";
     } else {
-      linkEl.textContent = "링크 없음";
+      linkEl.href = "#";
+      linkEl.textContent = "PDF 없음";
     }
-      })
+  })
   .catch(err => {
-    document.getElementById("dynamic-link").textContent = "링크 불러오기 실패";
+    document.getElementById("dynamic-link-3").textContent = "링크 불러오기 실패";
     console.error("링크 로딩 오류:", err);
   });
 
-    // 세세 번째 링크 처리
-fetch('/api/notices/6826eb2cd098f905eee1bf76')
+fetch('/api/notices/아이디')
   .then(res => res.json())
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
     const content = post.content?.[lang] || post.content?.en || "";
-    const doc = new DOMParser().parseFromString(content, 'text/html');
-    const firstLink = doc.querySelector('a[href^="http"]');
+    
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
+    const firstLink = doc.querySelector('a[href^="/uploads/"]');
+    
     const linkEl = document.getElementById("dynamic-link-4");
+    
     if (firstLink) {
-      linkEl.href = firstLink.href;
-      linkEl.textContent = firstLink.textContent?.trim() || firstLink.href;
+      linkEl.href = firstLink.getAttribute("href");
+      linkEl.textContent = firstLink.textContent?.trim() || "PDF 다운로드";
     } else {
-      linkEl.textContent = "링크 없음";
+      linkEl.href = "#";
+      linkEl.textContent = "PDF 없음";
     }
-      })
+  })
   .catch(err => {
-    document.getElementById("dynamic-link").textContent = "링크 불러오기 실패";
+    document.getElementById("dynamic-link-4").textContent = "링크 불러오기 실패";
     console.error("링크 로딩 오류:", err);
   });
 </script>
@@ -932,25 +936,23 @@ fetch('/api/notices/6826da60d098f905eee1beff')
   .then(post => {
     const lang = (localStorage.getItem('siteLanguage') || 'ko').toLowerCase();
     const content = post.content?.[lang] || post.content?.en || "";
-
+    
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
-    const firstLink = doc.querySelector('a[href^="http"]');
-
+    const firstLink = doc.querySelector('a[href^="/uploads/"]');
+    
     const linkEl = document.getElementById("dynamic-link-5");
-
+    
     if (firstLink) {
-      const href = firstLink.getAttribute('href');
-      const text = firstLink.textContent?.trim() || href;
-      linkEl.href = href;
-      linkEl.textContent = text;
+      linkEl.href = firstLink.getAttribute("href");
+      linkEl.textContent = firstLink.textContent?.trim() || "PDF 다운로드";
     } else {
       linkEl.href = "#";
-      linkEl.textContent = "링크 없음";
+      linkEl.textContent = "PDF 없음";
     }
   })
   .catch(err => {
-    document.getElementById("dynamic-link").textContent = "링크 불러오기 실패";
+    document.getElementById("dynamic-link-5").textContent = "링크 불러오기 실패";
     console.error("링크 로딩 오류:", err);
   });
 </script>
