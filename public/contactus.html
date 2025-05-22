@@ -254,6 +254,13 @@ nav li {
   margin-right: 4px;
 }
 
+.lang-btn i:last-child {
+  transition: transform 0.3s ease;
+}
+.lang-dropdown.open .lang-btn i:last-child {
+  transform: rotate(180deg);
+}
+
 .lang-menu {
   list-style: none; /* ← 점 제거 */
   margin: 0;
