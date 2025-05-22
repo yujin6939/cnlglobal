@@ -1346,13 +1346,13 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollTicks += e.deltaY > 0 ? 1 : -1;
 
     // 스크롤 내림: 4틱 누적 시 다음 섹션
-    if (scrollTicks >= 4 && currentIndex < sections.length - 1) {
+    if (scrollTicks >= 6 && currentIndex < sections.length - 1) {
       currentIndex++;
       scrollToSection(currentIndex);
     }
 
     // 스크롤 올림
-    if (scrollTicks <= -4 && currentIndex > 0) {
+    if (scrollTicks <= -6 && currentIndex > 0) {
       currentIndex--;
       scrollToSection(currentIndex);
     }

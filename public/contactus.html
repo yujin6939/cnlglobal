@@ -81,8 +81,7 @@
     .section {
       padding: 4rem 2rem;
       max-width: 1100px;
-      margin: 30rem auto; /* ← 상하 여백 충분히 줌 */
-
+      margin: 30rem auto 50rem; /* ← 상하 여백 충분히 줌 */
       background-color: rgba(255, 255, 255, 0.8); /* 하얀색 + 투명도 */
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
@@ -128,34 +127,6 @@
     #contact {
       margin-top: 500px;
       margin-bottom: 500px;
-    }
-
-    @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .swiper {
-        height: 350px;
-      }
-
-      .section {
-        padding: 2rem 1rem;
-            margin: 2rem 1rem;
-      }
-
-      .circle-button {
-        width: 120px;
-        height: 120px;
-        font-size: 0.9rem;
-      }
-
-      .circle-button-group {
-        flex-direction: column;
-        gap: 1rem;
-        top: 60%;
-      }
     }
 
     nav ul {
@@ -877,43 +848,41 @@ header img {
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const sections = [
-    document.getElementById('us-east'),
-    document.getElementById('us-west'),
-    document.getElementById('ko'),
-    document.getElementById('cn'),
-    document.getElementById('wh')
-  ];
-
+  const sections = Array.from(document.querySelectorAll('section[id]'));
   let currentIndex = 0;
   let scrollTicks = 0;
   let isScrolling = false;
-  let lastScrollTime = 0;
-  const tickThreshold = 4;  // 휠 4틱당
-  const scrollDelay = 1000; // 1초 간격
 
+  // 휠 감지 및 티커 누적
   window.addEventListener('wheel', (e) => {
-    const now = Date.now();
+    if (isScrolling) return;
 
-    // 연속 스크롤 방지
-    if (now - lastScrollTime < scrollDelay) return;
-
-    // 휠 방향 체크
     scrollTicks += e.deltaY > 0 ? 1 : -1;
 
-    if (scrollTicks >= tickThreshold && currentIndex < sections.length - 1) {
+    // 스크롤 내림: 4틱 누적 시 다음 섹션
+    if (scrollTicks >= 6 && currentIndex < sections.length - 1) {
       currentIndex++;
       scrollToSection(currentIndex);
-    } else if (scrollTicks <= -tickThreshold && currentIndex > 0) {
+    }
+
+    // 스크롤 올림
+    if (scrollTicks <= -6 && currentIndex > 0) {
       currentIndex--;
       scrollToSection(currentIndex);
     }
   }, { passive: true });
 
+  // 부드러운 스크롤 함수
   function scrollToSection(index) {
+    isScrolling = true;
     scrollTicks = 0;
-    lastScrollTime = Date.now();
-    sections[index].scrollIntoView({ behavior: 'smooth' });
+    sections[index].scrollIntoView({
+      behavior: 'smooth'
+    });
+
+    setTimeout(() => {
+      isScrolling = false;
+    }, 1000); // 스크롤 애니메이션 시간
   }
 });
 </script>

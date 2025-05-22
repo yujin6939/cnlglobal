@@ -638,7 +638,7 @@ html[lang="zh"] .circle-button {
 
 
 
-  <section class="section" id="1" style="scroll-margin-top: 150px; margin-bottom: -10px;" data-aos="fade-up">
+  <section class="section" id="1" style="scroll-margin-top: 150px;" data-aos="fade-up">
     <h3>
       <span data-ko="COMPANY OVERVIEW" data-en="COMPANY OVERVIEW" data-zh="COMPANY OVERVIEW"></span>
     </h3>
@@ -698,7 +698,7 @@ html[lang="zh"] .circle-button {
 
 
   
-  <section class="section" id="2" style="scroll-margin-top: 180px; margin-top: 500px;" data-aos="fade-up">
+  <section class="section" id="2" style="scroll-margin-top: 180px;" data-aos="fade-up">
     <h3 data-aos="fade-up">
       <span data-ko="COMPETITIVENESS" data-en="COMPETITIVENESS" data-zh="COMPETITIVENESS"></span>
     </h3>
@@ -920,10 +920,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // deltaY: 양수 = 아래, 음수 = 위
     scrollTicks += e.deltaY > 0 ? 1 : -1;
 
-    if (scrollTicks >= 4 && currentIndex < sections.length - 1) {
+    if (scrollTicks >= 6 && currentIndex < sections.length - 1) {
       currentIndex++;
       scrollToSection(currentIndex);
-    } else if (scrollTicks <= -4 && currentIndex > 0) {
+    } else if (scrollTicks <= -6 && currentIndex > 0) {
       currentIndex--;
       scrollToSection(currentIndex);
     }
@@ -942,6 +942,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
+
 
 
 <script src="js/lang.js"></script>
