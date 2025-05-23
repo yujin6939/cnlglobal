@@ -144,6 +144,7 @@ router.delete('/:id', async (req, res) => {
 const fs = require('fs');
 const metadataPath = path.join(__dirname, '../file-metadata.json');
 
+// routes/notices.js 내부
 router.post('/upload', upload.single('image'), (req, res) => {
   const storedName = req.file.filename;
 
@@ -164,11 +165,18 @@ router.post('/upload', upload.single('image'), (req, res) => {
   metadata[storedName] = { originalName };
   fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
 
+  // 🔥 category 분기
+  const category = req.headers['x-category'] || 'notice';
+  const url = category === 'resource'
+    ? `/uploads/${storedName}` // 🔸 리소스는 정적 경로
+    : `/api/download/${storedName}`; // 🔸 기존 방식
+
   res.json({
-    url: `/api/download/${storedName}`,
+    url,
     originalName,
     storedName
   });
 });
+
 
 module.exports = router;
