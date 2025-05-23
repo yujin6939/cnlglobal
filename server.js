@@ -3,6 +3,9 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const fs = require('fs'); // server.js 상단에 이미 있을 수도 있음
+const contentDisposition = require('content-disposition');
+
 
 require('dotenv').config(); // 꼭 최상단
 const MONGO_URL = process.env.MONGO_URL;
@@ -71,4 +74,34 @@ mongoose.connect(MONGO_URL, {
 // ✅ 서버 시작
 app.listen(PORT, () => {
   console.log(`🚀 서버 실행 중: http://localhost:${PORT}`);
+});
+
+app.get('/api/download/:storedName', (req, res) => {
+  const storedName = req.params.storedName;
+  const filePath = path.join(__dirname, 'public/uploads', storedName);
+  const metadataPath = path.join(__dirname, 'file-metadata.json');
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).send('File not found');
+  }
+
+  if (!fs.existsSync(metadataPath)) {
+    return res.status(500).send('Metadata file missing');
+  }
+
+  const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
+  const fileInfo = metadata[storedName];
+
+  if (!fileInfo) {
+    return res.status(404).send('Original file info not found');
+  }
+
+const originalName = fileInfo.originalName || 'downloaded_file';
+
+res.setHeader('Content-Disposition', contentDisposition(originalName));
+res.setHeader('Content-Type', 'application/octet-stream');
+
+const stream = fs.createReadStream(filePath);
+stream.pipe(res);
+
 });

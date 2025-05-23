@@ -141,8 +141,34 @@ router.delete('/:id', async (req, res) => {
 });
 
 // ✅ 이미지 업로드
+const fs = require('fs');
+const metadataPath = path.join(__dirname, '../file-metadata.json');
+
 router.post('/upload', upload.single('image'), (req, res) => {
-  res.json({ url: '/uploads/' + req.file.filename });
+  const storedName = req.file.filename;
+
+  // ✅ 파일명 복원 처리
+  let originalName = req.file.originalname;
+  try {
+    originalName = Buffer.from(originalName, 'latin1').toString('utf8');
+  } catch (e) {
+    console.warn('파일명 디코딩 실패:', e);
+  }
+
+  // ✅ metadata 저장
+  let metadata = {};
+  if (fs.existsSync(metadataPath)) {
+    metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
+  }
+
+  metadata[storedName] = { originalName };
+  fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
+
+  res.json({
+    url: `/api/download/${storedName}`,
+    originalName,
+    storedName
+  });
 });
 
 module.exports = router;

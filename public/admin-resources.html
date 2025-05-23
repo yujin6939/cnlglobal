@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Toast UI Editor -->
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
   
   <title>C&L Global Admin page</title>
   <style>
@@ -281,6 +285,9 @@
     </div>
   <form id="notice-form">
     <input type="hidden" id="notice-id">
+
+        <div style="color: gray;"><p>*If a post is written and saved in multiple languages simultaneously, deleting the post in one language will result in all three language versions being deleted. Please be cautious of this behavior.
+</p></div>
   
     <div class="tabs">      
       <button type="button" class="tab-btn active" data-tab="ko">한국어</button>        
@@ -290,22 +297,20 @@
 
 
 
-    <div class="tab-content active" id="tab-ko">
-      <input id="title-ko" name="title-ko" placeholder="제목 (한글)" />
-      <textarea id="content-ko" placeholder="내용 (한글)"></textarea>
-    </div>
+<div class="tab-content active" id="tab-ko">
+  <input id="title-ko" name="title-ko" placeholder="제목 (한글)" />
+  <div id="editor-ko"></div> <!-- textarea 대신 -->
+</div>
 
-    <div class="tab-content" id="tab-en">
-      <input id="title-en" name="title-en" placeholder="Title (English)" />
-      <textarea id="content-en" placeholder="Content (English)"></textarea>
-    </div>  
-  
-    <div class="tab-content" id="tab-zh">
-      <input id="title-zh" name="title-zh" placeholder="标题 (중국어)" />
-      <textarea id="content-zh" placeholder="内容 (중국어)"></textarea>
-    </div>
+<div class="tab-content" id="tab-en">
+  <input id="title-en" name="title-en" placeholder="Title (English)" />
+  <div id="editor-en"></div>
+</div>
 
-    <button type="button" onclick="insertHyperlink()" style="margin-top: 0.5rem; width: 150px;">🔗 Add Link</button>
+<div class="tab-content" id="tab-zh">
+  <input id="title-zh" name="title-zh" placeholder="标题 (중국어)" />
+  <div id="editor-zh"></div>
+</div>
 
   
     <input type="file" id="file-upload" multiple />
@@ -444,20 +449,19 @@ if (searchInput) {
   };
 
   // 이미지 업로드 + 삭제 버튼 + 본문 삽입
-  uploadInput.addEventListener('change', async (e) => {
+uploadInput.addEventListener('change', async (e) => {
   const files = Array.from(e.target.files);
   const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
-  const textarea = document.getElementById(`content-${activeTab}`);
+  const editor = editors[activeTab];
 
-  for (const file of files) {
+  files.forEach(async (file) => {
     const formData = new FormData();
-    formData.append('image', file); // 서버에선 'image' 필드명 그대로 사용 중
+    formData.append('image', file);
 
     const res = await fetch('/api/notices/upload', {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-
       },
       body: formData
     });
@@ -468,35 +472,65 @@ if (searchInput) {
 
     let insertTag = '';
     if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
-      insertTag = `<img src="${fileUrl}" alt="Attached Image">\n`;
+      insertTag = `<img src="${fileUrl}" alt="첨부 이미지">\n`;
+    } else if (['mp4', 'webm', 'ogg'].includes(ext)) {
+      insertTag = `<video controls playsinline preload="metadata" style="max-width:100%; border-radius:6px; box-shadow:0 1px 4px rgba(0,0,0,0.1);">
+        <source src="${fileUrl}" type="video/${ext}">
+        Your browser does not support the video tag.
+      </video>\n`;
     } else {
-      insertTag = `<a href="${fileUrl}" download>${file.name}</a>\n`;
+insertTag = `<a href="${data.url}" download="${data.originalName}">${data.originalName}</a>\n`;
+
+
     }
 
-    textarea.value += `\n${insertTag}`; // 본문에 자동 삽입
+    editor.insertText(insertTag);
 
-    // 미리보기 UI도 구성 (선택)
+    // 미리보기 UI 구성
     const wrapper = document.createElement('div');
     wrapper.style.marginBottom = '0.5rem';
+    wrapper.style.position = 'relative';
 
+    let previewElement;
     if (insertTag.includes('<img')) {
-      const img = document.createElement('img');
-      img.src = fileUrl;
-      img.width = 100;
-      img.style.borderRadius = '6px';
-      img.style.boxShadow = '0 1px 4px rgba(0,0,0,0.1)';
-      wrapper.appendChild(img);
+      previewElement = document.createElement('img');
+      previewElement.src = fileUrl;
+      previewElement.width = 100;
+      previewElement.style.borderRadius = '6px';
+    } else if (insertTag.includes('<video')) {
+      previewElement = document.createElement('video');
+      previewElement.src = fileUrl;
+      previewElement.controls = true;
+      previewElement.width = 180;
     } else {
-      const fileLink = document.createElement('a');
-      fileLink.href = fileUrl;
-      fileLink.textContent = file.name;
-      fileLink.style.color = '#0055aa';
-      fileLink.download = '';
-      wrapper.appendChild(fileLink);
+      previewElement = document.createElement('a');
+      previewElement.href = fileUrl;
+      previewElement.textContent = file.name;
+      previewElement.download = '';
     }
 
+    // 삭제 버튼
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = '삭제';
+    deleteBtn.style.marginLeft = '1rem';
+    deleteBtn.style.background = '#ff5555';
+    deleteBtn.style.color = 'white';
+    deleteBtn.style.border = 'none';
+    deleteBtn.style.padding = '0.3rem 0.6rem';
+    deleteBtn.style.borderRadius = '4px';
+    deleteBtn.style.cursor = 'pointer';
+
+    deleteBtn.addEventListener('click', () => {
+      previewArea.removeChild(wrapper);
+      // 태그를 에디터에서 제거
+      const html = editor.getHTML();
+      editor.setHTML(html.replace(insertTag.trim(), '').trim());
+    });
+
+    wrapper.appendChild(previewElement);
+    wrapper.appendChild(deleteBtn);
     previewArea.appendChild(wrapper);
-  }
+  });
 });
 
   
@@ -528,13 +562,14 @@ document.getElementById('notice-form').addEventListener('submit', async (e) => {
   const content = {};
   let hasAtLeastOne = false;
 
-  langs.forEach(lang => {
-    const t = document.getElementById(`title-${lang}`).value.trim();
-    const c = document.getElementById(`content-${lang}`).value.trim();
-    if (t || c) hasAtLeastOne = true;
-    title[lang] = t || null;
-    content[lang] = c || null;
-  });
+langs.forEach(lang => {
+  const t = document.getElementById(`title-${lang}`).value.trim();
+  const c = editors[lang].getHTML();  // HTML 값 가져오기
+  if (t || c) hasAtLeastOne = true;
+  title[lang] = t || null;
+  content[lang] = c || null;
+});
+
 
   if (!hasAtLeastOne) {
     alert("You must enter the title or content in at least one language.");
@@ -568,6 +603,12 @@ document.getElementById('notice-form').addEventListener('submit', async (e) => {
   document.getElementById('notice-id').value = '';
   uploadInput.value = '';
   previewArea.innerHTML = '';
+
+    // 에디터 초기화 (HTML 비우기)
+editors.ko.setHTML('');
+editors.en.setHTML('');
+editors.zh.setHTML('');
+
   renderPostsFromServer(1);
   alert("Saved successfully.");
 });
@@ -692,6 +733,85 @@ function insertHyperlink() {
   textarea.value += `\n${linkTag}\n`;
 }
 
+// 에디터 인스턴스 생성
+const editors = {
+  ko: new toastui.Editor({
+    el: document.querySelector('#editor-ko'),
+    height: '350px',
+    initialEditType: 'wysiwyg',
+    previewStyle: 'vertical',
+    hooks: {
+      async addImageBlobHook(blob, callback) {
+        const formData = new FormData();
+        formData.append('image', blob);
+
+        const res = await fetch('/api/notices/upload', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') },
+          body: formData
+        });
+
+        const data = await res.json();
+        callback(data.url, '이미지');
+      }
+    }
+  }),
+  en: new toastui.Editor({
+    el: document.querySelector('#editor-en'),
+    height: '350px',
+    initialEditType: 'wysiwyg',
+    previewStyle: 'vertical',
+    hooks: {
+      async addImageBlobHook(blob, callback) {
+        const formData = new FormData();
+        formData.append('image', blob);
+
+        const res = await fetch('/api/notices/upload', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') },
+          body: formData
+        });
+
+        const data = await res.json();
+        callback(data.url, 'image');
+      }
+    }
+  }),
+  zh: new toastui.Editor({
+    el: document.querySelector('#editor-zh'),
+    height: '350px',
+    initialEditType: 'wysiwyg',
+    previewStyle: 'vertical',
+    hooks: {
+      async addImageBlobHook(blob, callback) {
+        const formData = new FormData();
+        formData.append('image', blob);
+
+        const res = await fetch('/api/notices/upload', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') },
+          body: formData
+        });
+
+        const data = await res.json();
+        callback(data.url, 'image');
+      }
+    }
+  })
+};
+
+function editNotice(notice) {
+  document.getElementById('notice-id').value = notice._id;
+  document.getElementById('title-ko').value = notice.title.ko;
+  document.getElementById('title-en').value = notice.title.en;
+  document.getElementById('title-zh').value = notice.title.zh;
+
+  editors.ko.setHTML(notice.content.ko || '');
+  editors.en.setHTML(notice.content.en || '');
+  editors.zh.setHTML(notice.content.zh || '');
+}
+
+ 
   </script>
   
   
