@@ -550,6 +550,18 @@ a.partner-card:hover {
   font-weight: 500;
   text-decoration: underline;
 }
+
+.footer .left {
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center;      /* 수직 정렬 */
+  gap: 2rem;                /* 요소 간 간격 */
+  flex-wrap: wrap;          /* 줄바꿈 허용 (작은 화면 대응) */
+}
+
+.footer .left p {
+  margin: 0;
+}
   </style>
 </head>
 
@@ -664,9 +676,9 @@ a.partner-card:hover {
     <!-- information.html 탭 영역 -->
 <section class="information-tabs fade-up-on-load">
   <div class="tab-buttons">
-    <button class="tab-btn active" data-tab="direct"><p data-en="Direct Shippers" data-ko="운송업체" data-zh="Chinese"></p></button>
-    <button class="tab-btn" data-tab="links"><p data-en="Useful Links" data-ko="유용한 링크" data-zh="Chinese"></p></button>
-    <button class="tab-btn" data-tab="resources"><p data-en="Resources" data-ko="자료실" data-zh="Chinese"></p></button>
+    <button class="tab-btn active" data-tab="direct"><p data-en="Direct Shippers" data-ko="Direct Shippers" data-zh="Direct Shippers"></p></button>
+    <button class="tab-btn" data-tab="links"><p data-en="Useful Links" data-ko="Useful Links" data-zh="Useful Links"></p></button>
+    <button class="tab-btn" data-tab="resources"><p data-en="Resources" data-ko="Resources" data-zh="Resources"></p></button>
   </div>
 
   <div class="tab-content active" id="tab-direct">
@@ -869,12 +881,11 @@ a.partner-card:hover {
   </main>
 
   <footer class="footer">
-    <p>&copy; 2025 C&L Global. All rights reserved.</p>
+    <div class="left">
+    <div><p>&copy; 2025 C&L Global. All rights reserved.</p></div>
+    <div><p>Q&A : anonymous@cnlglobal.com</p></div>
+    </div>
     
-      <!-- 관리자 전용 링크: 로그인 시에만 표시 -->
-  <a href="admin.html" id="adminLinkFooter" style="display: none; font-size: 0.9rem; color: #ccc; margin-top: 0.5rem; display: block;">
-    AdminLink
-  </a>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

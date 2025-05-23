@@ -265,6 +265,18 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   margin-top: 58px; /* 헤더만큼 아래로 이동 */
   overflow-y: auto;
 }
+
+.footer .left {
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center;      /* 수직 정렬 */
+  gap: 2rem;                /* 요소 간 간격 */
+  flex-wrap: wrap;          /* 줄바꿈 허용 (작은 화면 대응) */
+}
+
+.footer .left p {
+  margin: 0;
+}
   </style>
 </head>
 <body>
@@ -538,7 +550,10 @@ background-color: rgba(255, 255, 255, 0.9); /* ← 투명도 적용 */
   </main>
 
   <footer class="footer">
-    <p>&copy; 2025 C&L Global. All rights reserved.</p>
+    <div class="left">
+    <div><p>Q&A : anonymous@cnlglobal.com</p></div>
+    <div style="color: #949494;"><p>&copy; 2025 C&L Global. All rights reserved.</p></div>
+    </div>
   </footer>
 
   <script src="../js/lang.js"></script>

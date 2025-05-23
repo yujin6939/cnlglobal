@@ -361,7 +361,17 @@
   animation: zoomOut 7s ease-out forwards;
 }
 
+.footer .left {
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center;      /* 수직 정렬 */
+  gap: 2rem;                /* 요소 간 간격 */
+  flex-wrap: wrap;          /* 줄바꿈 허용 (작은 화면 대응) */
+}
 
+.footer .left p {
+  margin: 0;
+}
   </style>
 </head>
 
@@ -483,12 +493,11 @@
   <div class="pagination" id="pagination"></div>
 
   <footer class="footer">
-    <p>&copy; 2025 C&L Global. All rights reserved.</p>
+    <div class="left">
+    <div><p>&copy; 2025 C&L Global. All rights reserved.</p></div>
+    <div><p>Q&A : anonymous@cnlglobal.com</p></div>
+    </div>
     
-      <!-- 관리자 전용 링크: 로그인 시에만 표시 -->
-  <a href="admin.html" id="adminLinkFooter" style="display: none; font-size: 0.9rem; color: #ccc; margin-top: 0.5rem; display: block;">
-    AdminLink
-  </a>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
