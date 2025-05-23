@@ -642,24 +642,31 @@ function renderPostsFromServer(page = 1, query = "") {
       const listContainer = document.getElementById("notice-list");
       listContainer.innerHTML = "";
 
-      sliced.forEach(post => {
-        const title = post.title?.[selectedLang];
-        const content = post.content?.[selectedLang];
-        if (!title || !content) return;
+sliced.forEach(post => {
+  const title = post.title?.[selectedLang];
+  const content = post.content?.[selectedLang];
+  if (!title || !content) return;
 
-        const div = document.createElement("div");
-        div.className = "notice";
-        div.innerHTML = `
-          <strong>${title}</strong><br>
-          <small>${new Date(post.createdAt).toLocaleString()}</small>
-          <p>${content}</p>
-          <div class="notice-actions">
-            <button onclick='editNotice(${JSON.stringify(post)})'>✏ Edit</button>
-            <button onclick='deleteNotice("${post._id}")'>🗑 Delete</button>
-          </div>
-        `;
-        listContainer.appendChild(div);
-      });
+  const div = document.createElement("div");
+  div.className = "notice";
+
+  div.innerHTML = `
+    <strong>${title}</strong><br>
+    <small>${new Date(post.createdAt).toLocaleString()}</small>
+    <p>${content}</p>
+    <div class="notice-actions">
+      <button class="edit-btn">✏ Edit</button>
+      <button class="delete-btn">🗑 Delete</button>
+    </div>
+  `;
+
+  // 이벤트 리스너는 따로 추가
+  div.querySelector('.edit-btn').addEventListener('click', () => editNotice(post));
+  div.querySelector('.delete-btn').addEventListener('click', () => deleteNotice(post._id));
+
+  listContainer.appendChild(div);
+});
+
 
       renderPagination(allPosts.length, page);
     });
